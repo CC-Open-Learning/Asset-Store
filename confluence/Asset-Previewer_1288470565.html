@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vConestoga : Asset Previewer</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="vConestoga_536314119.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Projects_1091797023.html">Projects</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="VARLab-Asset-Store_1124859959.html">VARLab Asset Store</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            vConestoga : Asset Previewer
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Jonathan Saravia</span>, last modified on Aug 15, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p></p><h2 id="AssetPreviewer-Howdoesitwork?"><img class="emoticon emoticon-blue-star" data-emoji-id="1f4d8" data-emoji-shortname=":blue_book:" data-emoji-fallback="\uD83D\uDCD8" src="images/icons/emoticons/72/1f4d8.png" width="16" height="16" data-emoticon-name="blue-star" alt="(blue star)"/> How does it work?</h2><p>How does the Asset Previewer - (AP) function?</p><ol start="1"><li><p>When the preview icon is selected in the Asset Details component, the AP downloads the respective file which is the high majority of cases, will be .zip compressed files. creates a new 3D world space using React Three Fiber, .</p></li><li><p>AP unzips .zip files and loads in sequential order: </p><ul><li><p>Textures files (<code>png, jpg, jpeg, svg, tiff, tga, webp</code>).</p><ul><li><p>The program loads all the supported texture files that were in the zip file regardless of the folder location, adds them to the list of assets available for preview and a textures only list.</p></li></ul></li><li><p>Models files (<code>glb, gltf, fbx, dae, obj (Still need MTL loading functionality)</code>).</p><ul><li><p>On loading of the model, the program will traverse through all meshes to get all materials and then will use the textures that were loaded prior in the textures loading to populate all the correct maps to the correct materials and mapping type.</p><ul><li><p>Naming Conventions: The texture names need to match the material names they belong to.</p><ul><li><p>Model - Asset_Name</p></li><li><p>Material - Asset_Name_Mat, Asset_Name_Alpha</p></li><li><p>Textures - Asset_Name_color, Asset_Name_normal, etc. after the last under score it reads the word to match the proper map in the material.</p></li></ul></li></ul></li></ul></li><li><p>Production Files(<code>blend, ma, mb, 3ds, max, psd</code>). </p><ul><li><p>This is currently disabled and not fully implemented, but the plan for this is similar to above. The production file will display a loaded model file that matches the proper naming conventions. </p><ul><li><p>BLEND_FILE_NAME.blend</p></li><li><p>BLEND_FILE_NAME.glb &lt;---- it will look for this to display a preview for the </p></li></ul></li><li><p>Note: <code>psd</code> gets handled like a texture.</p></li></ul></li></ul></li></ol><ol start="3"><li><p>All the loaded textures and textured models get added to an asset list that is valid for displaying in THREE.js. You can cycle through all the assets using the “green“ button. When viewing a texture type object, you can use the “yellow“ button to cycle the geometric shape that the texture has been applied for displaying.</p></li><li><p>You can still preview single files but there is no support for any files that have other file dependencies. i.e. a model needing texture files.</p></li></ol><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>TODO:</p><ul><li><p>When loading an OBJ, the MTL file needs to be loaded in as well to be able to texture the model properly.</p></li><li><p>The “Green“ and  “Yellow“ buttons were only intended for debugging. The plan is to display the list of valid assets in the right side panel in an overflow hidden scroll list replacing the descriptions.</p></li><li><p>The production file will display a loaded model file that matches the proper naming conventions. </p><ul><li><p>BLEND_FILE_NAME.blend</p></li><li><p>BLEND_FILE_NAME.glb &lt;---- it will look for this to display a preview for the production file.</p></li></ul></li></ul></div></div><h2 id="AssetPreviewer-Relatedarticles"><img class="emoticon emoticon-blue-star" data-emoji-id="1f4cb" data-emoji-shortname=":clipboard:" data-emoji-fallback="\uD83D\uDCCB" src="images/icons/emoticons/72/1f4cb.png" width="16" height="16" data-emoticon-name="blue-star" alt="(blue star)"/> Related articles</h2><p></p>
+
+
+
+
+
+
+
+
+
+
+
+    
+    <ul class="content-by-label">
+        <li>
+        <div>
+                <span class="icon aui-icon content-type-page" title="Page">Page:</span>        </div>
+
+        <div class="details">
+                                <a data-linked-resource-id="1169195019" data-linked-resource-type="page" data-linked-resource-version="15" href="/wiki/spaces/VCON/pages/1169195019/Project+Creation">Project Creation</a>
+                        
+                        
+                    </div>
+    </li>
+        <li>
+        <div>
+                <span class="icon aui-icon content-type-page" title="Page">Page:</span>        </div>
+
+        <div class="details">
+                                <a data-linked-resource-id="1288470565" data-linked-resource-type="page" data-linked-resource-version="5" href="/wiki/spaces/VCON/pages/1288470565/Asset+Previewer">Asset Previewer</a>
+                        
+                        
+                    </div>
+    </li>
+        <li>
+        <div>
+                <span class="icon aui-icon content-type-page" title="Page">Page:</span>        </div>
+
+        <div class="details">
+                                <a data-linked-resource-id="1165950983" data-linked-resource-type="page" data-linked-resource-version="2" href="/wiki/spaces/VCON/pages/1165950983/JackknifeXR+Environment+Composer">JackknifeXR Environment Composer</a>
+                        
+                        
+                    </div>
+    </li>
+        <li>
+        <div>
+                <span class="icon aui-icon content-type-page" title="Page">Page:</span>        </div>
+
+        <div class="details">
+                                <a data-linked-resource-id="882966533" data-linked-resource-type="page" data-linked-resource-version="23" href="/wiki/spaces/VCON/pages/882966533/React+Multiplayer+Game">React Multiplayer Game</a>
+                        
+                        
+                    </div>
+    </li>
+        <li>
+        <div>
+                <span class="icon aui-icon content-type-page" title="Page">Page:</span>        </div>
+
+        <div class="details">
+                                <a data-linked-resource-id="1050181652" data-linked-resource-type="page" data-linked-resource-version="3" href="/wiki/spaces/VCON/pages/1050181652/Understanding+Feathers+OAuth+Strategies">Understanding Feathers OAuth Strategies</a>
+                        
+                        
+                    </div>
+    </li>
+    </ul>
+                    </div>
+
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 27, 2025 21:02</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

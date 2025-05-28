@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vConestoga : Azure SSL certificates</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="vConestoga_536314119.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Projects_1091797023.html">Projects</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="VARLab-Asset-Store_1124859959.html">VARLab Asset Store</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            vConestoga : Azure SSL certificates
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Victor Barbosa Nogueira</span>, last modified on Nov 22, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <hr/><p style="text-align: center;"><strong>INDEX</strong></p><style type='text/css'>/*<![CDATA[*/
+div.rbtoc1748379789057 {padding: 0px;}
+div.rbtoc1748379789057 ul {list-style: none;margin-left: 0px;}
+div.rbtoc1748379789057 li {margin-left: 0px;padding-left: 0px;}
+
+/*]]>*/</style><div class='toc-macro rbtoc1748379789057'>
+<ul class='toc-indentation'>
+<li><a href='#AzureSSLcertificates-1.Files'>1. Files</a>
+<ul class='toc-indentation'>
+<li><a href='#AzureSSLcertificates-vConWild-generated-csr.txt'>vConWild-generated-csr.txt</a></li>
+<li><a href='#AzureSSLcertificates-vConWild-chained-crt.txt'>vConWild-chained-crt.txt</a></li>
+<li><a href='#AzureSSLcertificates-vConWild-generated-private-key.txt'>vConWild-generated-private-key.txt</a></li>
+<li><a href='#AzureSSLcertificates-Steps'>Steps</a></li>
+</ul>
+</li>
+<li><a href='#AzureSSLcertificates-2.Convertyourcertificatefilesintoa.pfxfile'>2. Convert your certificate files into a .pfx file</a></li>
+</ul>
+</div><hr/><p /><h2 id="AzureSSLcertificates-1.Files">1. Files</h2><div class="table-wrap"><table data-table-width="760" data-layout="default" data-local-id="92c1cf39-fdfd-4446-b5cd-63f5271cade0" class="confluenceTable"><tbody><tr><th class="confluenceTh"><h3 id="AzureSSLcertificates-vConWild-generated-csr.txt">vConWild-generated-<span style="background-color: rgb(220,223,228);">csr</span>.txt</h3></th><th class="confluenceTh"><h3 id="AzureSSLcertificates-vConWild-chained-crt.txt">vConWild-chained-<span style="background-color: rgb(220,223,228);">crt</span>.txt</h3></th><th class="confluenceTh"><h3 id="AzureSSLcertificates-vConWild-generated-private-key.txt">vConWild-generated-private-<span style="background-color: rgb(220,223,228);">key</span>.txt</h3></th></tr><tr><td class="confluenceTd"><p>CSR (Certificate Signing Request)</p><p>Content: Public Key, domain name, Organization Name, Location (city, state, country)</p><p>Purpose: Used to create an SSL certificate</p></td><td class="confluenceTd"><p>CRT (Certificate)</p><p>This is the SSL certificate issued by a Certificate Authority. It is installed on the server to establish secure communication</p></td><td class="confluenceTd"><p>Private key</p><p>contains the <strong>private key</strong> corresponding to the <strong>public key</strong> in the CSR and SSL certificate</p><p>It is used by the server to securely establish communication with clients</p><p>During the SSL/TLS handshake, the private key works with the public key in the certificate to encrypt and decrypt data.</p></td></tr></tbody></table></div><h3 style="margin-left: 30.0px;" id="AzureSSLcertificates-Steps">Steps</h3><p style="margin-left: 30.0px;"><strong>1 - Generate </strong><code>.key</code><strong> (Private Key):</strong></p><p style="margin-left: 60.0px;">This is the first step. The private key is generated and kept secret.</p><p style="margin-left: 30.0px;"><strong>2 - Generate </strong><code>.csr</code><strong> (Certificate Signing Request):</strong></p><p style="margin-left: 60.0px;">The CSR is created using the private key. It contains information about your domain and organization.</p><p style="margin-left: 30.0px;"><strong>3 - Receive </strong><code>.crt</code><strong> (Certificate):</strong></p><p style="margin-left: 60.0px;">After submitting the CSR to a Certificate Authority (CA), the CA issues a certificate (<code>.crt</code>), which is tied to the private key.</p><p /><h2 id="AzureSSLcertificates-2.Convertyourcertificatefilesintoa.pfxfile">2. Convert your certificate files into a <code>.pfx</code> file</h2><p>1 - copy the .key and the .crt files into your WSL or another Linux machine.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241122-205139.png" width="760" loading="lazy" src="attachments/1483571204/1483669527.png?width=760" data-image-src="attachments/1483571204/1483669527.png" data-height="745" data-width="1738" data-unresolved-comment-count="0" data-linked-resource-id="1483669527" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241122-205139.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1483571204" data-linked-resource-container-version="4" data-media-id="28fa156f-ef51-44c6-8a2f-d86e00f93e76" data-media-type="file"></span><p>2 - Open your WSL terminal and go to the folder you copied the .crt and .key files</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241122-205313.png" width="606" loading="lazy" src="attachments/1483571204/1483046930.png?width=606" data-image-src="attachments/1483571204/1483046930.png" data-height="618" data-width="924" data-unresolved-comment-count="0" data-linked-resource-id="1483046930" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241122-205313.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1483571204" data-linked-resource-container-version="4" data-media-id="d24f1cbd-fc36-4a08-90aa-d921f820d71f" data-media-type="file"></span><p>3 - run the following command</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: powershell; gutter: false; theme: Confluence" data-theme="Confluence">openssl pkcs12 -export -out vConWild.pfx \
+-inkey vConWild-generated-private-key.txt \
+-in vConWild-chained-crt.txt</pre>
+</div></div><p style="margin-left: 60.0px;">explanation:</p><p style="margin-left: 60.0px;"><code>-out vConWild.pfx</code>: The name of the output <code>.pfx</code> file.</p><p style="margin-left: 60.0px;"><code>-inkey</code>: Specifies your private key file.</p><p style="margin-left: 60.0px;"><code>-in</code>: Specifies your certificate chain file.</p><p>4 - Specify a password for your .pfx file</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241122-210006.png" width="656" loading="lazy" src="attachments/1483571204/1483735055.png?width=656" data-image-src="attachments/1483571204/1483735055.png" data-height="613" data-width="920" data-unresolved-comment-count="0" data-linked-resource-id="1483735055" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241122-210006.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1483571204" data-linked-resource-container-version="4" data-media-id="2d0efd47-3122-4878-adb8-17f1219acbe5" data-media-type="file"></span><p>5 - Your .pfx file is created and is located in the same folder you stored the .crt and .key files</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241122-210442.png" width="760" loading="lazy" src="attachments/1483571204/1483341844.png?width=760" data-image-src="attachments/1483571204/1483341844.png" data-height="750" data-width="1145" data-unresolved-comment-count="0" data-linked-resource-id="1483341844" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241122-210442.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1483571204" data-linked-resource-container-version="4" data-media-id="abd36e8c-da93-4f16-9da5-74ee61e20fb4" data-media-type="file"></span><p />
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1483571204/1483669527.png">image-20241122-205139.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1483571204/1483046930.png">image-20241122-205313.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1483571204/1483735055.png">image-20241122-210006.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1483571204/1483341844.png">image-20241122-210442.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 27, 2025 21:03</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

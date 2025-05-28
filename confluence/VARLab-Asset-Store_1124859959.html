@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vConestoga : VARLab Asset Store</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="vConestoga_536314119.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Projects_1091797023.html">Projects</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            vConestoga : VARLab Asset Store
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Jonathan Bezeau</span>, last modified by <span class='editor'> Nick Aguilar</span> on Aug 15, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <style type='text/css'>/*<![CDATA[*/
+div.rbtoc1748379730170 {padding: 0px;}
+div.rbtoc1748379730170 ul {list-style: none;margin-left: 0px;}
+div.rbtoc1748379730170 li {margin-left: 0px;padding-left: 0px;}
+
+/*]]>*/</style><div class='toc-macro rbtoc1748379730170'>
+<ul class='toc-indentation'>
+<li><a href='#VARLabAssetStore-vConestogaTeamResponsibilities'>vConestoga Team Responsibilities</a></li>
+<li><a href='#VARLabAssetStore-AssetTeamBravoResponsibilities'>Asset Team Bravo Responsibilities</a></li>
+</ul>
+</div><div class='plugin-tabmeta-details'><div class="table-wrap"><table data-layout="default" data-local-id="c08e92bf-33a8-42f0-be36-e1b63eb59bf9" class="confluenceTable"><colgroup><col style="width: 363.0px;"/><col style="width: 363.0px;"/></colgroup><tbody><tr><th class="confluenceTh"><p><strong>Project Name</strong></p></th><td class="confluenceTd"><p>VARLab Asset Store</p></td></tr><tr><th class="confluenceTh"><p><strong>Description</strong></p></th><td class="confluenceTd"><p>Browse and download art assets</p><ul><li><p>cloud-hosted web server</p></li><li><p>thumbnail preview and download link for each art asset in the store</p></li><li><p>LTI authentication so we can link students to assets through course shell</p></li></ul></td></tr><tr><th class="confluenceTh"><p><strong>Repository</strong></p></th><td class="confluenceTd"><p><a class="external-link" data-card-appearance="inline" href="https://bitbucket.org/VARLab/varlab-asset-store/src/master/" rel="nofollow">https://bitbucket.org/VARLab/varlab-asset-store/src/master/</a> </p></td></tr><tr><th class="confluenceTh"><p><strong>Website</strong></p></th><td class="confluenceTd"><p><a class="external-link" data-card-appearance="inline" href="https://assetstore.vconestoga.com/" rel="nofollow">https://assetstore.vconestoga.com/</a> </p></td></tr><tr><th class="confluenceTh"><p><strong>Designs</strong></p></th><td class="confluenceTd"><p><a class="external-link" data-card-appearance="inline" href="https://www.figma.com/design/dG5oaVWfdM0bch9UxcAVvV/Asset-Store-UI?node-id=21-4574&amp;t=AwVgj0EvvkV8y56s-1" rel="nofollow">https://www.figma.com/design/dG5oaVWfdM0bch9UxcAVvV/Asset-Store-UI?node-id=21-4574&amp;t=AwVgj0EvvkV8y56s-1</a> </p></td></tr><tr><th class="confluenceTh"><p><strong>Status</strong></p></th><td class="confluenceTd"><p><span class="status-macro aui-lozenge aui-lozenge-visual-refresh aui-lozenge-complete">IN PROGRESS</span>  </p></td></tr></tbody></table></div></div><p /><h2 id="VARLabAssetStore-vConestogaTeamResponsibilities">vConestoga Team Responsibilities</h2><ul><li><p>Server creation and maintenance <a class="external-link" href="https://assetstore.vconestoga.com/" rel="nofollow">https://assetstore.vconestoga.com/</a> </p></li><li><p>Storage of assets we already possess (and create/buy going forward)</p></li><li><p>Metadata about those assets (where we got them, geometry, size, artist etc)</p></li><li><p>UI/UX for adding items to the storage (uploading, editing, deleting files, creating metadata, processing)</p></li><li><p>Front-end search UI/UX that searches entirely within this repository and meets the special needs of the storage system</p></li><li><p>Create an API for searching that allows data to feed into the Meta Search from the Asset Team Bravo</p></li><li><p>LTI integration with eConestoga</p></li><li><p>Authentication with Microsoft</p></li></ul><p /><h2 id="VARLabAssetStore-AssetTeamBravoResponsibilities">Asset Team Bravo Responsibilities</h2><ul><li><p>Served off a different subdomain of <a class="external-link" href="http://vConestoga.com" rel="nofollow">vConestoga.com</a> (for now) with the support of vConestoga team</p></li><li><p>No internal storage of files or metadata. All realtime. </p></li><li><p>Interfaces with multiple other asset stores (as well as our own storage API from above)</p></li><li><p>Responsible for creating a unified search interface UI that abstracts and normalizes the information from multiple sources with a focus on decision-making.. not discovery. </p></li><li><p>Responsible for translating store/engine-specific terms into a unified view (if required) and enabling developers success in finding assets without special art knowledge. </p></li><li><p>Consumes the API from vConestoga Asset Storage team.</p></li><li><p>Applies a heuristic to the blended results, putting the most likely useful things at the top of the list.</p></li></ul>
+                    </div>
+
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 27, 2025 21:02</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

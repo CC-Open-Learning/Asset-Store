@@ -1,0 +1,36 @@
+/* USER MANAGEMENT CSS */
+
+.table-head-row th {
+  @apply px-12 text-[0.82rem];
+}
+
+.table-body-row td {
+  @apply text-xs font-normal text-general-10;
+}
+
+.user-section td {
+  @apply py-6;
+}
+
+/* PROJECT MANAGEMENT CSS */
+
+.project-section td {
+  @apply w-1/3 py-4;
+}
+
+/* ADD PROJECT CSS & UPLOAD ASSET CSS */
+
+.formDiv {
+  @apply my-10 flex w-2/3 flex-col items-center md:my-5 md:flex-row;
+}
+.formList {
+  @apply my-10 flex w-2/3 flex-wrap md:my-5 md:flex-row;
+}
+
+.formInput {
+  @apply w-full rounded-md bg-general-40 px-3 py-2 text-3xl md:w-2/3 md:px-3 md:py-1 md:text-lg;
+}
+
+.formLabel {
+  @apply w-full py-2 text-4xl font-semibold md:w-1/3 md:text-lg;
+}

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vConestoga : Database Schema</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="vConestoga_536314119.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Projects_1091797023.html">Projects</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="VARLab-Asset-Store_1124859959.html">VARLab Asset Store</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            vConestoga : Database Schema
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Nick Aguilar</span>, last modified by <span class='editor'> Islam Ahmed</span> on Jan 17, 2025
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <div class="contentLayout2"><style>[data-colorid=jn7oi2epvk]{color:#97a0af} html[data-color-mode=dark] [data-colorid=jn7oi2epvk]{color:#505968}[data-colorid=eg23wo0zxi]{color:#97a0af} html[data-color-mode=dark] [data-colorid=eg23wo0zxi]{color:#505968}[data-colorid=gutjuxp14r]{color:#97a0af} html[data-color-mode=dark] [data-colorid=gutjuxp14r]{color:#505968}[data-colorid=wh2dxk6hab]{color:#97a0af} html[data-color-mode=dark] [data-colorid=wh2dxk6hab]{color:#505968}[data-colorid=fl8j7fsljv]{color:#97a0af} html[data-color-mode=dark] [data-colorid=fl8j7fsljv]{color:#505968}[data-colorid=ih2z5001ny]{color:#97a0af} html[data-color-mode=dark] [data-colorid=ih2z5001ny]{color:#505968}</style>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h1 id="DatabaseSchema-Overview">Overview</h1><p>This documentation will outline specific information regarding the schema of the database.</p><p>MongoDB was chosen as the database for this project in order to keep the database technologies consistent with the other vConestoga databases which also rely on MongoDB</p><p /><style type="text/css">/*<![CDATA[*/
+div.rbtoc1748379744691 {padding: 0px;}
+div.rbtoc1748379744691 ul {list-style: none;margin-left: 0px;}
+div.rbtoc1748379744691 li {margin-left: 0px;padding-left: 0px;}
+
+/*]]>*/</style><div class="toc-macro rbtoc1748379744691">
+<ul class="toc-indentation">
+<li><a href="#DatabaseSchema-Overview">Overview</a></li>
+<li><a href="#DatabaseSchema-MongoDB">MongoDB</a></li>
+<li><a href="#DatabaseSchema-Schemas">Schemas</a>
+<ul class="toc-indentation">
+<li><a href="#DatabaseSchema-AssetSchema">Asset Schema</a></li>
+<li><a href="#DatabaseSchema-ModelSchema">Model Schema</a></li>
+<li><a href="#DatabaseSchema-TextureSchema">Texture Schema</a></li>
+<li><a href="#DatabaseSchema-ProductionSchema">Production Schema</a></li>
+<li><a href="#DatabaseSchema-UserSchema">User Schema</a></li>
+<li><a href="#DatabaseSchema-ProjectSchema">Project Schema</a></li>
+<li><a href="#DatabaseSchema-CategorySchema">Category Schema</a></li>
+<li><a href="#DatabaseSchema-TagSchema">Tag Schema</a></li>
+<li><a href="#DatabaseSchema-AllowListSchema">AllowList Schema</a></li>
+</ul>
+</li>
+</ul>
+</div></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /></div>
+</div>
+</div>
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h1 id="DatabaseSchema-MongoDB">MongoDB</h1><p>The database for the server is a NoSQL MongoDB database with two collections shown in the image below</p><p>The Asset collection is the schema current schema for how assets of various types are stored in the database. The User collection shows how user information is stored.</p></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h1 id="DatabaseSchema-Schemas">Schemas</h1></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="DatabaseSchema-AssetSchema">Asset Schema</h2><div class="table-wrap"><table data-table-width="760" data-layout="default" data-local-id="172d3558-610a-4766-9fbc-8e209a6f8cc8" class="confluenceTable"><colgroup><col style="width: 197.0px;" /><col style="width: 189.0px;" /><col style="width: 495.0px;" /></colgroup><tbody><tr><th class="confluenceTh"><p><strong>Property Name</strong></p></th><th class="confluenceTh"><p><strong>Data Type</strong></p></th><th class="confluenceTh"><p><strong>Description</strong></p></th></tr><tr><td class="confluenceTd"><p><code>_id</code></p></td><td class="confluenceTd"><p>ObjectId</p></td><td class="confluenceTd"><p>Unique identifier for each asset generated by the MongoDB database upon insertion</p></td></tr><tr><td class="confluenceTd"><p><code>fileName</code></p></td><td class="confluenceTd"><p>Number</p></td><td class="confluenceTd"><p>The full file name of the asset including its extension.<br />ex. Airtank_DClass.fbx</p><p>(this property is used to retrieve the file from storage)</p></td></tr><tr><td class="confluenceTd"><p><code>fileSize</code></p></td><td class="confluenceTd"><p>Number</p></td><td class="confluenceTd"><p>The total size of the file in bytes</p></td></tr><tr><td class="confluenceTd"><p><code>description</code></p></td><td class="confluenceTd"><p>String</p></td><td class="confluenceTd"><p>General description of the asset</p></td></tr><tr><td class="confluenceTd"><p><code>format</code></p></td><td class="confluenceTd"><p>String</p></td><td class="confluenceTd"><p>The file extension for each file</p></td></tr><tr><td class="confluenceTd"><p><code>name</code></p></td><td class="confluenceTd"><p>String</p></td><td class="confluenceTd"><p>Name of the asset (used for keyword search)</p></td></tr><tr><td class="confluenceTd"><p><code>price</code></p></td><td class="confluenceTd"><p>Number</p></td><td class="confluenceTd"><p>The monetary value of the asset (if 0 assume FREE)</p></td></tr><tr><td class="confluenceTd"><p><code>liscense</code></p></td><td class="confluenceTd"><p>String</p></td><td class="confluenceTd"><p>A field to enter any associated licensing information</p></td></tr><tr><td class="confluenceTd"><p><code>origin</code></p></td><td class="confluenceTd"><p>String</p></td><td class="confluenceTd"><p>Where the asset came from, for our Assets VARLab</p></td></tr><tr><td class="confluenceTd"><p><code>previews</code></p></td><td class="confluenceTd"><p>String Array</p></td><td class="confluenceTd"><p>An array of strings containing URLs to a given image<br />Ex. <a class="external-link" href="https://assetstore.vconestoga.com/api/image/" rel="nofollow">https://assetstore.vconestoga.com/api/image/</a>&lt;imagename&gt;</p></td></tr><tr><td class="confluenceTd"><p><code>tags</code></p></td><td class="confluenceTd"><p>ObjectId []</p></td><td class="confluenceTd"><p>array of strings containing tags to be used to search for a given asset. These tags should describe the asset and its various associations to a project</p></td></tr><tr><td class="confluenceTd"><p><code>createdAt</code></p></td><td class="confluenceTd"><p>Date</p></td><td class="confluenceTd"><p>The time that the object was added to the database</p></td></tr><tr><td class="confluenceTd"><p><code>updatedAt</code></p></td><td class="confluenceTd"><p>Date</p></td><td class="confluenceTd"><p>timestamp for the last time that the asset was updated</p></td></tr><tr><td class="confluenceTd"><p><code>category</code></p></td><td class="confluenceTd"><p>ObjectId []</p></td><td class="confluenceTd"><p>Array containing references to category ID (see Asset-Category Schema for more information)</p><p>&nbsp;</p></td></tr><tr><td class="confluenceTd"><p><code>projects</code></p></td><td class="confluenceTd"><p>ObjectId []</p></td><td class="confluenceTd"><p>Array containing references to project ID (see Project Schema for more information)</p></td></tr><tr><td class="confluenceTd"><p><code>model</code></p></td><td class="confluenceTd"><p>Model</p></td><td class="confluenceTd"><p>See model schema for more information about models, this is an optional field that can be contained in the asset schema if the asset is a model</p></td></tr><tr><td class="confluenceTd"><p><code>texture</code></p></td><td class="confluenceTd"><p>Texture</p></td><td class="confluenceTd"><p>See texture schema for more information about textures, this is an optional field that can be contained in the asset schema if the asset is a texture</p></td></tr><tr><td class="confluenceTd"><p><code>production</code></p></td><td class="confluenceTd"><p>Production</p></td><td class="confluenceTd"><p>See production schema for more information about production, this is an optional field that can be contained in the asset schema if the asset is a production</p></td></tr></tbody></table></div><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon" /><div class="confluence-information-macro-body"><p><strong>IMPORTANT FOR COMMUNICATING WITH THE API</strong><br />For category, projects and tag fields, when these fields are requested from the API, they will include the name (as a string) of the property along with its ObjectID</p></div></div></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="DatabaseSchema-ModelSchema">Model Schema</h2><div class="table-wrap"><table data-table-width="760" data-layout="default" data-local-id="d3323310-3bb2-4b3c-b14d-669b3db4f1ec" class="confluenceTable"><colgroup><col style="width: 198.0px;" /><col style="width: 191.0px;" /><col style="width: 492.0px;" /></colgroup><tbody><tr><th class="confluenceTh"><p><strong>Property Name</strong></p></th><th class="confluenceTh"><p><strong>Data Type</strong></p></th><th class="confluenceTh"><p><strong>Description</strong></p></th></tr><tr><td class="confluenceTd"><p><code>triCount</code></p></td><td class="confluenceTd"><p>Number</p></td><td class="confluenceTd"><p>The # of triangles <span data-colorid="wh2dxk6hab">ex.3987</span></p></td></tr><tr><td class="confluenceTd"><p><code>vertices</code></p></td><td class="confluenceTd"><p>Number</p></td><td class="confluenceTd"><p>The # of vertices <span data-colorid="eg23wo0zxi">ex.10376</span></p></td></tr><tr><td class="confluenceTd"><p><code>edges</code></p></td><td class="confluenceTd"><p>Number</p></td><td class="confluenceTd"><p>The # of edges <span data-colorid="jn7oi2epvk">ex.2347</span></p></td></tr><tr><td class="confluenceTd"><p><code>lodCount</code></p></td><td class="confluenceTd"><p>Number</p></td><td class="confluenceTd"><p>The # of LOD files associated with a given model</p></td></tr><tr><td class="confluenceTd"><p><code>polygons</code></p></td><td class="confluenceTd"><p>Number</p></td><td class="confluenceTd"><p>The # of polygons <span data-colorid="gutjuxp14r">ex.2347</span></p></td></tr><tr><td class="confluenceTd"><p><code>rigType</code></p></td><td class="confluenceTd"><p>String</p></td><td class="confluenceTd"><p>The rigged geometry type</p></td></tr><tr><td class="confluenceTd"><p><code>animationCount</code></p></td><td class="confluenceTd"><p>Number</p></td><td class="confluenceTd"><p>The number of animations for the model</p></td></tr><tr><td class="confluenceTd"><p><code>textureCount</code></p></td><td class="confluenceTd"><p>Number</p></td><td class="confluenceTd"><p>the number of textures associated with a model</p></td></tr></tbody></table></div><h2 id="DatabaseSchema-TextureSchema">Texture Schema</h2><div class="table-wrap"><table data-table-width="760" data-layout="default" data-local-id="70776600-1b23-4733-93b7-863643376a88" class="confluenceTable"><colgroup><col style="width: 197.0px;" /><col style="width: 192.0px;" /><col style="width: 492.0px;" /></colgroup><tbody><tr><th class="confluenceTh"><p><strong>Property Name</strong></p></th><th class="confluenceTh"><p><strong>Data Type</strong></p></th><th class="confluenceTh"><p><strong>Description</strong></p></th></tr><tr><td class="confluenceTd"><p><code>height</code></p></td><td class="confluenceTd"><p>Number</p></td><td class="confluenceTd"><p>Height (Y) of the texture in pixels</p></td></tr><tr><td class="confluenceTd"><p><code>width</code></p></td><td class="confluenceTd"><p>Number</p></td><td class="confluenceTd"><p>Width (W) of the texture in pixels</p></td></tr><tr><td class="confluenceTd"><p><code>type</code></p></td><td class="confluenceTd"><p>String</p></td><td class="confluenceTd"><p>The type of texture <span data-colorid="ih2z5001ny">ex. Colour or Metallic</span></p></td></tr></tbody></table></div><h2 id="DatabaseSchema-ProductionSchema">Production Schema</h2><div class="table-wrap"><table data-table-width="760" data-layout="default" data-local-id="95104c5b-bf41-4d25-b34f-f6504db06064" class="confluenceTable"><colgroup><col style="width: 199.0px;" /><col style="width: 190.0px;" /><col style="width: 492.0px;" /></colgroup><tbody><tr><th class="confluenceTh"><p><strong>Property Name</strong></p></th><th class="confluenceTh"><p><strong>Data Type</strong></p></th><th class="confluenceTh"><p><strong>Description</strong></p></th></tr><tr><td class="confluenceTd"><p><code>type</code></p></td><td class="confluenceTd"><p>String</p></td><td class="confluenceTd"><p>The type of production file being reference for the given asset <span data-colorid="fl8j7fsljv">ex. Audio file</span></p></td></tr><tr><td class="confluenceTd"><p><code>glb</code></p></td><td class="confluenceTd"><p>String</p></td><td class="confluenceTd"><p>Filename of the GLB for retrieval from the file system</p></td></tr></tbody></table></div><h2 id="DatabaseSchema-UserSchema">User Schema</h2><div class="table-wrap"><table data-table-width="760" data-layout="default" data-local-id="7bcd784b-f6b5-447d-8069-1059030d2e84" class="confluenceTable"><colgroup><col style="width: 200.0px;" /><col style="width: 184.0px;" /><col style="width: 497.0px;" /></colgroup><tbody><tr><th class="confluenceTh"><p><strong>Property Name</strong></p></th><th class="confluenceTh"><p><strong>Data Type</strong></p></th><th class="confluenceTh"><p><strong>Description</strong></p></th></tr><tr><td class="confluenceTd"><p><code>username</code></p></td><td class="confluenceTd"><p>String</p></td><td class="confluenceTd"><p>The username for each user</p></td></tr><tr><td class="confluenceTd"><p><code>hash</code></p></td><td class="confluenceTd"><p>String</p></td><td class="confluenceTd"><p>It is the result of combining the password and the salt after the encryption process. This is the value used to check if the password is correct and authenticate the user</p></td></tr><tr><td class="confluenceTd"><p><code>salt</code></p></td><td class="confluenceTd"><p>String</p></td><td class="confluenceTd"><p>It is an unique and random data generated for each user. it Is used in the hash function to guarantee that the encryption pattern can not be discovered</p></td></tr><tr><td class="confluenceTd"><p><code>googleId</code></p></td><td class="confluenceTd"><p>String</p></td><td class="confluenceTd"><p>The unique identifier provided by google oauth</p></td></tr><tr><td class="confluenceTd"><p><code>picture</code></p></td><td class="confluenceTd"><p>String</p></td><td class="confluenceTd"><p>contains the URL of the user profile picture. If google oauth is used, it uses the Google profile picture, otherwise, it is set to &lsquo;default&rsquo;</p></td></tr><tr><td class="confluenceTd"><p><code>refreshToken</code></p></td><td class="confluenceTd"><p>String</p></td><td class="confluenceTd"><p>refresh token</p></td></tr></tbody></table></div></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="DatabaseSchema-ProjectSchema">Project Schema</h2><div class="table-wrap"><table data-table-width="760" data-layout="default" data-local-id="8601effb-98d8-4ea8-aa63-60facc453338" class="confluenceTable"><colgroup><col style="width: 199.0px;" /><col style="width: 188.0px;" /><col style="width: 494.0px;" /></colgroup><tbody><tr><th class="confluenceTh"><p><strong>Property Name</strong></p></th><th class="confluenceTh"><p><strong>Data Type</strong></p></th><th class="confluenceTh"><p><strong>Description</strong></p></th></tr><tr><td class="confluenceTd"><p><code>_id</code></p></td><td class="confluenceTd"><p>ObjectId</p></td><td class="confluenceTd"><p>Unique identifier for each project generated by the MongoDB database upon insertion</p></td></tr><tr><td class="confluenceTd"><p><code>name</code></p></td><td class="confluenceTd"><p>String</p></td><td class="confluenceTd"><p>The name of the project</p></td></tr><tr><td class="confluenceTd"><p><code>image</code></p></td><td class="confluenceTd"><p>String</p></td><td class="confluenceTd"><p>URL to the project image</p></td></tr><tr><td class="confluenceTd"><p><code>description</code></p></td><td class="confluenceTd"><p>String</p></td><td class="confluenceTd"><p>General description of the project</p></td></tr></tbody></table></div></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="DatabaseSchema-CategorySchema">Category Schema</h2><div class="table-wrap"><table data-table-width="760" data-layout="default" data-local-id="692ee4bb-0c4c-4c74-b6c5-d42db8c9b22b" class="confluenceTable"><colgroup><col style="width: 199.0px;" /><col style="width: 188.0px;" /><col style="width: 494.0px;" /></colgroup><tbody><tr><th class="confluenceTh"><p><strong>Property Name</strong></p></th><th class="confluenceTh"><p><strong>Data Type</strong></p></th><th class="confluenceTh"><p><strong>Description</strong></p></th></tr><tr><td class="confluenceTd"><p><code>_id</code></p></td><td class="confluenceTd"><p>ObjectId</p></td><td class="confluenceTd"><p>Unique identifier for each categorygenerated by the MongoDB database upon insertion</p></td></tr><tr><td class="confluenceTd"><p><code>name</code></p></td><td class="confluenceTd"><p>String</p></td><td class="confluenceTd"><p>The name of the category</p></td></tr><tr><td class="confluenceTd"><p><code>image</code></p></td><td class="confluenceTd"><p>String</p></td><td class="confluenceTd"><p>URL to the category image</p></td></tr></tbody></table></div></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="DatabaseSchema-TagSchema">Tag Schema</h2><div class="table-wrap"><table data-table-width="760" data-layout="default" data-local-id="d379f13b-3072-4766-a453-7e9005e23979" class="confluenceTable"><colgroup><col style="width: 199.0px;" /><col style="width: 188.0px;" /><col style="width: 494.0px;" /></colgroup><tbody><tr><th class="confluenceTh"><p><strong>Property Name</strong></p></th><th class="confluenceTh"><p><strong>Data Type</strong></p></th><th class="confluenceTh"><p><strong>Description</strong></p></th></tr><tr><td class="confluenceTd"><p><code>_id</code></p></td><td class="confluenceTd"><p>ObjectId</p></td><td class="confluenceTd"><p>Unique identifier for each tag generated by the MongoDB database upon insertion</p></td></tr><tr><td class="confluenceTd"><p><code>name</code></p></td><td class="confluenceTd"><p>String</p></td><td class="confluenceTd"><p>The name of the tag</p></td></tr></tbody></table></div><p /></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="DatabaseSchema-AllowListSchema">AllowList Schema</h2><div class="table-wrap"><table data-table-width="760" data-layout="default" data-local-id="b5b8ce52-6629-4d6f-96d5-6a3a461a75ae" class="confluenceTable"><colgroup><col style="width: 199.0px;" /><col style="width: 188.0px;" /><col style="width: 494.0px;" /></colgroup><tbody><tr><th class="confluenceTh"><p><strong>Property Name</strong></p></th><th class="confluenceTh"><p><strong>Data Type</strong></p></th><th class="confluenceTh"><p><strong>Description</strong></p></th></tr><tr><td class="confluenceTd"><p><code>_id</code></p></td><td class="confluenceTd"><p>ObjectId</p></td><td class="confluenceTd"><p>Unique identifier for each email generated by the MongoDB database upon insertion</p></td></tr><tr><td class="confluenceTd"><p><code>email</code></p></td><td class="confluenceTd"><p>String</p></td><td class="confluenceTd"><p>Email to be allowed access to the application</p></td></tr></tbody></table></div></div>
+</div>
+</div>
+</div>
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1218805831/1562804275.jpg">varlab_virtual_and_augmented_reality_lab_cover.jpg</a> (image/jpeg)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 27, 2025 21:02</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

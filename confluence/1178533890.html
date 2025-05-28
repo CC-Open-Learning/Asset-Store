@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vConestoga : Frontend Routing/Functionality</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="vConestoga_536314119.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Projects_1091797023.html">Projects</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="VARLab-Asset-Store_1124859959.html">VARLab Asset Store</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            vConestoga : Frontend Routing/Functionality
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> abielaski</span>, last modified by <span class='editor'> Nipun Grover</span> on Dec 12, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p /><style type='text/css'>/*<![CDATA[*/
+div.rbtoc1748379748585 {padding: 0px;}
+div.rbtoc1748379748585 ul {list-style: none;margin-left: 0px;}
+div.rbtoc1748379748585 li {margin-left: 0px;padding-left: 0px;}
+
+/*]]>*/</style><div class='toc-macro rbtoc1748379748585'>
+<ul class='toc-indentation'>
+<li><a href='#FrontendRouting/Functionality-RoutingDiagram'>Routing Diagram</a></li>
+<li><a href='#FrontendRouting/Functionality-PropsBreakdown'>Props Breakdown</a></li>
+<li><a href='#FrontendRouting/Functionality-ReactRouter'>React Router</a>
+<ul class='toc-indentation'>
+<li><a href='#FrontendRouting/Functionality-Overview'>Overview</a></li>
+<li><a href='#FrontendRouting/Functionality-Resources'>Resources</a></li>
+<li><a href='#FrontendRouting/Functionality-createBrowserRouter'>createBrowserRouter</a></li>
+<li><a href='#FrontendRouting/Functionality-RouterProvider'>RouterProvider</a></li>
+<li><a href='#FrontendRouting/Functionality-Outlet'>Outlet</a></li>
+</ul>
+</li>
+</ul>
+</div><h1 id="FrontendRouting/Functionality-RoutingDiagram">Routing Diagram</h1><p /><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Drawing1.png" width="1368" loading="lazy" src="attachments/1178533890/1512210735.png?width=1368" data-image-src="attachments/1178533890/1512210735.png" data-height="1822" data-width="2372" data-unresolved-comment-count="0" data-linked-resource-id="1512210735" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Drawing1.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1178533890" data-linked-resource-container-version="43" data-media-id="2c48a8d8-df16-400d-bb9c-acbd682ac8dd" data-media-type="file"></span><p class="media-group"><span class="confluence-embedded-file-wrapper"><a class="confluence-embedded-file" href="attachments/1178533890/1511751792.vsdx" data-nice-type="null" data-file-src="/wiki/download/attachments/1178533890/Frontend%20routing.vsdx?version=1&amp;modificationDate=1733865577746&amp;cacheVersion=1&amp;api=v2" data-linked-resource-id="1511751792" data-linked-resource-type="attachment" data-linked-resource-container-id="1178533890" data-linked-resource-default-alias="Frontend routing.vsdx" data-mime-type="application/vnd.ms-visio.drawing" data-has-thumbnail="true" data-linked-resource-version="1" data-media-id="cb655580-82c1-482c-8aa4-1e654d52b41a" data-media-type="file"><img src="attachments/thumbnails/1178533890/1511751792" height="250"/></a></span></p><p /><h1 id="FrontendRouting/Functionality-PropsBreakdown">Props Breakdown<br/></h1><p>Here is a brief breakdown of the props that some of the components are using <br/></p><div class="table-wrap"><table data-table-width="1180" data-layout="center" data-local-id="af143351-7ae7-483b-96f8-3bf750ff87f2" class="confluenceTable"><colgroup><col style="width: 394.0px;"/><col style="width: 286.0px;"/><col style="width: 500.0px;"/></colgroup><tbody><tr><td class="confluenceTd"><p>Component</p></td><td class="confluenceTd"><p>Prop</p></td><td class="confluenceTd"><p>Description</p></td></tr><tr><td data-highlight-colour="#e6fcff" rowspan="3" class="confluenceTd"><p>Modal</p></td><td data-highlight-colour="#e6fcff" class="confluenceTd"><p>children</p></td><td data-highlight-colour="#e6fcff" class="confluenceTd"><p>Content to render inside the modal.</p></td></tr><tr><td data-highlight-colour="#e6fcff" class="confluenceTd"><p>isOpen</p></td><td data-highlight-colour="#e6fcff" class="confluenceTd"><p>Determines if the modal is visible.</p></td></tr><tr><td data-highlight-colour="#e6fcff" class="confluenceTd"><p>setModalState</p></td><td data-highlight-colour="#e6fcff" class="confluenceTd"><p>Function to control modal visibility state.</p></td></tr><tr><td data-highlight-colour="#fffae6" rowspan="2" class="confluenceTd"><p>Ambulance3D </p></td><td data-highlight-colour="#fffae6" class="confluenceTd"><p>height</p></td><td data-highlight-colour="#fffae6" class="confluenceTd"><p>Specifies the height of the canvas</p></td></tr><tr><td data-highlight-colour="#fffae6" class="confluenceTd"><p>sceneColor</p></td><td data-highlight-colour="#fffae6" class="confluenceTd"><p>Color applied to the 3D scene background.</p></td></tr><tr><td data-highlight-colour="#deebff" rowspan="7" class="confluenceTd"><p>DisplayCard</p></td><td data-highlight-colour="#deebff" class="confluenceTd"><p>buttonStyling</p></td><td data-highlight-colour="#deebff" class="confluenceTd"><p>CSS styling for the button.</p></td></tr><tr><td data-highlight-colour="#deebff" class="confluenceTd"><p>errorSrc</p></td><td data-highlight-colour="#deebff" class="confluenceTd"><p>Fallback source if the image fails to load.</p></td></tr><tr><td data-highlight-colour="#deebff" class="confluenceTd"><p>imgStyling</p></td><td data-highlight-colour="#deebff" class="confluenceTd"><p>CSS styling for the image.</p></td></tr><tr><td data-highlight-colour="#deebff" class="confluenceTd"><p>onclick</p></td><td data-highlight-colour="#deebff" class="confluenceTd"><p>Callback function for click events.</p></td></tr><tr><td data-highlight-colour="#deebff" class="confluenceTd"><p>src</p></td><td data-highlight-colour="#deebff" class="confluenceTd"><p>Source URL of the image.</p></td></tr><tr><td data-highlight-colour="#deebff" class="confluenceTd"><p>title</p></td><td data-highlight-colour="#deebff" class="confluenceTd"><p>Title text displayed on the card.</p></td></tr><tr><td data-highlight-colour="#deebff" class="confluenceTd"><p>titleStyling</p></td><td data-highlight-colour="#deebff" class="confluenceTd"><p>CSS styling for the title text.</p></td></tr><tr><td data-highlight-colour="#ffffff" rowspan="3" class="confluenceTd"><p>Sidebar</p></td><td data-highlight-colour="#ffffff" class="confluenceTd"><p>searchedAssets</p></td><td data-highlight-colour="#ffffff" class="confluenceTd"><p>List of assets currently searched.</p></td></tr><tr><td data-highlight-colour="#ffffff" class="confluenceTd"><p>setFilteredAssets</p></td><td data-highlight-colour="#ffffff" class="confluenceTd"><p>Function to update filtered assets.</p></td></tr><tr><td data-highlight-colour="#ffffff" class="confluenceTd"><p>signalClearFilters</p></td><td data-highlight-colour="#ffffff" class="confluenceTd"><p>Flag to trigger clearing filters.</p></td></tr><tr><td data-highlight-colour="#eae6ff" rowspan="5" class="confluenceTd"><p>Pagination</p></td><td data-highlight-colour="#eae6ff" class="confluenceTd"><p>currentPage</p></td><td data-highlight-colour="#eae6ff" class="confluenceTd"><p>Current page number for pagination.</p></td></tr><tr><td data-highlight-colour="#eae6ff" class="confluenceTd"><p>defaultPage</p></td><td data-highlight-colour="#eae6ff" class="confluenceTd"><p>Default starting page number.</p></td></tr><tr><td data-highlight-colour="#eae6ff" class="confluenceTd"><p>items</p></td><td data-highlight-colour="#eae6ff" class="confluenceTd"><p>Array of items to paginate.</p></td></tr><tr><td data-highlight-colour="#eae6ff" class="confluenceTd"><p>itemsPerPage</p></td><td data-highlight-colour="#eae6ff" class="confluenceTd"><p>Number of items displayed per page.</p></td></tr><tr><td data-highlight-colour="#eae6ff" class="confluenceTd"><p>setCurrentPage</p></td><td data-highlight-colour="#eae6ff" class="confluenceTd"><p>Function to update the current page.</p></td></tr></tbody></table></div><h1 id="FrontendRouting/Functionality-ReactRouter">React Router</h1><h2 id="FrontendRouting/Functionality-Overview">Overview</h2><p>This Section will explain <a class="external-link" href="https://reactrouter.com/en/main" rel="nofollow">React Router</a> library and some of the functionality used in the Asset Store application. React Router enables &quot;client side routing&quot;. React applications are single page applications (SPA) and therefore work differently when it comes to updating the URL when a link is clicked. React router allows the client side to update the URL without making another request to the server. </p><h2 id="FrontendRouting/Functionality-Resources">Resources</h2><ul><li><p><a class="external-link" data-card-appearance="inline" href="https://reactrouter.com/en/main" rel="nofollow">https://reactrouter.com/en/main</a> </p></li><li><p><a class="external-link" data-card-appearance="inline" href="https://medium.com/@pavitramodi.it/getting-started-with-createbrowserrouter-in-react-router-dom-e3131820fef4" rel="nofollow">https://medium.com/@pavitramodi.it/getting-started-with-createbrowserrouter-in-react-router-dom-e3131820fef4</a> </p></li></ul><h2 id="FrontendRouting/Functionality-createBrowserRouter">createBrowserRouter</h2><p><a class="external-link" data-card-appearance="inline" href="https://reactrouter.com/en/main/routers/create-browser-router" rel="nofollow">https://reactrouter.com/en/main/routers/create-browser-router</a> <br/>It uses the <a class="external-link" href="https://developer.mozilla.org/en-US/docs/Web/API/History" rel="nofollow">DOM History API</a> to update the URL and manage the history stack. It is placed outside of the react tree to decouple the fetching and rendering. The result of this for the Asset store is the router is created in main.tsx instead of rendering app.tsx then placing the router inside of app.tsx.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">import * as React from &quot;react&quot;;
+import * as ReactDOM from &quot;react-dom&quot;;
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from &quot;react-router-dom&quot;;
+
+import Root, { rootLoader } from &quot;./routes/root&quot;;
+import Team, { teamLoader } from &quot;./routes/team&quot;;
+
+const router = createBrowserRouter([
+  {
+    path: &quot;/&quot;,
+    element: &lt;Root /&gt;,
+    loader: rootLoader,
+    children: [
+      {
+        path: &quot;team&quot;,
+        element: &lt;Team /&gt;,
+        loader: teamLoader,
+      },
+    ],
+  },
+]);
+
+ReactDOM.createRoot(document.getElementById(&quot;root&quot;)).render(
+  &lt;RouterProvider router={router} /&gt;
+);</pre>
+</div></div><p><code>createBrowserRouter</code> has an array of nested route objects along with children properties to define sub-routing relative to the root or a given parent.</p><h2 id="FrontendRouting/Functionality-RouterProvider">RouterProvider</h2><p><a class="external-link" data-card-appearance="inline" href="https://reactrouter.com/en/main/routers/router-provider" rel="nofollow">https://reactrouter.com/en/main/routers/router-provider</a> </p><p>All <a class="external-link" href="https://reactrouter.com/en/main/routers/picking-a-router" rel="nofollow">data router</a> objects are passed to this component to render your app and enable the rest of the data APIs.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">import {
+  createBrowserRouter,
+  RouterProvider,
+} from &quot;react-router-dom&quot;;
+
+const router = createBrowserRouter([
+  {
+    path: &quot;/&quot;,
+    element: &lt;Root /&gt;,
+    children: [
+      {
+        path: &quot;dashboard&quot;,
+        element: &lt;Dashboard /&gt;,
+      },
+      {
+        path: &quot;about&quot;,
+        element: &lt;About /&gt;,
+      },
+    ],
+  },
+]);
+
+ReactDOM.createRoot(document.getElementById(&quot;root&quot;)).render(
+  &lt;RouterProvider
+    router={router}
+    fallbackElement={&lt;BigSpinner /&gt;}
+  /&gt;
+);</pre>
+</div></div><h2 id="FrontendRouting/Functionality-Outlet">Outlet</h2><p>An <code>&lt;Outlet&gt;</code> should be used in parent route elements to render their child route elements. This allows nested UI to show up when child routes are rendered. If the parent route matched exactly, it will render a child index route or nothing if there is no index route.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">function Dashboard() {
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Dashboard&lt;/h1&gt;
+
+      {/* This element will render either &lt;DashboardMessages&gt; when the URL is
+          &quot;/messages&quot;, &lt;DashboardTasks&gt; at &quot;/tasks&quot;, or null if it is &quot;/&quot;
+      */}
+      &lt;Outlet /&gt;
+    &lt;/div&gt;
+  );
+}
+
+function App() {
+  return (
+    &lt;Routes&gt;
+      &lt;Route path=&quot;/&quot; element={&lt;Dashboard /&gt;}&gt;
+        &lt;Route
+          path=&quot;messages&quot;
+          element={&lt;DashboardMessages /&gt;}
+        /&gt;
+        &lt;Route path=&quot;tasks&quot; element={&lt;DashboardTasks /&gt;} /&gt;
+      &lt;/Route&gt;
+    &lt;/Routes&gt;
+  );
+}</pre>
+</div></div>
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1178533890/1179025409.png">Asset Store Front End Documentation 1.PNG</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1178533890/1179058178.png">Asset Store Routing.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1178533890/1178796036.png">Asset Store Client Side.PNG</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1178533890/1178927119.png">Asset Store Routing.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1178533890/1179090972.png">Asset Store Client Side.PNG</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1178533890/1178927139.png">Asset Store Routing.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1178533890/1178599432.docx">Asset Store Front End Documentation.docx</a> (application/vnd.openxmlformats-officedocument.wordprocessingml.document)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1178533890/1178501122.pptx">Asset Store Diagram.pptx</a> (application/vnd.openxmlformats-officedocument.presentationml.presentation)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1178533890/1178566659.png">Asset Store Routing.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1178533890/1178861570.png">Asset Store Client Side.PNG</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1178533890/1219526688.png">Asset Store Routing - July 5 2023.PNG</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1178533890/1219559442.pptx">Asset Store Diagram2.pptx</a> (application/vnd.openxmlformats-officedocument.presentationml.presentation)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1178533890/1219887156.png">Asset Store Routing - July 12 2024.PNG</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1178533890/1219592221.pptx">Asset Store Diagram2.pptx</a> (application/vnd.openxmlformats-officedocument.presentationml.presentation)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1178533890/1279557704.png">Asset Store Routing - Aug 13 2024.PNG</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1178533890/1289519165.png">Asset Store Routing - Aug 16 2024.PNG</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1178533890/1289682946.xlsx">componentChart.xlsx</a> (application/vnd.openxmlformats-officedocument.spreadsheetml.sheet)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1178533890/1289355304.xlsx">componentChart.xlsx</a> (application/vnd.openxmlformats-officedocument.spreadsheetml.sheet)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1178533890/1511522305.png">Drawing 2024-12-10 03.11.13.excalidraw.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1178533890/1512210735.png">Drawing1.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1178533890/1511751792.vsdx">Frontend routing.vsdx</a> (application/vnd.ms-visio.drawing)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 27, 2025 21:02</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

@@ -1,0 +1,23 @@
+span,
+p,
+th,
+td {
+  @apply text-general-10;
+}
+th,
+td {
+  @apply px-3 py-1 font-semibold;
+}
+
+td span {
+  @apply text-general-50;
+}
+
+.carousel .control-dots .dot {
+  @apply bg-general-10; /* Inactive dot color */
+}
+
+/* Style for the active dot */
+.carousel .control-dots .dot.selected {
+  @apply bg-yellow-80; /* Active dot color */
+}

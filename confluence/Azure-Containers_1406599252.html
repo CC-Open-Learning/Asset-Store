@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vConestoga : Azure Containers</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="vConestoga_536314119.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Projects_1091797023.html">Projects</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="VARLab-Asset-Store_1124859959.html">VARLab Asset Store</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            vConestoga : Azure Containers
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Victor Barbosa Nogueira</span>, last modified by <span class='editor'> Islam Ahmed</span> on Dec 13, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <hr/><p style="text-align: center;"><strong>INDEX</strong></p><style type='text/css'>/*<![CDATA[*/
+div.rbtoc1748379780870 {padding: 0px;}
+div.rbtoc1748379780870 ul {list-style: none;margin-left: 0px;}
+div.rbtoc1748379780870 li {margin-left: 0px;padding-left: 0px;}
+
+/*]]>*/</style><div class='toc-macro rbtoc1748379780870'>
+<ul class='toc-indentation'>
+<li><a href='#AzureContainers-1.AssetStoreWorkflow'>1. Asset Store Workflow</a></li>
+<li><a href='#AzureContainers-2.Dockerfiles'>2. Docker files</a></li>
+<li><a href='#AzureContainers-3.BuildanimageandpushittoAzureContainerRegistry'>3. Build an image and push it to Azure Container Registry</a></li>
+<li><a href='#AzureContainers-4.CreateaContainerapp'>4. Create a Container app</a></li>
+<li><a href='#AzureContainers-5.CreateaContainerAppsEnvironment'>5. Create a Container Apps Environment</a></li>
+<li><a href='#AzureContainers-6.Automationscripts'>6. Automation scripts</a>
+<ul class='toc-indentation'>
+<li><a href='#AzureContainers-Serverscript'>Server script</a></li>
+<li><a href='#AzureContainers-Clientscript'>Client script</a></li>
+<li><a href='#AzureContainers-NginxScript'>Nginx Script</a></li>
+</ul>
+</li>
+</ul>
+</div><hr/><h1 id="AzureContainers-1.AssetStoreWorkflow">1. Asset Store Workflow</h1><p /><span class="confluence-embedded-file-wrapper image-left-wrap-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-wrap-left" alt="Designer (2).png" width="478" loading="lazy" src="attachments/1406599252/1406926865.png?width=478" data-image-src="attachments/1406599252/1406926865.png" data-height="1080" data-width="1080" data-unresolved-comment-count="0" data-linked-resource-id="1406926865" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Designer (2).png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1406599252" data-linked-resource-container-version="15" data-media-id="c3e714dd-416d-450d-9904-3f674c81850c" data-media-type="file"></span><ol start="1"><li><p>Client requests the server for the list of assets.</p></li><li><p>Server requests the list of assets from Cosmos DB.</p></li><li><p>Cosmos DB retrieves the list and sends it to the server</p></li><li><p>Server sends the list to the client.</p></li><li><p>Client requests a token from the server to access files in Blob Storage.</p></li><li><p>Server generates and sends the token to the client.</p></li><li><p>Client uses the token to request the assets from Blob Storage.</p></li><li><p>Blob Storage retrieves the asset files and images to the client</p></li></ol><p /><hr/><h1 id="AzureContainers-2.Dockerfiles">2. Docker files</h1><p>A Dockerfile is a text file that contains a set of instructions for building a Docker image. It defines the environment, software, and configuration needed to create a container. Each instruction in the Dockerfile, like setting the base image, copying files, or running commands, is used to customize the image for your application.</p><p>1 - Server dockerfile:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">FROM node:23.3.0-bookworm-slim
+# Working directory
+WORKDIR /app
+
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install --omit=dev
+
+# Copy the rest of the files
+COPY . .
+
+# Expose the port
+EXPOSE 3000
+
+# Start the server
+CMD [&quot;npm&quot;, &quot;start&quot;]</pre>
+</div></div><p>2 - Client dockerfile:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">FROM node:23.3.0-bookworm-slim AS build
+
+#Working directory
+WORKDIR /app
+
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install --omit=dev
+
+# Copy the rest of the files
+COPY . .
+
+# Set environment variables
+ENV VITE_SERVER_BASE_URL=https://assetstore.vconestoga.com
+ENV VITE_SERVER_URL=https://assetstore.vconestoga.com/api
+
+# Build the app
+RUN npm run build
+
+# Use nginx to serve the app
+FROM nginx:1.21.3-alpine
+
+# Copy the build files from the previous stage
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Copy the nginx configuration (a React application (or any SPA—Single Page Application), routes like /login don&#39;t exist as physical files. Instead, they should all be handled by the index.html, and the React Router takes over the routing within the application)
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Expose the port
+EXPOSE 80
+
+# Start nginx
+CMD [&quot;nginx&quot;, &quot;-g&quot;, &quot;daemon off;&quot;]</pre>
+</div></div><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>This Dockerfile first uses a Node.js image to build the client-side application (likely a React app) by installing dependencies and running the build process. The built files are then transferred to a Nginx image, which serves them as a web application. Nginx is configured to handle routing for the Single Page Application (SPA), ensuring all requests are directed to the <code>index.html</code> file, allowing React Router to manage client-side navigation. Finally, Nginx exposes port 443 to serve the application.</p></div></div><p>2.1 - Nginx config file (required to run the react webpage properly)</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">server {
+    listen 443;
+
+    index index.html;
+
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    location / {
+        root   /usr/share/nginx/html;
+        try_files $uri /index.html;
+    }
+}</pre>
+</div></div><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>If you try to access www.ourwebpage/my-route, the nginx server won’t be able to find /my-route and will give you a 404 error. This configuration tells Nginx to serve index.html again in case a certain file/route is not found. </p><p>index.html is the compilation of our entire client code and can handle all the routes</p></div></div><hr/><h1 id="AzureContainers-3.BuildanimageandpushittoAzureContainerRegistry">3. Build an image and push it to Azure Container Registry</h1><ol start="1"><li><p>Save the docker file on the root of the app folder (CLient or Server)</p></li><li><p>On your terminal, navigate to the server folder and type “az login” to log into your Azure account</p></li><li><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="image-20241021-185142.png" width="618" loading="lazy" src="attachments/1406599252/1407746060.png?width=618" data-image-src="attachments/1406599252/1407746060.png" data-height="752" data-width="1235" data-unresolved-comment-count="0" data-linked-resource-id="1407746060" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241021-185142.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1406599252" data-linked-resource-container-version="15" data-media-id="1ce3ec4b-04e7-43fa-92f4-29801b652cfb" data-media-type="file"></span></li><li><p>Select the email</p></li><li><p>Press Continue</p></li><li><p>Type the Azure subscription you want to use (in my case, it is “Azure for students,” so I will type “1”)</p></li><li><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="image-20241021-185518.png" width="680" loading="lazy" src="attachments/1406599252/1407221767.png?width=680" data-image-src="attachments/1406599252/1407221767.png" data-height="470" data-width="1229" data-unresolved-comment-count="0" data-linked-resource-id="1407221767" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241021-185518.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1406599252" data-linked-resource-container-version="15" data-media-id="87ad424c-fd44-4363-9dec-6a7d2119b73b" data-media-type="file"></span></li><li><p>Press enter</p></li><li><p>Login to the Azure Container Registry: “az acr login --name webbuilds”</p></li></ol><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241213-070455.png" width="381" loading="lazy" src="attachments/1406599252/1518993486.png?width=381" data-image-src="attachments/1406599252/1518993486.png" data-height="48" data-width="381" data-unresolved-comment-count="0" data-linked-resource-id="1518993486" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241213-070455.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1406599252" data-linked-resource-container-version="15" data-media-id="2fdb5fdb-e571-40f9-9499-921b5b1387dc" data-media-type="file"></span><ol start="10"><li><p>Build the docker image: <code>docker build -t assetstore.azurecr.io/assetstore-server:1.7 .</code></p></li><li><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241021-200135.png" width="562" loading="lazy" src="attachments/1406599252/1407221774.png?width=562" data-image-src="attachments/1406599252/1407221774.png" data-height="681" data-width="1227" data-unresolved-comment-count="0" data-linked-resource-id="1407221774" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241021-200135.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1406599252" data-linked-resource-container-version="15" data-media-id="ccbe8b4d-99a6-4d55-814a-0191e6222800" data-media-type="file"></span></li><li><p>push the image to Azure Container Registry: <code>docker push assetstore.azurecr.io/assetstore-server:1.7</code></p></li><li><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241021-200523.png" width="598" loading="lazy" src="attachments/1406599252/1407123485.png?width=598" data-image-src="attachments/1406599252/1407123485.png" data-height="383" data-width="1233" data-unresolved-comment-count="0" data-linked-resource-id="1407123485" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241021-200523.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1406599252" data-linked-resource-container-version="15" data-media-id="659e382d-a150-41b0-ab6a-9d26daf3b945" data-media-type="file"></span><p /></li><li><p>To ensure the container is then updated to use the image that was pushed, run <code>az containerapp update --name assetstore-server --resource-group assetstore --image assetstore.azurecr.io/assetstore-server:1.7</code></p></li></ol><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>When logging in to the Azure container registry (step 9). Only certain IPs are allowed to do so and you might need to add your machine IP manually. In the future only the Jenkins IP will be allowed</p></div></div><div class="confluence-information-macro confluence-information-macro-note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>When using docker commands such as “docker build” and “docker push” make sure to have the docker app running</p></div></div><hr/><h1 id="AzureContainers-4.CreateaContainerapp">4. Create a Container app </h1><ol start="1"><li><p>Go to Azure Portal &gt;&gt; Container Apps</p></li><li><p>Click +Create</p></li><li><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="image-20241021-201441.png" width="395" loading="lazy" src="attachments/1406599252/1406697489.png?width=395" data-image-src="attachments/1406599252/1406697489.png" data-height="428" data-width="982" data-unresolved-comment-count="0" data-linked-resource-id="1406697489" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241021-201441.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1406599252" data-linked-resource-container-version="15" data-media-id="8801e5b8-cd8f-47db-8402-f9ad9c97c23d" data-media-type="file"></span></li><li><p>Select your subscription, resource group and container name</p></li><li><p>Container Apps Environment: select your container app environment or create a new one( how to: <a href="https://varlab-dev.atlassian.net/wiki/spaces/VCON/pages/edit-v2/1406599252#Create-a-Container-Apps-Environment" rel="nofollow">link</a> )</p></li><li><p>Click Next</p></li><li><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="image-20241021-202308.png" width="640" loading="lazy" src="attachments/1406599252/1406009376.png?width=640" data-image-src="attachments/1406599252/1406009376.png" data-height="1198" data-width="1918" data-unresolved-comment-count="0" data-linked-resource-id="1406009376" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241021-202308.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1406599252" data-linked-resource-container-version="15" data-media-id="441eb37b-aa63-4e36-896c-186083a1c880" data-media-type="file"></span></li><li><p>Select our Container Registry(assetstore), the image we just pushed (server) and the version (1.7)</p></li><li><p>Add the environment variables needed</p></li><li><p>Click Next</p></li><li><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="image-20241021-202823.png" width="640" loading="lazy" src="attachments/1406599252/1407549457.png?width=640" data-image-src="attachments/1406599252/1407549457.png" data-height="1198" data-width="1918" data-unresolved-comment-count="0" data-linked-resource-id="1407549457" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241021-202823.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1406599252" data-linked-resource-container-version="15" data-media-id="7887fba2-19bf-4f54-b1dd-f8859436c91f" data-media-type="file"></span></li><li><p>Enable ingress</p></li><li><p>Select “accepting traffic from anywhere” (This might change if we want our API to only receive requests from our client)</p></li><li><p>click Advanced settings</p></li><li><p>Target port: 3000</p></li><li><p>Click Review + create</p></li><li><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241021-205131.png" width="736" loading="lazy" src="attachments/1406599252/1407549465.png?width=736" data-image-src="attachments/1406599252/1407549465.png" data-height="900" data-width="1907" data-unresolved-comment-count="0" data-linked-resource-id="1407549465" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241021-205131.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1406599252" data-linked-resource-container-version="15" data-media-id="d58b3fa8-3781-4e41-b939-ce1b51cbb9b1" data-media-type="file"></span></li><li><p>Click Create</p></li><li><p>You should see a successful deployment message</p></li><li><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="image-20241021-203445.png" width="366" loading="lazy" src="attachments/1406599252/1407582239.png?width=366" data-image-src="attachments/1406599252/1407582239.png" data-height="626" data-width="976" data-unresolved-comment-count="0" data-linked-resource-id="1407582239" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241021-203445.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1406599252" data-linked-resource-container-version="15" data-media-id="9a1f18df-1e9d-4aab-9d2b-55c88abb46cc" data-media-type="file"></span></li></ol><hr/><h1 id="AzureContainers-5.CreateaContainerAppsEnvironment">5. Create a Container Apps Environment</h1><p>An <strong>Azure Container App Environment</strong> is a logical boundary for managing and hosting one or more <strong>Azure Container Apps</strong>. It provides a shared context where multiple container apps can run, enabling them to share resources like networking and configurations, such as scaling rules or custom domains.</p><ol start="1"><li><p>Go to Azure Portal &gt;&gt; Container Apps</p></li><li><p>Click +Create</p></li><li><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241021-201441.png" width="395" loading="lazy" src="attachments/1406599252/1406697489.png?width=395" data-image-src="attachments/1406599252/1406697489.png" data-height="428" data-width="982" data-unresolved-comment-count="0" data-linked-resource-id="1406697489" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241021-201441.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1406599252" data-linked-resource-container-version="15" data-media-id="8801e5b8-cd8f-47db-8402-f9ad9c97c23d" data-media-type="file"></span></li><li><p>Select Create New under <code>Container Apps Environement</code></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241213-074110.png" width="616" loading="lazy" src="attachments/1406599252/1519419416.png?width=616" data-image-src="attachments/1406599252/1519419416.png" data-height="87" data-width="934" data-unresolved-comment-count="0" data-linked-resource-id="1519419416" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241213-074110.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1406599252" data-linked-resource-container-version="15" data-media-id="caea1f18-b66c-4ec0-82eb-5778c4f943ce" data-media-type="file"></span></li><li><p>Enter an environment name, leave remaining options default.<br/></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241213-075309.png" width="736" loading="lazy" src="attachments/1406599252/1519583265.png?width=736" data-image-src="attachments/1406599252/1519583265.png" data-height="584" data-width="896" data-unresolved-comment-count="0" data-linked-resource-id="1519583265" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241213-075309.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1406599252" data-linked-resource-container-version="15" data-media-id="328165bb-a369-485f-a7cf-e9cf75049b0e" data-media-type="file"></span><p> </p></li><li><p>Leave default options for Workload Profiles</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241213-075316.png" width="736" loading="lazy" src="attachments/1406599252/1518993516.png?width=736" data-image-src="attachments/1406599252/1518993516.png" data-height="304" data-width="925" data-unresolved-comment-count="0" data-linked-resource-id="1518993516" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241213-075316.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1406599252" data-linked-resource-container-version="15" data-media-id="8b57f735-d121-4483-9123-0e11cc948fb5" data-media-type="file"></span></li><li><p>Select <code>Don't save logs</code></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241213-075136.png" width="736" loading="lazy" src="attachments/1406599252/1519550480.png?width=736" data-image-src="attachments/1406599252/1519550480.png" data-height="296" data-width="894" data-unresolved-comment-count="0" data-linked-resource-id="1519550480" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241213-075136.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1406599252" data-linked-resource-container-version="15" data-media-id="db69c40c-2e26-4fa4-a267-2c4a20399346" data-media-type="file"></span></li><li><p>Leave default options for <code>Networking</code></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241213-075224.png" width="736" loading="lazy" src="attachments/1406599252/1519353918.png?width=736" data-image-src="attachments/1406599252/1519353918.png" data-height="710" data-width="912" data-unresolved-comment-count="0" data-linked-resource-id="1519353918" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241213-075224.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1406599252" data-linked-resource-container-version="15" data-media-id="b3456f28-6319-456d-b488-a4ea4b8e58a2" data-media-type="file"></span></li><li><p>Click Create</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241213-075427.png" width="252" loading="lazy" src="attachments/1406599252/1519583272.png?width=252" data-image-src="attachments/1406599252/1519583272.png" data-height="77" data-width="252" data-unresolved-comment-count="0" data-linked-resource-id="1519583272" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241213-075427.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1406599252" data-linked-resource-container-version="15" data-media-id="4df2c5b3-fa73-4f4b-82fd-b18f69197505" data-media-type="file"></span></li></ol><hr/><h1 id="AzureContainers-6.Automationscripts">6. Automation scripts</h1><p>be sure to execute these commands <strong>BEFORE</strong> running any of these scripts!</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: powershell; gutter: false; theme: Confluence" data-theme="Confluence">az login
+az acr login --name webbuilds</pre>
+</div></div><h2 id="AzureContainers-Serverscript">Server script</h2><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: actionscript3; gutter: false; theme: Confluence" data-theme="Confluence">:: Variables
+set RESOURCE_GROUP=assetstore
+set CONTAINER_APP_NAME=assetstore-server
+set DOCKER_IMAGE_NAME=webbuilds.azurecr.io/assetstore-server
+set DOCKER_IMAGE_TAG=2.0.1
+
+:: Build the Docker image
+docker build -t %DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG% .
+
+:: Push the Docker image to Azure
+docker push %DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG% 
+
+:: Update the Azure Container App with the new image
+az containerapp update --name %CONTAINER_APP_NAME% --resource-group %RESOURCE_GROUP% --image %DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG%
+
+:: Clean up
+docker rmi %DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG%</pre>
+</div></div><h2 id="AzureContainers-Clientscript">Client script</h2><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: actionscript3; gutter: false; theme: Confluence" data-theme="Confluence">:: Variables
+set RESOURCE_GROUP=assetstore
+set CONTAINER_APP_NAME=assetstore-client
+set DOCKER_IMAGE_NAME=webbuilds.azurecr.io/assetstore-client
+set DOCKER_IMAGE_TAG=2.1.5
+
+:: Build the Docker image
+docker build -t %DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG% .
+
+:: Push the Docker image to Azure
+docker push %DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG%
+
+:: Update the Azure Container App with the new image
+az containerapp update --name %CONTAINER_APP_NAME% --resource-group %RESOURCE_GROUP% --image %DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG% 
+
+:: Clean up
+docker rmi %DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG%</pre>
+</div></div><h2 id="AzureContainers-NginxScript">Nginx Script</h2><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: actionscript3; gutter: false; theme: Confluence" data-theme="Confluence">:: Variables
+set RESOURCE_GROUP=assetstore
+set CONTAINER_APP_NAME=assetstore-nginx
+set DOCKER_IMAGE_NAME=webbuilds.azurecr.io/assetstore-nginx
+set DOCKER_IMAGE_TAG=1.15
+
+:: Build the Docker image
+docker build -t %DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG% . 
+
+:: Push the Docker image to Azure
+docker push %DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG% 
+
+:: Update the Azure Container App with the new image
+az containerapp update --name %CONTAINER_APP_NAME% --resource-group %RESOURCE_GROUP% --image %DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG% 
+
+:: Clean up
+docker rmi %DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG%</pre>
+</div></div>
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1406599252/1406763016.jpeg">Designer.jpeg</a> (image/jpeg)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1406599252/1407483915.png">Designer.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1406599252/1407385605.png">Designer (1).png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1406599252/1407123462.png">Designer (1).png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1406599252/1406926865.png">Designer (2).png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1406599252/1407746060.png">image-20241021-185142.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1406599252/1407221767.png">image-20241021-185518.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1406599252/1407123478.png">image-20241021-195426.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1406599252/1407221774.png">image-20241021-200135.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1406599252/1407582226.png">image-20241021-200516.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1406599252/1407123485.png">image-20241021-200523.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1406599252/1406697489.png">image-20241021-201441.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1406599252/1406009376.png">image-20241021-202308.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1406599252/1407549457.png">image-20241021-202823.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1406599252/1407582233.png">image-20241021-203322.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1406599252/1407582239.png">image-20241021-203445.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1406599252/1407549465.png">image-20241021-205131.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1406599252/1518993486.png">image-20241213-070455.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1406599252/1519419416.png">image-20241213-074110.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1406599252/1519517715.png">image-20241213-074807.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1406599252/1519550480.png">image-20241213-075136.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1406599252/1519353918.png">image-20241213-075224.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1406599252/1519353924.png">image-20241213-075304.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1406599252/1519583265.png">image-20241213-075309.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1406599252/1518993516.png">image-20241213-075316.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1406599252/1519583272.png">image-20241213-075427.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 27, 2025 21:03</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

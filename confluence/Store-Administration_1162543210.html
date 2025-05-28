@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vConestoga : Store Administration</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="vConestoga_536314119.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Projects_1091797023.html">Projects</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="VARLab-Asset-Store_1124859959.html">VARLab Asset Store</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            vConestoga : Store Administration
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Nick Aguilar</span>, last modified on Aug 15, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <h2 id="StoreAdministration-Overview">Overview</h2><p>This will act as a guide for pulling new code and restarting the server should a service change. This will be an ongoing documentation effort as we encounter various circumstances and the software environment continues to evolve.</p><h1 id="StoreAdministration-PullSoftwareUpdate">Pull Software Update</h1><ol start="1"><li><p>Connect to the server</p></li></ol><p>Enter the following code into the terminal:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">ssh -i .ssh/assetstore_key.pem shopkeeper@assetstore.canadacentral.cloudapp.azure.com</pre>
+</div></div><p>or</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">ssh -i .ssh/assetstore_key.pem shopkeeper@assetstore.vconestoga.com</pre>
+</div></div><p>If you have successfully connected, the output is the following:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Untitled-20240610-202716.png" width="760" loading="lazy" src="attachments/1162543210/1163132984.png?width=760" data-image-src="attachments/1162543210/1163132984.png" data-height="452" data-width="766" data-unresolved-comment-count="0" data-linked-resource-id="1163132984" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Untitled-20240610-202716.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1162543210" data-linked-resource-container-version="10" data-media-id="d542bcd9-0025-42f7-8507-c30b985d5ce5" data-media-type="file"></span><ul><li><p>Alternatively go through VS Code Remote Explorer <a href="https://varlab-dev.atlassian.net/wiki/spaces/VCON/pages/875659274/Remote+Development+With+VS+Code" data-linked-resource-id="875659274" data-linked-resource-version="9" data-linked-resource-type="page">Remote Development With VS Code</a> </p></li></ul><ol start="2"><li><p> Ensure your console is in the varlab-asset-store folder</p></li></ol><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240610-204228.png" width="760" loading="lazy" src="attachments/1162543210/1164148737.png?width=760" data-image-src="attachments/1162543210/1164148737.png" data-height="565" data-width="1145" data-unresolved-comment-count="0" data-linked-resource-id="1164148737" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240610-204228.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1162543210" data-linked-resource-container-version="10" data-media-id="1eb81421-1201-4bc0-9573-cd7135895c3b" data-media-type="file"></span><ol start="3"><li><p>git pull</p></li></ol><p>Git saves information from the clone command, like which host and private SSH key are required to access the repository</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">git pull</pre>
+</div></div><p>If we have updates, the output is the following:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Untitled-20240610-204425.png" width="760" loading="lazy" src="attachments/1162543210/1164443649.png?width=760" data-image-src="attachments/1162543210/1164443649.png" data-height="269" data-width="786" data-unresolved-comment-count="0" data-linked-resource-id="1164443649" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Untitled-20240610-204425.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1162543210" data-linked-resource-container-version="10" data-media-id="2a2306cb-7850-4c33-88f1-78a03e8aaa60" data-media-type="file"></span><p>Or if there are no updates, the output is the next:</p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="image-20240610-204503.png" width="491" loading="lazy" src="attachments/1162543210/1164574721.png?width=491" data-image-src="attachments/1162543210/1164574721.png" data-height="65" data-width="491" data-unresolved-comment-count="0" data-linked-resource-id="1164574721" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240610-204503.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1162543210" data-linked-resource-container-version="10" data-media-id="1df3fa95-12b6-4410-b0e2-5a81a7d57058" data-media-type="file"></span><ol start="4"><li><p>Build the project</p></li></ol><p>Navigate to the client folder</p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="image-20240610-204643.png" width="488" loading="lazy" src="attachments/1162543210/1164247044.png?width=488" data-image-src="attachments/1162543210/1164247044.png" data-height="36" data-width="488" data-unresolved-comment-count="0" data-linked-resource-id="1164247044" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240610-204643.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1162543210" data-linked-resource-container-version="10" data-media-id="a34e5ab4-8d23-4bc8-9fbd-8a0ee6e9ad84" data-media-type="file"></span><p>Build the server using the following commands:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">npm i           #Only if you have new packages to install
+npm run build</pre>
+</div></div><div class="panel" style="background-color: #EAE6FF;border-color: #998DD9;border-width: 1px;"><div class="panelContent" style="background-color: #EAE6FF;">
+<p>Be sure to npm install both the client and server </p>
+</div></div><p>This will cause the project to be built in the dist folder under client</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240613-182219.png" width="724" loading="lazy" src="attachments/1162543210/1171128358.png?width=724" data-image-src="attachments/1162543210/1171128358.png" data-height="426" data-width="724" data-unresolved-comment-count="0" data-linked-resource-id="1171128358" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240613-182219.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1162543210" data-linked-resource-container-version="10" data-media-id="50626887-96ed-47c9-8bc4-58b3be277c9a" data-media-type="file"></span><h2 id="StoreAdministration-RestartServices">Restart Services</h2><p>If changes are made to the server code you need to restart pm2 which runs services for the client and the server. </p><p>Run the following command to refresh the server code with any new changes</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">pm2 restart server</pre>
+</div></div><p>You should see the following output:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240610-205759.png" width="736" loading="lazy" src="attachments/1162543210/1164771332.png?width=736" data-image-src="attachments/1162543210/1164771332.png" data-height="329" data-width="736" data-unresolved-comment-count="0" data-linked-resource-id="1164771332" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240610-205759.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1162543210" data-linked-resource-container-version="10" data-media-id="1ad6c393-b904-4d87-a87f-2c2ee3e06659" data-media-type="file"></span><p> Check pm2’s status to ensure no errors occurred when you restarted the server restarted.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">pm2 status</pre>
+</div></div><p>Sometimes the Serve requires restarting as well, therefore the client can be restarted one of two ways</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">pm2 restart client</pre>
+</div></div><p>This restarts only the client</p><p>or</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">pm2 restart all</pre>
+</div></div><p>This restarts all services (in this case the server and the client</p><div class="confluence-information-macro confluence-information-macro-note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>If you use the all command, you will also restart the meta search related services as well as any CI/CD services.</p></div></div><h2 id="StoreAdministration-Editecosystem.config.js">Edit ecosystem.config.js</h2><p>If you need to edit the ecosystem.config.js (which contains configuration information for PM2) or if restart is not having the intended effect, execute the following commands</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">pm2 kill
+pm2 start ecosystem.config.js</pre>
+</div></div><p>Ensure that your terminal is in the same directory as the ecosystem.config.js (in this case the projects root directory) before executing the second command.</p><h1 id="StoreAdministration-NGINX">NGINX</h1><p>If changes are made to the servers proxy NGINX needs to be restarted.</p><h2 id="StoreAdministration-EditNGINXConfig">Edit NGINX Config</h2><p>Enter the following command into your console to edit the configuration file</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">sudo vi /etc/nginx/nginx.conf</pre>
+</div></div><h2 id="StoreAdministration-RefreshNGINX">Refresh NGINX</h2><p>Once a change is made to the configuration file the service needs to be stopped and restarted. Enter the following commands:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">sudo systemctl stop nginx
+sudo systemctl start nginx</pre>
+</div></div>
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1162543210/1163132984.png">Untitled-20240610-202716.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1162543210/1164148737.png">image-20240610-204228.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1162543210/1164443649.png">Untitled-20240610-204425.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1162543210/1164574721.png">image-20240610-204503.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1162543210/1164247044.png">image-20240610-204643.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1162543210/1164705794.png">image-20240610-205624.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1162543210/1164771332.png">image-20240610-205759.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1162543210/1171128358.png">image-20240613-182219.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 27, 2025 21:02</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

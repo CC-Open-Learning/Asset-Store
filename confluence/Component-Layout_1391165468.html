@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vConestoga : Component Layout</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="vConestoga_536314119.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Projects_1091797023.html">Projects</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="VARLab-Asset-Store_1124859959.html">VARLab Asset Store</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            vConestoga : Component Layout
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Nick Aguilar</span>, last modified by <span class='editor'> Brittany Rogers</span> on Apr 16, 2025
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <style type='text/css'>/*<![CDATA[*/
+div.rbtoc1748379769611 {padding: 0px;}
+div.rbtoc1748379769611 ul {list-style: none;margin-left: 0px;}
+div.rbtoc1748379769611 li {margin-left: 0px;padding-left: 0px;}
+
+/*]]>*/</style><div class='toc-macro rbtoc1748379769611'>
+<ul class='toc-indentation'>
+<li><a href='#ComponentLayout-Overview'>Overview</a>
+<ul class='toc-indentation'>
+<li><a href='#ComponentLayout-Links'>Links</a></li>
+</ul>
+</li>
+<li><a href='#ComponentLayout-Main.tsx/App.tsx'>Main.tsx/App.tsx</a>
+<ul class='toc-indentation'>
+<li><a href='#ComponentLayout-InternalComponents'>Internal Components</a>
+<ul class='toc-indentation'>
+<li><a href='#ComponentLayout-Header.tsx'>Header.tsx</a></li>
+<li><a href='#ComponentLayout-Footer.tsx'>Footer.tsx</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href='#ComponentLayout-Homepage.tsx'>Homepage.tsx</a>
+<ul class='toc-indentation'>
+<li><a href='#ComponentLayout-InternalComponents.1'>Internal Components</a></li>
+</ul>
+</li>
+<li><a href='#ComponentLayout-AssetDisplayPage.tsx'>AssetDisplayPage.tsx</a>
+<ul class='toc-indentation'>
+<li><a href='#ComponentLayout-InternalComponents.2'>Internal Components</a>
+<ul class='toc-indentation'>
+
+<ul class='toc-indentation'>
+<li><a href='#ComponentLayout-UILibrariesused:'>UI Libraries used:</a></li>
+</ul>
+<li><a href='#ComponentLayout-Sidebar.tsx'>Sidebar.tsx</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href='#ComponentLayout-AssetDetails.tsx'>AssetDetails.tsx</a>
+<ul class='toc-indentation'>
+<li><a href='#ComponentLayout-InternalComponents.3'>Internal Components</a></li>
+</ul>
+</li>
+<li><a href='#ComponentLayout-LoginPage.tsx'>LoginPage.tsx</a>
+<ul class='toc-indentation'>
+<li><a href='#ComponentLayout-InternalComponents.4'>Internal Components</a></li>
+</ul>
+</li>
+<li><a href='#ComponentLayout-AdminPage.tsx'>AdminPage.tsx</a>
+<ul class='toc-indentation'>
+<li><a href='#ComponentLayout-InternalComponents.5'>Internal Components</a>
+<ul class='toc-indentation'>
+<li><a href='#ComponentLayout-UserManagement.tsx'>UserManagement.tsx</a></li>
+<li><a href='#ComponentLayout-ProjectManagement.tsx'>ProjectManagement.tsx</a>
+<ul class='toc-indentation'>
+<li><a href='#ComponentLayout-AddProject.tsx'>AddProject.tsx</a></li>
+</ul>
+</li>
+<li><a href='#ComponentLayout-UploadAsset.tsx'>UploadAsset.tsx</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href='#ComponentLayout-Modal.tsx'>Modal.tsx</a></li>
+<li><a href='#ComponentLayout-DisplayCard.tsx'>DisplayCard.tsx</a></li>
+<li><a href='#ComponentLayout-Pagination.tsx'>Pagination.tsx</a></li>
+<li><a href='#ComponentLayout-NotFoundPage.tsx&amp;UnauthorizedPage.tsx'>NotFoundPage.tsx &amp; UnauthorizedPage.tsx</a>
+<ul class='toc-indentation'>
+<li><a href='#ComponentLayout-InternalComponents.6'>Internal Components</a></li>
+</ul>
+</li>
+</ul>
+</div><div class="confluence-information-macro confluence-information-macro-note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>Note: This document needs some updating </p></div></div><h1 id="ComponentLayout-Overview">Overview</h1><p>The following will act as a guide for how we expect components to be structured per page. In the context of this project a “Page” refers to most react router endpoints or the space between the header and footer components. Each page tries to match the Figma drawing which helped dictate component structure</p><h2 id="ComponentLayout-Links">Links</h2><ul><li><p><a class="external-link" href="https://lucid.app/lucidchart/03c4384f-2de5-452e-a762-53c78a1ad1c4/edit?viewport_loc=-1675%2C-1140%2C4850%2C2402%2C0_0&amp;invitationId=inv_d5f24835-1386-4a14-86c5-31c6650772c7" rel="nofollow">Lucidchart</a></p></li><li><p><a class="external-link" data-card-appearance="inline" href="https://www.figma.com/design/1ZrC7OeP4Ny5gqTMN05Isr/Asset-Store-UI-(Copy)?node-id=31-11&amp;t=KWOiBBbjLvnZcpSE-1" rel="nofollow">https://www.figma.com/design/1ZrC7OeP4Ny5gqTMN05Isr/Asset-Store-UI-(Copy)?node-id=31-11&amp;t=KWOiBBbjLvnZcpSE-1</a> </p></li></ul><h1 id="ComponentLayout-Main.tsx/App.tsx">Main.tsx/App.tsx</h1><p>Main is the starting point for the application where we create the browser router and assign its associated provider to the rest of the application.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Asset Store Components - New Store-20241011-184014.png" width="760" loading="lazy" src="attachments/1391165468/1391689754.png?width=760" data-image-src="attachments/1391165468/1391689754.png" data-height="746" data-width="1020" data-unresolved-comment-count="0" data-linked-resource-id="1391689754" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="Asset Store Components - New Store-20241011-184014.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1391165468" data-linked-resource-container-version="17" data-media-id="6cdd367c-b6a7-42c2-8bf7-c17a9d03e9d9" data-media-type="file"></span><h2 id="ComponentLayout-InternalComponents">Internal Components</h2><p>Main contains the following components and subcomponents:</p><ul><li><p><strong>App.tsx</strong></p><ul><li><p><strong>Context Providers:</strong></p><ul><li><p>ConfirmationContext.tsx</p></li><li><p>UserContext.tsx</p></li><li><p>SearchContext.tsx</p></li><li><p>SasTokenContext.tsx</p></li><li><p>ProgressContext.tsx</p></li><li><p>AlertContext.tsx</p></li></ul></li><li><p><strong>Layout Components:</strong></p><ul><li><p>Header.tsx</p></li><li><p>Footer.tsx</p></li><li><p>Outlet</p></li></ul></li></ul></li></ul><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>Outlet is a placeholder component that outputs the child components of the parent (the parent in this case is app.tsx</p></div></div><p>Main provides the react router to app.tsx (making app the parent) which in turn gives access to all child components of app.tsx</p><p>App.tsx is the top level of the router which all other component will render inside of.</p><h3 id="ComponentLayout-Header.tsx">Header.tsx</h3><p>A sub-component of app.tsx intended to be a sticky banner for searching and logging out</p><p>The header component will contain the following sub-components (to be migrated from the V1 application):</p><ul><li><p>SearchInput.tsx</p></li><li><p>UserIcon.tsx</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Asset Store Components - New Store(1)-20241015-173140.png" width="748" loading="lazy" src="attachments/1391165468/1395163154.png?width=748" data-image-src="attachments/1391165468/1395163154.png" data-height="100" data-width="748" data-unresolved-comment-count="0" data-linked-resource-id="1395163154" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Asset Store Components - New Store(1)-20241015-173140.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1391165468" data-linked-resource-container-version="17" data-media-id="d17a0ffd-f125-479c-8fe4-86712b8ca29c" data-media-type="file"></span><h3 id="ComponentLayout-Footer.tsx">Footer.tsx</h3><p>A sub-component of app.tsx intended to act as a footer banner for the asset store</p><p>The footer component will contain the following sub-components (to be migrated from the V1 application):</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Asset Store Components - New Store(2)-20241015-173455.png" width="748" loading="lazy" src="attachments/1391165468/1396080662.png?width=748" data-image-src="attachments/1391165468/1396080662.png" data-height="100" data-width="748" data-unresolved-comment-count="0" data-linked-resource-id="1396080662" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Asset Store Components - New Store(2)-20241015-173455.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1391165468" data-linked-resource-container-version="17" data-media-id="6bf8c7ae-4d83-4476-b757-9125fe6c8ec6" data-media-type="file"></span><h1 id="ComponentLayout-Homepage.tsx">Homepage.tsx</h1><p>Homepage will be the first page component that will be shown to the user upon login.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Asset Store Components - New Store-20241015-172541.png" width="478" loading="lazy" src="attachments/1391165468/1394573322.png?width=478" data-image-src="attachments/1391165468/1394573322.png" data-height="479" data-width="478" data-unresolved-comment-count="0" data-linked-resource-id="1394573322" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Asset Store Components - New Store-20241015-172541.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1391165468" data-linked-resource-container-version="17" data-media-id="05bc481b-9ca1-4fd7-8801-73b11ce8ff4b" data-media-type="file"></span><h2 id="ComponentLayout-InternalComponents.1">Internal Components</h2><p>Homepage.tsx will contain the following components and elements</p><ul><li><p>Button.tsx</p></li><li><p>DisplayCard.tsx</p></li><li><p>Ambulance3D.tsx</p></li><li><p>Carousel</p></li><li><p>Image</p></li><li><p>Paragraph</p></li><li><p>Dropdown</p></li></ul><h1 id="ComponentLayout-AssetDisplayPage.tsx">AssetDisplayPage.tsx</h1><p>Asset page will displays assets in a given preview as well as a collapsible sidebar that gives the user the ability to filter some of the results given to the page.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Asset Store Components - New Store(1)-20241023-151124.png" width="478" loading="lazy" src="attachments/1391165468/1412890627.png?width=478" data-image-src="attachments/1391165468/1412890627.png" data-height="479" data-width="478" data-unresolved-comment-count="0" data-linked-resource-id="1412890627" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Asset Store Components - New Store(1)-20241023-151124.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1391165468" data-linked-resource-container-version="17" data-media-id="16182c66-2ecc-48c3-9668-7163dcfd6f05" data-media-type="file"></span><h2 id="ComponentLayout-InternalComponents.2">Internal Components</h2><p>AssetDisplayPage.tsx contains the following components and elements</p><ul><li><p>Button.tsx</p></li><li><p>DisplayCard.tsx</p></li><li><p>Sidebar.tsx</p></li><li><p>Pagination.tsx</p></li><li><p>Modal.tsx </p></li><li><p>Paragraph</p></li><li><p>H2</p></li><li><p>Dropdown</p></li></ul><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>The modal component exists as a separate component inside of the page sub-component. See the section on Modal.tsx for more information</p></div></div><h4 id="ComponentLayout-UILibrariesused:">UI Libraries used:</h4><ul><li><p>Dropdown: There are two dropdowns on the asset display page. The first being under the h2 title and one with the pagination. It is through a library called <a class="external-link" href="https://www.radix-ui.com/primitives/docs/components/dropdown-menu" rel="nofollow">Radix</a> . It is a highly customisable library with a sufficient CSS properties that can be seen on the link above. </p></li><li><p><code>ChevronDownIcon</code>, <code>ChevronRightIcon</code> are both a part of the icon library called <a class="external-link" href="https://heroicons.com/" rel="nofollow">heroicons</a>. These can installed separately or one can copy the svg files and use it directly. I however decided to install to make the code look cleaner.</p></li><li><p>SideNav or Sidebar: The Sidebar is using <a class="external-link" href="https://daisyui.com/components/drawer/" rel="nofollow">DaisyUI's Drawer</a> component. There are some quirks I had to use for making the colors referenced in tailwind.config.js work with colours in the sidebar and other things that might be useful to know. </p><ul><li><p>If you want to change the colors of the checkbox colours there are properties called --chkfg and --chkbg for changing the color of the tick mark or the background colour respectively. </p><ul><li><p>These can be referenced directly in the tailwind however, it is not possible to use the custom colour codes in tailwind.config.js like general-10 or yellow-80 with these properties. </p></li><li><p>To solve this I created a separate colors.ts file, referenced it in the tailwind.config.js as <code>colors: colors</code> under theme. Next, I imported the colors.ts file in the index.css and in the :root I can use the same color codes with <code>--</code> before them like <code>--general-10: theme(&quot;colors.general.10&quot;);</code>. Theme() fetches the color and assigns it to the custom css variable created. This custom variable is what I can use in the AssetDisplay.css file like </p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: css; gutter: false; theme: Confluence" data-theme="Confluence">.checkbox {
+  --chkbg: var(--general-50);
+}</pre>
+</div></div><p>. checkbox assigns the css to all the checkboxes which is what we are targetting. --chkbg is the property of the checkbox from DaisyUI. and var() grabs the --general-50 custom css var we created in the index css.  Annoying workaround but it works <img class="emoticon emoticon-laugh" data-emoji-id="1f600" data-emoji-shortname=":grinning:" data-emoji-fallback="😀" src="images/icons/emoticons/biggrin.png" width="16" height="16" data-emoticon-name="laugh" alt="(big grin)"/></p></li></ul></li><li><p> Many components in DaisyUI have default padding and default rounding which has to be changed by explicitly mentioning <code>p-0</code> or <code>rounding-none</code> in the tailwind classes.  </p></li></ul></li></ul><h3 id="ComponentLayout-Sidebar.tsx">Sidebar.tsx</h3><p>The side navigation bar will be a collapsible component that allows the user to filter results based on projects and categories. There is a Clear All button to clear all of the selected filters. </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Asset Store Components - New Store(3)-20241015-174348.png" width="289" loading="lazy" src="attachments/1391165468/1395556365.png?width=289" data-image-src="attachments/1391165468/1395556365.png" data-height="479" data-width="289" data-unresolved-comment-count="0" data-linked-resource-id="1395556365" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Asset Store Components - New Store(3)-20241015-174348.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1391165468" data-linked-resource-container-version="17" data-media-id="46c045ac-bfa0-4c7d-9e78-070168e5f277" data-media-type="file"></span><h1 id="ComponentLayout-AssetDetails.tsx">AssetDetails.tsx</h1><p>Asset Details page will display detailed information about a specific asset. It displays preview images, asset data(format, size), ability to download the asset, and 3D previews, along with delete actions (if the user is an admin).</p><h2 id="ComponentLayout-InternalComponents.3">Internal Components</h2><p>AssetDetails.tsx contains the following components and elements</p><ul><li><p>DownloadAssetButton.tsx</p></li><li><p>AssetPreviewDisplay.tsx</p></li><li><p>Confirmation.tsx</p></li><li><p>Carousel</p></li><li><p>Button</p></li><li><p>Paragraph</p></li><li><p>Table</p></li></ul><h1 id="ComponentLayout-LoginPage.tsx">LoginPage.tsx</h1><p>The login page will act as the first place a user is routed to when they are not logged in. The login page should generally have the following structure</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Asset Store Components - New Store(5)-20241015-182319.png" width="478" loading="lazy" src="attachments/1391165468/1395687460.png?width=478" data-image-src="attachments/1391165468/1395687460.png" data-height="566" data-width="478" data-unresolved-comment-count="0" data-linked-resource-id="1395687460" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Asset Store Components - New Store(5)-20241015-182319.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1391165468" data-linked-resource-container-version="17" data-media-id="3b956922-8f87-447f-8857-c6e0a972bae4" data-media-type="file"></span><h2 id="ComponentLayout-InternalComponents.4">Internal Components</h2><p>LoginPage.tsx will contain the following components and elements</p><ul><li><p>Button.tsx</p></li><li><p>Input</p></li><li><p>H2</p></li><li><p>DIV</p></li></ul><h1 id="ComponentLayout-AdminPage.tsx">AdminPage.tsx</h1><p>The admin page will display all functionality that is locked behind “Super-Admin” privilege, these functionalities include:</p><ul><li><p>Changing user roles / deleting users</p></li><li><p>Managing projects</p><ul><li><p>Create</p></li><li><p>Delete</p></li></ul></li><li><p>Upload Asset</p><ul><li><p>Create</p></li></ul></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Asset Store Components - New Store(1)-20241023-151755.png" width="478" loading="lazy" src="attachments/1391165468/1413218306.png?width=478" data-image-src="attachments/1391165468/1413218306.png" data-height="566" data-width="478" data-unresolved-comment-count="0" data-linked-resource-id="1413218306" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Asset Store Components - New Store(1)-20241023-151755.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1391165468" data-linked-resource-container-version="17" data-media-id="8d694bab-b126-445f-aea3-77b52a7ac3f8" data-media-type="file"></span><h2 id="ComponentLayout-InternalComponents.5">Internal Components</h2><p>AdminPage.tsx will contain the following components and elements</p><ul><li><p>Button</p></li><li><p>UserManagement.tsx</p></li><li><p>ProjectManagement.tsx</p><ul><li><p>AddProject.tsx</p></li></ul></li><li><p>UploadAsset.tsx</p></li><li><p>Pagination.tsx (Dynamic render on only Project and User Management)</p></li><li><p>Dropdown</p></li></ul><p>The page will have an internal container which will deploy sub-components related to each tab (User Management, Project Management, and Uploading Assets).</p><div class="panel" style="background-color: #EAE6FF;border-color: #998DD9;border-width: 1px;"><div class="panelContent" style="background-color: #EAE6FF;">
+<p>It might be the case that rendering the drop down and pagination inside of the sub-components of AdminPage is better. Proceed at your own discretion</p>
+</div></div><h3 id="ComponentLayout-UserManagement.tsx">UserManagement.tsx</h3><p>The User management component is a tab of the admin page that will allow the admin user to change the role of each registered user and be able to delete the user. </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Asset Store Components - New Store(2)-20241023-152354.png" width="496" loading="lazy" src="attachments/1391165468/1413382145.png?width=496" data-image-src="attachments/1391165468/1413382145.png" data-height="156" data-width="496" data-unresolved-comment-count="0" data-linked-resource-id="1413382145" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Asset Store Components - New Store(2)-20241023-152354.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1391165468" data-linked-resource-container-version="17" data-media-id="3e5c8770-bb93-437a-ac92-3ad2b3ece3b3" data-media-type="file"></span><h3 id="ComponentLayout-ProjectManagement.tsx">ProjectManagement.tsx</h3><p>The project management component is a tab of the admin page that will allow the user to delete or add projects to the database. It is the only way for the client to directly manipulate the database for information related to projects.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Asset Store Components - New Store(3)-20241023-152504.png" width="541" loading="lazy" src="attachments/1391165468/1413414913.png?width=541" data-image-src="attachments/1391165468/1413414913.png" data-height="334" data-width="541" data-unresolved-comment-count="0" data-linked-resource-id="1413414913" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Asset Store Components - New Store(3)-20241023-152504.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1391165468" data-linked-resource-container-version="17" data-media-id="1e644861-b9b4-4933-a0af-b268f58d07d5" data-media-type="file"></span><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>The modal component exists as a separate component inside of the page sub-component. See the section on Modal.tsx for more information</p></div></div><h4 id="ComponentLayout-AddProject.tsx">AddProject.tsx</h4><p>This is a child component to be given to the modal component that will appear as a pop-up on top of the admin page.  All sub elements should exist inside of a form that is submitted using the create button.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Asset Store Components - New Store(6)-20241023-153358.png" width="685" loading="lazy" src="attachments/1391165468/1412890637.png?width=685" data-image-src="attachments/1391165468/1412890637.png" data-height="540" data-width="685" data-unresolved-comment-count="0" data-linked-resource-id="1412890637" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Asset Store Components - New Store(6)-20241023-153358.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1391165468" data-linked-resource-container-version="17" data-media-id="6689cc08-4646-4d77-b6a8-5d39586910a9" data-media-type="file"></span><p /><p>The Specific part to mention here is the FileUploader.tsx which should appear as a separate JS library component (similar to carousel) see <a class="external-link" data-card-appearance="inline" href="https://www.npmjs.com/package/react-drag-drop-files" rel="nofollow">https://www.npmjs.com/package/react-drag-drop-files</a> for an idea of a node library that can accomplish this functionality.</p><h3 id="ComponentLayout-UploadAsset.tsx">UploadAsset.tsx</h3><p>The upload asset component is a tab of the admin page that will allow the user to add assets to the blob storage and database. It is the only way for the client to directly manipulate the database for information related to assets and the only way for a user to upload a new asset.</p><p>All sub elements should exist inside of a form that is submitted using the create button.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Asset Store Components - New Store(8)-20241023-153607.png" width="760" loading="lazy" src="attachments/1391165468/1412759557.png?width=760" data-image-src="attachments/1391165468/1412759557.png" data-height="643" data-width="891" data-unresolved-comment-count="0" data-linked-resource-id="1412759557" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Asset Store Components - New Store(8)-20241023-153607.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1391165468" data-linked-resource-container-version="17" data-media-id="a0e31524-6f3b-4db5-b937-d54dd2e771a7" data-media-type="file"></span><p>The Specific part to mention here is the FileUploader.tsx which should appear as a separate JS library component (similar to carousel) see <a class="external-link" data-card-appearance="inline" href="https://www.npmjs.com/package/react-drag-drop-files" rel="nofollow">https://www.npmjs.com/package/react-drag-drop-files</a> for an idea of a node library that can accomplish this functionality.</p><p>Missing from the drawing is Preview Images with a file uploader and Project with a dropdown to select a project to assign the asset to. </p><h1 id="ComponentLayout-Modal.tsx">Modal.tsx</h1><p>The modal component is a container that uses portals to render to the modal div directly inside of the index.html</p><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p><a class="external-link" data-card-appearance="inline" href="https://legacy.reactjs.org/docs/portals.html" rel="nofollow">https://legacy.reactjs.org/docs/portals.html</a> See portals for more information</p></div></div><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Asset Store Components - New Store(9)-20241023-153954.png" width="541" loading="lazy" src="attachments/1391165468/1412562952.png?width=541" data-image-src="attachments/1391165468/1412562952.png" data-height="334" data-width="541" data-unresolved-comment-count="0" data-linked-resource-id="1412562952" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Asset Store Components - New Store(9)-20241023-153954.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1391165468" data-linked-resource-container-version="17" data-media-id="a7fb9c00-09bf-47d5-81c3-fd9402929440" data-media-type="file"></span><p>Modal component should be present in each component that will be popping up the modal. For instance inside of AssetDisplayPage.tsx we have AssetCards will call a function that will open the dialog (via refs) and set the internal state of the modal to render. Inside of the modal component are conditional render statements looking at the <em>isOpen</em> prop to determine if it should render the child elements of the modal. The state that manages the rendering the child elements of each modal should be in the parent relative to where the modal is (so in this case in the AssetDisplayPage.tsx). The Modal component expects child elements (in the example of AssetDisplayPage it would be the AssetDetails Component) Which it will render as a subcomponent of itself, this making it modular to whatever you wish to put inside. </p><h1 id="ComponentLayout-DisplayCard.tsx">DisplayCard.tsx</h1><p>The display card component is a container for images and text related to each asset or project. It is a simple card that will display information and ideally pop-up a more detailed modal or page related to each asset or project.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Asset Store Components - New Store(10)-20241023-155147.png" width="451" loading="lazy" src="attachments/1391165468/1412988930.png?width=451" data-image-src="attachments/1391165468/1412988930.png" data-height="208" data-width="451" data-unresolved-comment-count="0" data-linked-resource-id="1412988930" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Asset Store Components - New Store(10)-20241023-155147.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1391165468" data-linked-resource-container-version="17" data-media-id="778a404e-71e5-41f8-aa70-404654e1f38d" data-media-type="file"></span><h1 id="ComponentLayout-Pagination.tsx">Pagination.tsx</h1><p>The pagination component is a React component for pagination that displays a series of page numbers and allows the user to jump to any page by clicking on the page number. The component also displays arrow icons for navigating between pages.</p><h1 id="ComponentLayout-NotFoundPage.tsx&amp;UnauthorizedPage.tsx">NotFoundPage.tsx &amp; UnauthorizedPage.tsx</h1><p>The NotFoundPage.tsx &amp; UnauthorizedPage.tsx page displays an animated 3D component intended for rendering <strong>404</strong> or <strong>403</strong> error pages using Three.js and React Three Fiber. It displays a rotating 3D error code (404 by default, and 403 for unauthorized error).</p><h2 id="ComponentLayout-InternalComponents.6">Internal Components</h2><p>AssetDetails.tsx contains the following components and elements</p><ul><li><p>NotFound3D.tsx.</p></li><li><p>Button</p></li><li><p>Paragraph</p></li><li><p>H1</p></li></ul><p /><p />
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1391165468/1391951879.png">Asset Store Components - New Store-20241011-184014.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1391165468/1391689754.png">Asset Store Components - New Store-20241011-184014.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1391165468/1391558683.png">Asset Store Components - New Store(1)-20241011-191235.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1391165468/1391132687.png">Asset Store Components - New Store-20241011-192423.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1391165468/1394573322.png">Asset Store Components - New Store-20241015-172541.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1391165468/1396047896.png">Asset Store Components - New Store-20241015-172728.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1391165468/1395163154.png">Asset Store Components - New Store(1)-20241015-173140.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1391165468/1394507807">cE0glyS-0k4q?a=2674&amp;x=38&amp;y=808&amp;w=1872&amp;h=288&amp;store=1&amp;accept=image%2F*&amp;auth=LCA%20658dec30aa28665709af96db5103ebe630c9ed0827d5a8717acfa6ccb3ecee38-ts%3D1729013223</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1391165468/1396080662.png">Asset Store Components - New Store(2)-20241015-173455.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1391165468/1395556365.png">Asset Store Components - New Store(3)-20241015-174348.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1391165468/1395458095.png">Asset Store Components - New Store(4)-20241015-181444.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1391165468/1395556371.png">Asset Store Components - New Store(4)-20241015-181444.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1391165468/1395687460.png">Asset Store Components - New Store(5)-20241015-182319.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1391165468/1412890627.png">Asset Store Components - New Store(1)-20241023-151124.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1391165468/1413218306.png">Asset Store Components - New Store(1)-20241023-151755.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1391165468/1413382145.png">Asset Store Components - New Store(2)-20241023-152354.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1391165468/1413414913.png">Asset Store Components - New Store(3)-20241023-152504.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1391165468/1413054469.png">Asset Store Components - New Store(4)-20241023-152819.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1391165468/1413054475.png">Asset Store Components - New Store(5)-20241023-153033.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1391165468/1412890637.png">Asset Store Components - New Store(6)-20241023-153358.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1391165468/1413087237.png">Asset Store Components - New Store(7)-20241023-153501.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1391165468/1412759557.png">Asset Store Components - New Store(8)-20241023-153607.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1391165468/1412562952.png">Asset Store Components - New Store(9)-20241023-153954.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1391165468/1412988930.png">Asset Store Components - New Store(10)-20241023-155147.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 27, 2025 21:02</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

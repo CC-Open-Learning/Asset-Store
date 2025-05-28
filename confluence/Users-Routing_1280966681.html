@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vConestoga : Users Routing</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="vConestoga_536314119.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Projects_1091797023.html">Projects</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="VARLab-Asset-Store_1124859959.html">VARLab Asset Store</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="API-Endpoints_1172176932.html">API Endpoints</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            vConestoga : Users Routing
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Yujin Jeong</span>, last modified by <span class='editor'> Islam Ahmed</span> on Jan 17, 2025
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>This documentation outlines the happy paths for the routes in <strong>users.js</strong></p><style type='text/css'>/*<![CDATA[*/
+div.rbtoc1748379743697 {padding: 0px;}
+div.rbtoc1748379743697 ul {list-style: none;margin-left: 0px;}
+div.rbtoc1748379743697 li {margin-left: 0px;padding-left: 0px;}
+
+/*]]>*/</style><div class='toc-macro rbtoc1748379743697'>
+<ul class='toc-indentation'>
+<li><a href='#UsersRouting-/login'>/login</a></li>
+<li><a href='#UsersRouting-/authenticate'>/authenticate</a></li>
+<li><a href='#UsersRouting-/allUserRoles'>/allUserRoles</a></li>
+<li><a href='#UsersRouting-/toggleUserRole'>/toggleUserRole</a></li>
+<li><a href='#UsersRouting-/(DELETE)'>/ (DELETE)</a></li>
+</ul>
+</div></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<div class="table-wrap"><table data-table-width="760" data-layout="default" data-local-id="667197f7-3f8c-45dd-8792-3f0d202d1868" data-table-display-mode="default" class="confluenceTable"><colgroup><col style="width: 442.0px;"/><col style="width: 439.0px;"/></colgroup><tbody><tr><th class="confluenceTh"><p><strong>Route</strong></p></th><th class="confluenceTh"><p><strong>Functionality</strong></p></th></tr><tr><td class="confluenceTd"><p>/login</p></td><td class="confluenceTd"><p>Validate user and set tokens</p></td></tr><tr><td class="confluenceTd"><p>/logout</p></td><td class="confluenceTd"><p>Clear cookies</p></td></tr><tr><td class="confluenceTd"><p>/authenticate</p></td><td class="confluenceTd"><p>Check if user is authenticated</p></td></tr><tr><td class="confluenceTd"><p>/profile</p></td><td class="confluenceTd"><p>Get user profile</p></td></tr><tr><td class="confluenceTd"><p>/allUsersRoles</p></td><td class="confluenceTd"><p>Get all users names and roles</p></td></tr><tr><td class="confluenceTd"><p>/toggleUserRole</p></td><td class="confluenceTd"><p>Toggle user role passed as a query parameter</p></td></tr><tr><td class="confluenceTd"><p>/ (DELETE)</p></td><td class="confluenceTd"><p>Delete a user</p></td></tr></tbody></table></div></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="UsersRouting-/login">/login</h2><p>This route is triggered when a user logs in with an ID and password (not through OAuth)</p><ol start="1"><li><p>Check the database for the user's information.</p></li><li><p>Validate the password using the hash and salt.</p></li><li><p>Issue refresh and access tokens.</p></li><li><p>Set the tokens in cookies.</p></li></ol></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="UsersRouting-/authenticate">/authenticate</h2><p>Use the <code>checkAuthentication</code> middleware to check if the tokens are valid</p><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>For middleware explanation, refer to the <a href="Store-Authentication_1181581317.html" data-linked-resource-id="1181581317" data-linked-resource-version="16" data-linked-resource-type="page">Authentication ▫️</a> </p></div></div></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="UsersRouting-/allUserRoles">/allUserRoles</h2><p>This route is triggered when a user attempts to access the admin page</p><ol start="1"><li><p>Check if the user is signed in with an <code>admin</code> account ( username: admin)</p></li><li><p>Respond with information about all users.</p></li></ol></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="UsersRouting-/toggleUserRole">/toggleUserRole</h2><ol start="1"><li><p>Check if the user is signed in with an <code>admin</code> account ( username: admin)</p></li><li><p>Get username from <code>req.body</code></p></li><li><p>Find the user in the database by username</p></li><li><p>Toggle user role <code>admin ↔︎ user</code></p></li><li><p>Save the changes to the database.</p></li></ol></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="UsersRouting-/(DELETE)">/ (DELETE)</h2><p>This route is triggered when a user attempts to delete a user from the User Management section of the admin page</p><ol start="1"><li><p>Extracts the <code>id</code> from <code>req.body</code></p></li><li><p>Validates the <code>id</code> parameter, if not provided, responds with a <code>400</code> status</p></li><li><p>Finds the user in the database by <code>_id</code></p><ul><li><p>If the user is not found, responds with a <code>404</code> status</p></li></ul></li><li><p>Prevents deletion of the default admin account (username: admin).</p><ul><li><p>If attempted responds with a <code>403</code> status.</p></li></ul></li><li><p>Deletes the user from the database</p></li><li><p>Logs the deletion</p></li><li><p>Responds with a success message and a <code>200</code> status.</p></li></ol></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+</div>
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1280966681/1562738692.jpg">varlab_virtual_and_augmented_reality_lab_cover.jpg</a> (image/jpeg)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 27, 2025 21:02</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vConestoga : SharePoint Extractor Script</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="vConestoga_536314119.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Projects_1091797023.html">Projects</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="VARLab-Asset-Store_1124859959.html">VARLab Asset Store</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            vConestoga : SharePoint Extractor Script
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Islam Ahmed</span>, last modified on Dec 30, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <div class="contentLayout2">
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="SharePointExtractorScript-Overview">Overview</h2><p>The SharePoint Extractor Script is a tool designed to automate the process of scanning a specified SharePoint page for files with given extensions (e.g., <code>.zip</code>, <code>.pdf</code>, etc.) and downloading them. It uses <strong>Selenium</strong> to interact with the SharePoint web interface and systematically scrolls through the page, identifying and downloading files based on user-defined extensions.</p><p>Key features include:</p><ul><li><p><strong>File extension filtering</strong>: Scans the page for specified file types (e.g., <code>.zip</code>, <code>.pdf</code>).</p></li><li><p><strong>Duplicate prevention</strong>: Tracks items to ensure no duplicates are downloaded.</p></li><li><p><strong>Filesystem check</strong>: Skips files that already exist locally to prevent redundant downloads.</p></li><li><p><strong>Cross-platform support</strong>: Runs on both Linux and Windows environments.</p></li></ul><p>This documentation provides comprehensive setup instructions, configuration guidance, and details on executing the script, including post-run tasks and monitoring tips.</p><h2 id="SharePointExtractorScript-TableofContents"><strong>Table of Contents</strong></h2><style type='text/css'>/*<![CDATA[*/
+div.rbtoc1748379765789 {padding: 0px;}
+div.rbtoc1748379765789 ul {list-style: none;margin-left: 0px;padding-left: ;}
+div.rbtoc1748379765789 li {margin-left: 0px;padding-left: 0px;}
+
+/*]]>*/</style><div class='toc-macro rbtoc1748379765789'>
+<ul class='toc-indentation'>
+<li><a href='#SharePointExtractorScript-Overview'>Overview</a></li>
+<li><a href='#SharePointExtractorScript-SetupInstructions'>Setup Instructions</a>
+<ul class='toc-indentation'>
+<li><a href='#SharePointExtractorScript-Environment'>Environment</a>
+<ul class='toc-indentation'>
+<li><a href='#SharePointExtractorScript-BasicVersion'>Basic Version</a></li>
+<li><a href='#SharePointExtractorScript-CondaVersion'>Conda Version</a></li>
+</ul>
+</li>
+<li><a href='#SharePointExtractorScript-Variables'>Variables</a>
+<ul class='toc-indentation'>
+<li><a href='#SharePointExtractorScript-download_dir'>download_dir</a></li>
+<li><a href='#SharePointExtractorScript-log_file_base_name'>log_file_base_name</a></li>
+<li><a href='#SharePointExtractorScript-file_extension'>file_extension</a></li>
+<li><a href='#SharePointExtractorScript-sharepoint_url'>sharepoint_url</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href='#SharePointExtractorScript-RunInstructions'>Run Instructions</a>
+<ul class='toc-indentation'>
+<li><a href='#SharePointExtractorScript-Execution'>Execution</a></li>
+<li><a href='#SharePointExtractorScript-Post-Run'>Post-Run</a>
+<ul class='toc-indentation'>
+<li><a href='#SharePointExtractorScript-1.VerifytheOutputofFoundFiles'>1. Verify the Output of Found Files</a></li>
+<li><a href='#SharePointExtractorScript-2.ChecktheDownloadDirectory'>2. Check the Download Directory</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href='#SharePointExtractorScript-ThingstoBeAwareOf'>Things to Be Aware Of</a>
+<ul class='toc-indentation'>
+<li><a href='#SharePointExtractorScript-DownloadFailuresandTabSwitching'>Download Failures and Tab Switching</a></li>
+<li><a href='#SharePointExtractorScript-CancellingorStoppingtheScript'>Cancelling or Stopping the Script</a></li>
+<li><a href='#SharePointExtractorScript-AvoidUsingMouseorKeyboard'>Avoid Using Mouse or Keyboard</a></li>
+</ul>
+</li>
+</ul>
+</div></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/></div>
+</div>
+</div>
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="SharePointExtractorScript-SetupInstructions">Setup Instructions</h2><h3 id="SharePointExtractorScript-Environment">Environment</h3><h4 id="SharePointExtractorScript-BasicVersion">Basic Version</h4><p>If you prefer not to use a Conda environment, you can set up the SharePoint Extractor Script using basic Python and pip without the need for virtual environments. This version outlines how to set up the script directly on your system.</p></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h5 id="SharePointExtractorScript-Step1:InstallPython">Step 1: Install Python</h5><p>To check if Python is installed, run the following command:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">python --version</pre>
+</div></div><p>If it’s installed correctly, you should see the Python version printed in your terminal or command prompt. (We need at least <code>Python 3.12</code>)</p><p>If Python is not installed:</p><ul><li><p><strong>Windows</strong>: <a class="external-link" href="https://docs.python.org/3/using/windows.html" rel="nofollow">Python Windows Installation Guide</a></p></li></ul></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h5 id="SharePointExtractorScript-Step2:InstallRequiredDependencies">Step 2: Install Required Dependencies</h5><p>The script relies on several Python packages, which can be installed using <code>pip</code>. Install the required packages listed in the <code>requirements.txt</code> file:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">pip install selenium webdriver-manager colorama</pre>
+</div></div></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/></div>
+</div>
+</div>
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h4 id="SharePointExtractorScript-CondaVersion">Conda Version</h4><p>The SharePoint Extractor Script can be run within a <strong>Conda environment</strong> for easy package management and isolation. Below are the steps to set up the environment using <strong>Conda</strong>.</p></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h5 id="SharePointExtractorScript-Step1:InstallConda">Step 1: Install Conda</h5><p>If Conda is not installed, you can install <strong>Miniconda</strong> or <strong>Anaconda</strong>.</p><ul><li><p><strong>Windows</strong>: <a class="external-link" href="https://docs.anaconda.com/miniconda/miniconda-install/" rel="nofollow">Miniconda Windows Installation Guide</a></p></li></ul></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h5 id="SharePointExtractorScript-Step2:NavigatetotheScriptDirectory">Step 2: Navigate to the Script Directory</h5><p>Before creating the environment, navigate to the directory where your SharePoint Extractor Script is located. This ensures the environment is created in the script's folder.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">cd /path/to/varlab-asset-store/sharepoint-extractor/</pre>
+</div></div><p><em>Make sure to adjust the path accordingly.</em></p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h5 id="SharePointExtractorScript-Step3:CreateaCondaEnvironment">Step 3: Create a Conda Environment</h5><p>Create a Conda environment in the current directory with Python 3.12. Run the following command:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">conda create -p &#39;./.conda&#39; python=3.12</pre>
+</div></div><p>This will create a new environment in the <code>.conda</code> folder with Python 3.12.</p></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h5 id="SharePointExtractorScript-Step4:ActivatetheEnvironment">Step 4: Activate the Environment</h5><p>Activate the Conda environment using the following command:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">conda activate /path/to/varlab-asset-store/sharepoint-extractor/.conda/</pre>
+</div></div><p><em>Make sure to adjust the path accordingly.</em></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240927-085346.png" width="760" loading="lazy" src="attachments/1362952223/1364623400.png?width=760" data-image-src="attachments/1362952223/1364623400.png" data-height="133" data-width="894" data-unresolved-comment-count="0" data-linked-resource-id="1364623400" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240927-085346.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1362952223" data-linked-resource-container-version="8" data-media-id="fe33a3f0-ac3c-40ab-ba05-1be4209e2a5d" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h5 id="SharePointExtractorScript-Step5:ManuallyInstallRequiredPackages">Step 5: Manually Install Required Packages</h5><p>Manually install the necessary Python packages by running:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">pip install selenium webdriver-manager colorama</pre>
+</div></div></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/></div>
+</div>
+</div>
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="SharePointExtractorScript-Variables">Variables</h3><p>The SharePoint Extractor Script allows customization through a set of configurable variables. Below are the key variables that need to be defined for the script to function properly:</p></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h4 id="SharePointExtractorScript-download_dir"><code>download_dir</code></h4><ul><li><p><strong>Description</strong>: This variable sets the directory where all downloaded files will be saved.</p></li><li><p><strong>Default Value</strong>: <code>./</code></p></li><li><p><strong>Usage</strong>:</p><ul><li><p>You can set this to any directory path where you want the files to be stored. For example:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">download_dir = &quot;/path/to/your/download/directory&quot;</pre>
+</div></div></li></ul></li></ul></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h4 id="SharePointExtractorScript-log_file_base_name"><code>log_file_base_name</code></h4><ul><li><p><strong>Description</strong>: This variable defines the base name for the log file that the script will generate.</p></li><li><p><strong>Default Value</strong>: <code>sharepoint-extractor</code></p></li><li><p><strong>Usage</strong>:</p><ul><li><p>The log file will be stored in the download directory with this base name and a <code>.log</code> extension. For example:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">log_file_base_name = &quot;custom-log-name&quot;</pre>
+</div></div></li><li><p>The full log file will be saved as <code>.custom-log-name.log</code>.</p></li></ul></li></ul></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h4 id="SharePointExtractorScript-file_extension"><code>file_extension</code></h4><ul><li><p><strong>Description</strong>: This variable sets the file extension that the script will filter and download from SharePoint.</p></li><li><p><strong>Default Value</strong>: <code>.zip</code></p></li><li><p><strong>Usage</strong>:</p><ul><li><p>To change the file type the script downloads, update this value to the desired file extension. For example:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">file_extension = &quot;.pdf&quot;</pre>
+</div></div></li></ul></li></ul></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h4 id="SharePointExtractorScript-sharepoint_url"><code>sharepoint_url</code></h4><ul><li><p><strong>Description</strong>: The URL of the SharePoint page where the script will search for and download files.</p></li><li><p><strong>Default Value</strong>: <code>https://stuconestogacon.sharepoint.com.mcas.ms/sites/VARLab/Shared%20Documents/Forms/AllItems.aspx?view=7&amp;q=%2Ezip</code></p></li><li><p><strong>Usage</strong>:</p><ul><li><p>Replace the default URL with the SharePoint link you want the script to navigate to. For example:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">https://stuconestogacon.sharepoint.com.mcas.ms/sites/VARLab/Shared%20Documents/Forms/AllItems.aspx?view=7&amp;q=%2Epdf```</pre>
+</div></div></li></ul></li></ul></div>
+</div>
+</div>
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>These variables allow you to customize the behavior of the script to suit your specific needs and environment. Make sure to update them based on your setup before running the script.</p></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/></div>
+</div>
+</div>
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="SharePointExtractorScript-RunInstructions">Run Instructions</h2><h3 id="SharePointExtractorScript-Execution">Execution</h3><p>Once you have set up the environment and configured the necessary variables, you can proceed with executing the SharePoint Extractor Script. Follow these steps to run the script and begin downloading files from the specified SharePoint page.</p></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h5 id="SharePointExtractorScript-Step1:ActivatetheEnvironment(ifusingconda)">Step 1: Activate the Environment (if using conda)</h5><p>Activate the Conda environment using the following command:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">conda activate /path/to/varlab-asset-store/sharepoint-extractor/.conda/</pre>
+</div></div><p><em>Make sure to adjust the path accordingly.</em></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240927-085413.png" width="760" loading="lazy" src="attachments/1362952223/1364983831.png?width=760" data-image-src="attachments/1362952223/1364983831.png" data-height="133" data-width="894" data-unresolved-comment-count="0" data-linked-resource-id="1364983831" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240927-085413.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1362952223" data-linked-resource-container-version="8" data-media-id="beb6ab9e-61b9-4576-8055-98ae361d0976" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h5 id="SharePointExtractorScript-Step2:NavigatetotheScriptDirectory.1">Step 2: Navigate to the Script Directory</h5><p>Before creating the environment, navigate to the directory where your SharePoint Extractor Script is located. This ensures the environment is created in the script's folder.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">cd /path/to/varlab-asset-store/sharepoint-extractor/</pre>
+</div></div><p><em>Make sure to adjust the path accordingly.</em></p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h5 id="SharePointExtractorScript-Step3:ExecutetheScript">Step 3: Execute the Script</h5><p>Run the script by executing the following command:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">python sharepoint_extractor.py</pre>
+</div></div><h5 id="SharePointExtractorScript-Step4:MonitortheExecution">Step 4: Monitor the Execution</h5><ul><li><p><strong>Browser Automation</strong>: Once the script runs, it will open a browser window (such as Chrome) and navigate to the specified SharePoint URL.</p></li><li><p><strong>2FA/Login</strong>: If your SharePoint instance requires login or two-factor authentication (2FA), you’ll be prompted to log in during script execution.</p></li><li><p><strong>File Download</strong>: The script will begin scanning the page for files matching the specified <code>file_extension</code>. It will download files that are not already present in the <code>download_dir</code>.</p></li></ul></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/></div>
+</div>
+</div>
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="SharePointExtractorScript-Post-Run">Post-Run</h3><p>After the SharePoint Extractor Script has completed its execution, there are a few steps to ensure that the process was successful and that all expected files have been downloaded.</p></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h4 id="SharePointExtractorScript-1.VerifytheOutputofFoundFiles">1. Verify the Output of Found Files</h4><p>The script logs the names of all files that were identified and processed during the run. You can view this output in the terminal or command prompt where the script was executed. Each file that matched the <code>file_extension</code> and was successfully downloaded will be listed.</p><ul><li><p>Check the terminal log for messages such as:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">Tracking: yourfile.zip
+File not found locally. Triggering download: yourfile.zip 
+Download started: yourfile.zip</pre>
+</div></div></li></ul></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h4 id="SharePointExtractorScript-2.ChecktheDownloadDirectory">2. Check the Download Directory</h4><p>Navigate to the <code>download_dir</code> that was specified in the script to ensure all the files were downloaded successfully. The number of files in the directory should match the number of files that the script reported as processed in the terminal output.</p><ul><li><p>For example, if the script tracked 5 files, ensure that 5 files are present in the <code>download_dir</code></p></li></ul></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/></div>
+</div>
+</div>
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="SharePointExtractorScript-ThingstoBeAwareOf">Things to Be Aware Of</h2><p>When running the SharePoint Extractor Script, there are a few important details to keep in mind to ensure smooth execution and troubleshoot any potential issues.</p></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="SharePointExtractorScript-DownloadFailuresandTabSwitching">Download Failures and Tab Switching</h3><p>If a download fails or gets interrupted, it may seem as though the script is continuously switching between tabs without any visible progress. This is caused by a bug where the original temporary file (<code>.crdownload</code>) is lost, and a new one is created in the background.</p><ul><li><p><strong>Rest assured, your download is continuing</strong>, even if it seems like no progress is being made. The script automatically manages this, and the download will resume or restart as needed.</p></li><li><p><strong>Ignore the semi-spam logs</strong> during this time, as they may not indicate actual issues. These logs are part of the script’s ongoing checks.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240928-154031.png" width="736" loading="lazy" src="attachments/1362952223/1367506956.png?width=736" data-image-src="attachments/1362952223/1367506956.png" data-height="423" data-width="967" data-unresolved-comment-count="0" data-linked-resource-id="1367506956" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240928-154031.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1362952223" data-linked-resource-container-version="8" data-media-id="76ae6153-07f9-4315-bd68-5a78aed1694e" data-media-type="file"></span></li><li><p>To confirm that the download is still in progress, you can monitor the small progress icon on the browser window in the taskbar or check the downloads tab for file activity. <span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" alt="image-20240928-154702.png" loading="lazy" src="attachments/1362952223/1367506979.png" data-image-src="attachments/1362952223/1367506979.png" data-height="82" data-width="80" data-unresolved-comment-count="0" data-linked-resource-id="1367506979" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240928-154702.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1362952223" data-linked-resource-container-version="8" data-media-id="e9dc59ac-54c1-4e34-8977-017c006d3414" data-media-type="file"></span> </p></li></ul></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="SharePointExtractorScript-CancellingorStoppingtheScript">Cancelling or Stopping the Script</h3><p>If you need to cancel or stop the script during its execution, press <code>Ctrl+C</code> in the terminal or command prompt where the script is running.</p><ul><li><p><strong>Important</strong>: You may need to press <code>Ctrl+C</code> several times to ensure that all processes are stopped.</p></li><li><p>If the script is stopped while downloading a file, any partially downloaded files will remain in the <code>download_dir</code>. You can manually restart the script to resume downloading the remaining files.</p></li></ul></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="SharePointExtractorScript-AvoidUsingMouseorKeyboard">Avoid Using Mouse or Keyboard</h3><p>Once the script has started, <strong>avoid using your mouse or keyboard</strong> until the script finishes to prevent any disruptions or errors during execution. The script interacts directly with the browser, and manual input can interfere with its automation process.</p></div>
+</div>
+</div>
+</div>
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1362952223/1365114885.png">image-20240927-073950.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1362952223/1364623400.png">image-20240927-085346.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1362952223/1364983831.png">image-20240927-085413.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1362952223/1367506956.png">image-20240928-154031.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1362952223/1367670791.png">image-20240928-154408.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1362952223/1367506979.png">image-20240928-154702.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1362952223/1536163892.jpg">varlab_virtual_and_augmented_reality_lab_cover.jpg</a> (image/jpeg)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 27, 2025 21:02</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

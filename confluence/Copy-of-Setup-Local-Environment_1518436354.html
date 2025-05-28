@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vConestoga : Copy of Setup Local Environment</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="vConestoga_536314119.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Projects_1091797023.html">Projects</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="VARLab-Asset-Store_1124859959.html">VARLab Asset Store</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            vConestoga : Copy of Setup Local Environment
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Netra Hindocha</span>, last modified on Dec 12, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <style type="text/css">/*<![CDATA[*/
+div.rbtoc1748379790129 {padding: 0px;}
+div.rbtoc1748379790129 ul {list-style: none;margin-left: 0px;}
+div.rbtoc1748379790129 li {margin-left: 0px;padding-left: 0px;}
+
+/*]]>*/</style><div class="toc-macro rbtoc1748379790129"><style>[data-colorid=t6tvfo59nh]{color:#ff991f} html[data-color-mode=dark] [data-colorid=t6tvfo59nh]{color:#e07a00}[data-colorid=vnkhdr54li]{color:#ff991f} html[data-color-mode=dark] [data-colorid=vnkhdr54li]{color:#e07a00}[data-colorid=k41xr4c9dy]{color:#ff991f} html[data-color-mode=dark] [data-colorid=k41xr4c9dy]{color:#e07a00}</style>
+<ul class="toc-indentation">
+<li><a href="#CopyofSetupLocalEnvironment-Overview">Overview</a>
+<ul class="toc-indentation">
+<li><a href="#CopyofSetupLocalEnvironment-Prerequisites">Prerequisites</a></li>
+</ul>
+</li>
+<li><a href="#CopyofSetupLocalEnvironment-Testfiles">Test files</a></li>
+<li><a href="#CopyofSetupLocalEnvironment-ClientSetup">Client Setup</a>
+<ul class="toc-indentation">
+<li><a href="#CopyofSetupLocalEnvironment-Client-Portual.env">Client-Portual .env</a></li>
+<li><a href="#CopyofSetupLocalEnvironment-StartingtheClient">Starting the Client</a></li>
+</ul>
+</li>
+<li><a href="#CopyofSetupLocalEnvironment-ServerSetup">Server Setup</a>
+<ul class="toc-indentation">
+<li><a href="#CopyofSetupLocalEnvironment-IsMongoDBstarted?">Is MongoDB started?</a></li>
+<li><a href="#CopyofSetupLocalEnvironment-LocalENVChange">Local ENV Change</a></li>
+<li><a href="#CopyofSetupLocalEnvironment-Starttheserver">Start the server</a></li>
+</ul>
+</li>
+<li><a href="#CopyofSetupLocalEnvironment-PopulateMongoDB">Populate MongoDB</a></li>
+<li><a href="#CopyofSetupLocalEnvironment-LocalAdmin">Local Admin</a></li>
+</ul>
+</div><h2 id="CopyofSetupLocalEnvironment-Overview">Overview</h2><p>The following will act as a guide for setting up a local testing environment for the Asset Store. This guide does not include software installation but will link to guides when required. This guide also assumes you have the repository cloned on your local machine.</p><h3 id="CopyofSetupLocalEnvironment-Prerequisites">Prerequisites</h3><ul><li><p>MongoDB Community Edition </p><ul><li><p><a class="external-link" data-card-appearance="inline" href="https://www.mongodb.com/docs/manual/administration/install-community/" rel="nofollow">https://www.mongodb.com/docs/manual/administration/install-community/</a> </p></li><li><p>Optionally Install MongoDB Compass as a GUI <a href="https://varlab-dev.atlassian.net/wiki/spaces/VCON/pages/1005551629/MongoDB+Compass" data-linked-resource-id="1005551629" data-linked-resource-version="5" data-linked-resource-type="page">MongoDB Compass</a></p></li></ul></li><li><p>WSL2 (Optional)</p><ul><li><p>If you are on Windows and need a Linux environment to test using the Linux file system, using WSL2 with Ubuntu is sufficient <a class="external-link" data-card-appearance="inline" href="https://www.linkedin.com/pulse/step-procedure-install-wsl2-windows-run-ubuntu-using-arun-kl" rel="nofollow">https://www.linkedin.com/pulse/step-procedure-install-wsl2-windows-run-ubuntu-using-arun-kl</a>  </p></li></ul></li><li><p>.env</p><ul><li><p>The server uses an ENV file to store keys and directories related to running an instance of the server locally.</p></li><li><p>The ENV file is git ignored for security purposes and therefore will not be cloned into your local repository</p></li><li><p>Refer to <a href="https://varlab-dev.atlassian.net/wiki/spaces/VCON/pages/875659274/Remote+Development+With+VS+Code" data-linked-resource-id="875659274" data-linked-resource-version="9" data-linked-resource-type="page">Remote Development With VS Code</a> for instructions on how to access the linux server via vs code.</p></li><li><p>Refer to <a href="Asset-Storage_1175191556.html" data-linked-resource-id="1175191556" data-linked-resource-version="6" data-linked-resource-type="page">Asset Storage</a> for instructions on downloading files from the server via VS Code Remote explorer.</p></li><li><p>It is accessible on the asset store server in the follow directory:</p></li></ul></li></ul><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence"> /home/shopkeeper/varlab-asset-store/server/.env</pre>
+</div></div><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon" /><div class="confluence-information-macro-body"><p>Ensure that you place the env file in the same relative directory to your local instance</p></div></div><ul><li><p>Client-Portual <span class="inline-comment-marker" data-ref="315bcf8e-1309-465a-949b-aa4abe30ea20">.env file</span></p><ul><li><p>The client-portual has an .env file that gives the client-portual the location of the server</p></li><li><p>This file is ignored by GIT and must be manually added when the repository is copied</p></li></ul></li><li><p>The .env file can be manually created as long as it is placed in <code>./client-portual</code> folder </p></li><li><p>It is also accessible on the asset store server in the following directory:</p></li></ul><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence"> /home/shopkeeper/varlab-asset-store/client-portual/.env</pre>
+</div></div><ul><li><p>Nodemon (optional)</p><ul><li><p>nodemon is a tool that helps develop Node.js-based applications by automatically restarting the node application when file changes in the directory are detected.</p></li><li><p>Install it globally on your machine by entering the following command:</p></li></ul></li></ul><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">npm i -g nodemon</pre>
+</div></div><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon" /><div class="confluence-information-macro-body"><p>If nodemon is installed the server can be started using <strong>&ldquo;npm run dev&rdquo;</strong> just like the client as it has a dev command built into its package.json scripts</p></div></div><h2 id="CopyofSetupLocalEnvironment-Testfiles">Test files</h2><p>For testing purposes the populateDatabase.js script has files that accompany it should you wish to use it. To get the files refer to <a href="Asset-Storage_1175191556.html" data-linked-resource-id="1175191556" data-linked-resource-version="6" data-linked-resource-type="page">Asset Storage</a> in the &ldquo;Local File usage&rdquo; section. The a ZIP of the original files exists on the Linux server for testing purposes.</p><h2 id="CopyofSetupLocalEnvironment-ClientSetup">Client Setup</h2><h3 id="CopyofSetupLocalEnvironment-Client-Portual.env">Client-Portual .env</h3><p>The client-portual uses an <code>.env</code> file containing references to the server required for API calls and authentication callbacks. It should (as of writing this guide) contain the following information:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: plain; gutter: false; theme: Confluence" data-theme="Confluence">VITE_SERVER_BASE_URL=https://assetstore.vconestoga.com/
+VITE_SERVER_URL=https://assetstore.vconestoga.com/api</pre>
+</div></div><p><code>VITE_SERVER_URL</code> is used in production (on the live server) so that when the client is deployed it will know to direct all API requests to the Azure server. <code>VITE_SERVER_URL</code> is the address you need to use to reference your local server you will be hosting on your local instance.</p><p><code>To run it locally, you have to assign the value of VITE_SERVER_URL to &quot;http://localhost:3000/api&quot;</code></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: plain; gutter: false; theme: Confluence" data-theme="Confluence">VITE_SERVER_BASE_URL=http://localhost:3000
+VITE_SERVER_URL=http://localhost:3000/api</pre>
+</div></div><h3 id="CopyofSetupLocalEnvironment-StartingtheClient">Starting the Client</h3><p>To start the client react app on your local machine run the following command in your <strong>local</strong> <strong>console <span data-colorid="vnkhdr54li">in the client-portual folder</span></strong> of the project:</p><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon" /><div class="confluence-information-macro-body"><p>The following screenshots may contain <code>client</code> in the path instead of <code>client-portual</code>, as <code>client</code> was the previous directory name. Please disregard the old path and use the correct one i.e. <code>client-portual</code></p></div></div><p>1 - Install dependencies: </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240916-202930.png" width="383" loading="lazy" src="attachments/1518436354/1518436391.png?width=383" data-image-src="attachments/1518436354/1518436391.png" data-height="104" data-width="383" data-unresolved-comment-count="0" data-linked-resource-id="1518436391" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240916-202930.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1518436354" data-linked-resource-container-version="7" data-media-id="af0b689a-7615-47c1-a5c4-2d8a3307d5be" data-media-type="file" /></span><p style="margin-left: 30.0px;">1.1 - Fix an vulnerabilities you may have by running npm audit fix</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240916-203153.png" width="545" loading="lazy" src="attachments/1518436354/1518436388.png?width=545" data-image-src="attachments/1518436354/1518436388.png" data-height="287" data-width="545" data-unresolved-comment-count="0" data-linked-resource-id="1518436388" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240916-203153.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1518436354" data-linked-resource-container-version="7" data-media-id="36eac22b-c62a-470d-847e-779b12537fce" data-media-type="file" /></span><p>2 - Run client-portual</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240916-203318.png" width="379" loading="lazy" src="attachments/1518436354/1518436385.png?width=379" data-image-src="attachments/1518436354/1518436385.png" data-height="91" data-width="379" data-unresolved-comment-count="0" data-linked-resource-id="1518436385" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240916-203318.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1518436354" data-linked-resource-container-version="7" data-media-id="2f865697-915b-44b5-881f-12bbe31d67f4" data-media-type="file" /></span><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon" /><div class="confluence-information-macro-body"><p>A separate guide is available for handling the client on the server <a href="Store-Administration_1162543210.html" data-linked-resource-id="1162543210" data-linked-resource-version="10" data-linked-resource-type="page">Store Administration</a> </p></div></div><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240916-203441.png" width="321" loading="lazy" src="attachments/1518436354/1518436379.png?width=321" data-image-src="attachments/1518436354/1518436379.png" data-height="104" data-width="321" data-unresolved-comment-count="0" data-linked-resource-id="1518436379" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240916-203441.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1518436354" data-linked-resource-container-version="7" data-media-id="e51145ba-45a8-40b7-b797-dd4f02ddedb1" data-media-type="file" /></span><h2 id="CopyofSetupLocalEnvironment-ServerSetup">Server Setup</h2><h3 id="CopyofSetupLocalEnvironment-IsMongoDBstarted?">Is MongoDB started?</h3><p>MongoDB as a service needs to be started and be accessible to the server before you start it. If you installed it as a service using the guide linked above, MongoDB will start <strong>AUTOMATICALLY</strong> when windows starts, if not enter the following command:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">sudo systemctl start mongod   #LINUX</pre>
+</div></div><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon" /><div class="confluence-information-macro-body"><p>If you installed MongoDB on windows the service will start automatically</p></div></div><p>If you wish to see if the services is started on windows go to Services in windows</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240618-204459.png" width="760" loading="lazy" src="attachments/1518436354/1518436403.png?width=760" data-image-src="attachments/1518436354/1518436403.png" data-height="328" data-width="954" data-unresolved-comment-count="0" data-linked-resource-id="1518436403" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240618-204459.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1518436354" data-linked-resource-container-version="7" data-media-id="579b772f-e1f3-4ee1-82e4-fbdfe7846a4f" data-media-type="file" /></span><h3 id="CopyofSetupLocalEnvironment-LocalENVChange">Local ENV Change</h3><p>You have to manually add .env file to the server as it is git-ignored. To add .env file, go to <code>Remote SSH</code> <a href="https://varlab-dev.atlassian.net/wiki/spaces/VCON/pages/875659274/Remote+Development+With+VS+Code" data-linked-resource-id="875659274" data-linked-resource-version="9" data-linked-resource-type="page">Remote Development With VS Code</a> , copy the .env file from the Server and paste it to the .env file in the Server folder in your local.</p><p>Adjust your local ENV file with some of the following changes:</p><ol start="1"><li><p>Change the <code>NODE_ENV</code> from production to development:</p></li></ol><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: plain; gutter: false; theme: Confluence" data-theme="Confluence">NODE_ENV=development</pre>
+</div></div><ol start="3"><li><p>Update <code>ASSET_STORAGE_ROOT</code> with the path to the <code>asset-storage</code> folder saved on your local machine. <code>i.e. E:\John Doe\VARLab Work\asset-storage</code></p></li></ol><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: plain; gutter: false; theme: Confluence" data-theme="Confluence">ASSET_STORAGE_ROOT=/home/shopkeeper/asset-storage</pre>
+</div></div><ol start="4"><li><p>Update <code>SERVER_URL</code> and <code>CLIENT_URL</code> to <code>http://localhost:3000</code></p></li></ol><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: plain; gutter: false; theme: Confluence" data-theme="Confluence">SERVER_URL=http://localhost:3000
+CLIENT_URL=http://localhost:3000</pre>
+</div></div><h3 id="CopyofSetupLocalEnvironment-Starttheserver">Start the server</h3><p>To start the server enter the following command<strong><span data-colorid="t6tvfo59nh"> in the</span></strong> <strong><span data-colorid="k41xr4c9dy">server folder</span></strong> of the projects directory</p><p>1 - Install dependencies: </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240916-203537.png" width="369" loading="lazy" src="attachments/1518436354/1518436376.png?width=369" data-image-src="attachments/1518436354/1518436376.png" data-height="83" data-width="369" data-unresolved-comment-count="0" data-linked-resource-id="1518436376" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240916-203537.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1518436354" data-linked-resource-container-version="7" data-media-id="03698931-b190-41e4-8cba-1ef2723d38b9" data-media-type="file" /></span><p style="margin-left: 30.0px;">1.1 - Fix an vulnerabilities you may have by running npm audit fix</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240916-203926.png" width="562" loading="lazy" src="attachments/1518436354/1518436373.png?width=562" data-image-src="attachments/1518436354/1518436373.png" data-height="254" data-width="562" data-unresolved-comment-count="0" data-linked-resource-id="1518436373" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240916-203926.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1518436354" data-linked-resource-container-version="7" data-media-id="2559fefa-7fe0-4e63-8467-7412b8e8034b" data-media-type="file" /></span><p /><p>2 - Start the server</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240617-191131.png" width="490" loading="lazy" src="attachments/1518436354/1518436406.png?width=490" data-image-src="attachments/1518436354/1518436406.png" data-height="57" data-width="490" data-unresolved-comment-count="0" data-linked-resource-id="1518436406" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240617-191131.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1518436354" data-linked-resource-container-version="7" data-media-id="80109d41-0462-4642-a778-7946bc157693" data-media-type="file" /></span><p style="text-align: center;">This uses the server terminal as an example. You should do it on your own terminal</p><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon" /><div class="confluence-information-macro-body"><p>Alternatively use the &ldquo;npm start&rdquo; or &ldquo;npm run dev&rdquo;</p></div></div><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240916-204024.png" width="542" loading="lazy" src="attachments/1518436354/1518436370.png?width=542" data-image-src="attachments/1518436354/1518436370.png" data-height="162" data-width="542" data-unresolved-comment-count="0" data-linked-resource-id="1518436370" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240916-204024.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1518436354" data-linked-resource-container-version="7" data-media-id="df8e9154-8d4a-4bd4-ac06-1da9660e594c" data-media-type="file" /></span><p>You will know the server is started and connected properly when you see that the server is listening and the Database is connected.</p><h2 id="CopyofSetupLocalEnvironment-PopulateMongoDB">Populate MongoDB</h2><p>There is a script to populate the server with temporary information for testing purposes. The file exists in the follow relative directory:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">server/src/utils/populateDatabase.js</pre>
+</div></div><p>The script has some URL constants at the top of the file that set the URL for all the image get requests</p><p><br />For Production:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">const BASE_URL = `https://assetstore.vconestoga.com/api/asset`;
+const PROJECTS_API_URL = `https://varlabstorage.blob.core.windows.net/project-images`;</pre>
+</div></div><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon" /><div class="confluence-information-macro-body"><p>If you are running in your local machine you must change the asset store section to <code>http://localhost:3000</code> or any other port that you are hosting your local instance on. </p></div></div><p /><p>For Local:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">const BASE_URL = `http://localhost:3000/api/asset`;
+const PROJECTS_API_URL = `http://localhost:3000/api/projects`;</pre>
+</div></div><div class="confluence-information-macro confluence-information-macro-note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon" /><div class="confluence-information-macro-body"><p><strong>DO NOT COMMIT THESE CHANGES TO PRODUCTION</strong></p></div></div><p>Run the script using the following command:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">node server/src/utils/populateDatabase.js</pre>
+</div></div><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon" /><div class="confluence-information-macro-body"><p><strong>This command was run from the projects root directory</strong></p></div></div><p>If the command runs successfully you should see the follow:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240815-190242.png" width="760" loading="lazy" src="attachments/1518436354/1518436397.png?width=760" data-image-src="attachments/1518436354/1518436397.png" data-height="134" data-width="791" data-unresolved-comment-count="0" data-linked-resource-id="1518436397" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240815-190242.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1518436354" data-linked-resource-container-version="7" data-media-id="c4340f74-a248-4ef9-97ed-37673891f937" data-media-type="file" /></span><p>Check mongosh or Mongo Compass to verify that the data was populated </p><p>All the files required to populate the website based on the populateDatabase script are located on the Linux server under  <a href="Asset-Storage_1175191556.html" data-linked-resource-id="1175191556" data-linked-resource-version="6" data-linked-resource-type="page">Asset Storage</a> </p><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon" /><div class="confluence-information-macro-body"><p>The User collection containing the admin user will only populate if the user collection exists. This was done to stop any existing users from being deleted from the database</p></div></div><div class="confluence-information-macro confluence-information-macro-note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon" /><div class="confluence-information-macro-body"><p>Do not ever run the <code>populateDatabase</code> script in Production </p></div></div><h2 id="CopyofSetupLocalEnvironment-LocalAdmin">Local Admin</h2><p>If you are running a fresh install the local admin user will be populated into your local MongoDB by running the populateDatabase.js script. This user is a backdoor type user when we do not have google authenticated admin accounts active in your local instance. The password for said user is not saved in this documentation and must be requested from a team member.</p><p />
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1518436354/1518436370.png">image-20240916-204024.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1518436354/1518436373.png">image-20240916-203926.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1518436354/1518436376.png">image-20240916-203537.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1518436354/1518436379.png">image-20240916-203441.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1518436354/1518436382.png">image-20240916-203403.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1518436354/1518436385.png">image-20240916-203318.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1518436354/1518436388.png">image-20240916-203153.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1518436354/1518436391.png">image-20240916-202930.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1518436354/1518436394.png">image-20240916-202923.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1518436354/1518436397.png">image-20240815-190242.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1518436354/1518436400.png">image-20240815-190239.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1518436354/1518436403.png">image-20240618-204459.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1518436354/1518436406.png">image-20240617-191131.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1518436354/1518436409.png">image-20240617-191104.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1518436354/1518436412.png">image-20240617-190355.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1518436354/1518436415.png">image-20240617-190332.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1518436354/1518436418.png">image-20240617-190328.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1518436354/1518436421.png">image-20240617-190222.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1518436354/1518436424.png">image-20240617-185000.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1518436354/1518436427.png">image-20240617-184932.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1518436354/1518436430.png">image-20240617-180347.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1518436354/1518436433.png">image-20240617-180246.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1518436354/1518436436.png">image-20240617-175458.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1518436354/1518436439.png">image-20240617-173915.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1518436354/1518436442.png">image-20240617-173125.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1518436354/1518436445.png">image-20240617-172937.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1518436354/1518436448.png">image-20240617-172557.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1518436354/1518436451.png">image-20240617-172539.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 27, 2025 21:03</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

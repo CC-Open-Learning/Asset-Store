@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vConestoga : AxiosService and Service Creation Guide</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="vConestoga_536314119.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Projects_1091797023.html">Projects</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="VARLab-Asset-Store_1124859959.html">VARLab Asset Store</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            vConestoga : AxiosService and Service Creation Guide
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Islam Ahmed</span>, last modified on Jan 10, 2025
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <div class="contentLayout2">
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h1 id="AxiosServiceandServiceCreationGuide-Overview">Overview</h1><p>This document explains the <code>AxiosService</code> module, a custom wrapper around the <code>axios</code> library for handling API requests in our application. It provides utility methods for standard HTTP operations, enhancing consistency and error handling across requests. This document will also include a step-by-step guide to creating services using <code>AxiosService</code>.</p></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/></div>
+</div>
+</div>
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<style type='text/css'>/*<![CDATA[*/
+div.rbtoc1748379769043 {padding: 0px;}
+div.rbtoc1748379769043 ul {list-style: none;margin-left: 0px;}
+div.rbtoc1748379769043 li {margin-left: 0px;padding-left: 0px;}
+
+/*]]>*/</style><div class='toc-macro rbtoc1748379769043'>
+<ul class='toc-indentation'>
+<li><a href='#AxiosServiceandServiceCreationGuide-Overview'>Overview</a>
+<ul class='toc-indentation'>
+<li><a href='#AxiosServiceandServiceCreationGuide-Functionality'>Functionality</a></li>
+<li><a href='#AxiosServiceandServiceCreationGuide-Parameters'>Parameters</a></li>
+<li><a href='#AxiosServiceandServiceCreationGuide-ReturnValue'>Return Value</a></li>
+<li><a href='#AxiosServiceandServiceCreationGuide-ErrorHandling'>Error Handling</a></li>
+</ul>
+</li>
+<li><a href='#AxiosServiceandServiceCreationGuide-CreatinganewservicewithAxiosService'>Creating a new service with AxiosService</a>
+<ul class='toc-indentation'>
+<li><a href='#AxiosServiceandServiceCreationGuide-GettingStarted'>Getting Started</a>
+<ul class='toc-indentation'>
+<li><a href='#AxiosServiceandServiceCreationGuide-1.CreatetheServiceFolder:'>1. Create the Service Folder:</a></li>
+<li><a href='#AxiosServiceandServiceCreationGuide-2.CreatetheServiceFile:'>2. Create the Service File:</a></li>
+<li><a href='#AxiosServiceandServiceCreationGuide-3.Buildingtheservice:'>3. Building the service:</a></li>
+</ul>
+</li>
+<li><a href='#AxiosServiceandServiceCreationGuide-Templates'>Templates</a>
+<ul class='toc-indentation'>
+<li><a href='#AxiosServiceandServiceCreationGuide-Types'>Types</a></li>
+<li><a href='#AxiosServiceandServiceCreationGuide-Imports'>Imports</a></li>
+<li><a href='#AxiosServiceandServiceCreationGuide-GET'>GET</a></li>
+<li><a href='#AxiosServiceandServiceCreationGuide-DELETE'>DELETE</a></li>
+<li><a href='#AxiosServiceandServiceCreationGuide-POST'>POST</a></li>
+<li><a href='#AxiosServiceandServiceCreationGuide-PUT'>PUT</a></li>
+<li><a href='#AxiosServiceandServiceCreationGuide-Exports'>Exports</a>
+<ul class='toc-indentation'>
+<li><a href='#AxiosServiceandServiceCreationGuide-Interfaces'>Interfaces</a></li>
+<li><a href='#AxiosServiceandServiceCreationGuide-Functions'>Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href='#AxiosServiceandServiceCreationGuide-UnderstandingAxiosResponse&lt;T&gt;'>Understanding AxiosResponse&lt;T&gt;</a>
+<ul class='toc-indentation'>
+<li><a href='#AxiosServiceandServiceCreationGuide-UsingAxiosResponseinComponents'>Using AxiosResponse in Components</a></li>
+</ul>
+</li>
+<li><a href='#AxiosServiceandServiceCreationGuide-UnderstandingAxiosRequestConfig'>Understanding AxiosRequestConfig</a>
+<ul class='toc-indentation'>
+<li><a href='#AxiosServiceandServiceCreationGuide-KeyPropertiesofAxiosRequestConfig'>Key Properties of AxiosRequestConfig</a></li>
+<li><a href='#AxiosServiceandServiceCreationGuide-ExampleUsageofAxiosRequestConfig'>Example Usage of AxiosRequestConfig</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href='#AxiosServiceandServiceCreationGuide-Usingyournewlycreatedservice'>Using your newly created service</a>
+<ul class='toc-indentation'>
+<li><a href='#AxiosServiceandServiceCreationGuide-GET.1'>GET</a></li>
+<li><a href='#AxiosServiceandServiceCreationGuide-DELETE.1'>DELETE</a></li>
+<li><a href='#AxiosServiceandServiceCreationGuide-POST.1'>POST</a></li>
+<li><a href='#AxiosServiceandServiceCreationGuide-PUT.1'>PUT</a></li>
+</ul>
+</li>
+</ul>
+</div></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/></div>
+</div>
+</div>
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="AxiosServiceandServiceCreationGuide-Functionality"><strong>Functionality</strong></h2><p><code>AxiosService</code> is a centralized service layer designed to manage all HTTP requests within the application. Using <code>axios</code> as its core, <code>AxiosService</code> streamlines API interactions with a modular structure, ensuring consistent request handling and error management across the project.</p><p>Each method in <code>AxiosService</code> corresponds to a specific HTTP operation, making it easy to interact with different API endpoints:</p><ul><li><p><strong>GET</strong> <code>(endpoint, config?)</code>: Retrieves data from a specified API endpoint.</p></li><li><p><strong>POST</strong> <code>(endpoint, data, config?)</code>: Submits data to create a new resource.</p></li><li><p><strong>PUT</strong> <code>(endpoint, data, config?)</code>: Updates an existing resource with the provided data.</p></li><li><p><strong>DELETE</strong> <code>(endpoint, config?)</code>: Deletes the resource at the specified endpoint.</p></li></ul></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="AxiosServiceandServiceCreationGuide-Parameters"><strong>Parameters</strong></h2><p>Each method accepts the following parameters to simplify API interactions:</p><ul><li><p><strong>endpoint</strong>: The specific API path after <code>/api</code> (e.g., <code>/users</code>).</p></li><li><p><strong>config</strong> (optional): An optional <code>AxiosRequestConfig</code> object, which allows customization of the request. It can include settings such as query parameters, custom headers, timeout, authentication, and more. This parameter gives flexibility to adjust requests based on specific needs.</p></li><li><p><strong>data</strong> (only for POST and PUT): The JSON object containing the data to send in the request body, typically organized as key-value pairs.</p></li></ul><p>Each method accepts an <code>endpoint</code> (the specific API path following the base URL) and an optional <code>config</code> for custom headers, query parameters, or other settings. The <code>POST</code> and <code>PUT</code> methods additionally take a <code>data</code> parameter to send a payload within the request body. If an error occurs during any request, it’s caught and processed through a shared error handler, <code>handleAxiosError</code>, which standardizes error management across all methods.</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="AxiosServiceandServiceCreationGuide-ReturnValue"><strong>Return Value</strong></h2><p>Each method returns a <code>Promise</code> that resolves to:</p><ul><li><p><strong>AxiosResponse&lt;T&gt;</strong>: The server’s response, containing the requested or modified data. (See )</p></li></ul><h2 id="AxiosServiceandServiceCreationGuide-ErrorHandling"><strong>Error Handling</strong></h2><p>If an error occurs during any request, it is processed by the <code>handleAxiosError</code> function. This standardized error handler ensures that errors are managed consistently across all HTTP methods, improving debugging and logging.</p></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/><h1 id="AxiosServiceandServiceCreationGuide-CreatinganewservicewithAxiosService">Creating a new service with<strong> </strong><code>AxiosService</code></h1><h2 id="AxiosServiceandServiceCreationGuide-GettingStarted"><strong>Getting Started</strong></h2></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h4 id="AxiosServiceandServiceCreationGuide-1.CreatetheServiceFolder:">1. <strong>Create the Service Folder</strong>:</h4><ul><li><p>Navigate to the <code>services</code> directory in your project.</p></li><li><p>Create a new folder to organize your service files based on the purpose of the service. The folder name should reflect the functionality or category of the service.</p></li><li><p><strong>Example</strong>: If your service interacts with the <code>/search</code> endpoint, create a folder named <code>search</code>.</p></li></ul></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h4 id="AxiosServiceandServiceCreationGuide-2.CreatetheServiceFile:"><strong>2. Create the Service File:</strong></h4><p>Next we need to create the service file located in the folder created in the previous step. The service should be named by the category or theme of the service followed by the keyword <code>&quot;Service&quot;</code> . For example, for the folder <code>search</code> would contain the service <code>SearchService</code>.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241031-224222.png" width="266" loading="lazy" src="attachments/1433042948/1434091527.png?width=266" data-image-src="attachments/1433042948/1434091527.png" data-height="232" data-width="266" data-unresolved-comment-count="0" data-linked-resource-id="1434091527" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241031-224222.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1433042948" data-linked-resource-container-version="14" data-media-id="fdafea14-77b5-48ac-bf4f-ed895d77772e" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h4 id="AxiosServiceandServiceCreationGuide-3.Buildingtheservice:"><strong>3. Building the service:</strong></h4><p>Each function within the service will use <code>AxiosService</code> to make HTTP requests. Follow these conventions for creating modular, consistent, and type-safe functions.</p><p><strong>Function Structure</strong>:</p><ul><li><p><strong>Define Parameters</strong>: Destructure parameters directly in the function arguments.</p></li><li><p><strong>Return Type</strong>: Always define the return type as a <code>Promise</code> that resolves to either the expected data type or an error.</p></li></ul></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/><h2 id="AxiosServiceandServiceCreationGuide-Templates"><strong>Templates</strong></h2></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="AxiosServiceandServiceCreationGuide-Types">Types</h3><p>In these templates <code>resource</code> is used as an example. You should be retrieving your types from the <code>types.ts</code> from the root of the <code>client-portual</code>. If your function will not return one of these types, you should instead create an interface based entirely on response expected from the API. For example, a successful login request will return <code>res.status(200).json({ msg: &quot;successfully logged in&quot;, status: 200});</code> , therefore we need an interface that defines this. Our interface might look like:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">export interface LoginResponse {
+  msg: string;
+  status: number;
+}</pre>
+</div></div><p>Which can be used in the service like so:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">const login = async ({
+  password,
+  username
+}: {
+  password: string;
+  username: string;
+}): Promise&lt;LoginResponse&gt; =&gt; {
+  const loginPayload = {
+    password,
+    username
+  };
+
+  return await AxiosService.POST&lt;LoginResponse&gt;(
+    `${baseRoute}/login`,
+    loginPayload
+  );
+};</pre>
+</div></div></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="AxiosServiceandServiceCreationGuide-Imports">Imports</h3><p><em>In this example, we define the necessary imports and base configuration for setting up a new service with </em><code>AxiosService</code><em>.</em></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">import AxiosService from &quot;../axios/AxiosService&quot;;
+import { AxiosRequestConfig } from &quot;axios&quot;;
+
+// Define the base route for this service
+// Update &quot;resource&quot; with the relevant endpoint for your service
+const baseRoute = &quot;/resource&quot;;
+
+interface Resource {
+  id: string;
+  name: string;
+  description: string;
+  success: boolean;
+}</pre>
+</div></div></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="AxiosServiceandServiceCreationGuide-GET">GET</h3><p><em>In this example, </em><code>getResourceById</code><em> is an asynchronous function that retrieves a resource by its unique </em><code>id</code><em> using </em><code>AxiosService.GET</code><em>.</em></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">const getResourceById = async ({
+  id
+}: {
+  id: string;
+}): Promise&lt;Resource&gt; =&gt; {
+  return await AxiosService.GET&lt;Resource&gt;(`/resource/${id}`);
+};</pre>
+</div></div></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="AxiosServiceandServiceCreationGuide-DELETE">DELETE</h3><p><em>In this example, </em><code>deleteResourceById</code><em> is an asynchronous function that deletes a resource by its unique </em><code>id</code><em> using </em><code>AxiosService.DELETE</code><em>.</em></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">const deleteResourceById = async ({
+  id
+}: {
+  id: string;
+}): Promise&lt;boolean&gt; =&gt; {
+  return await AxiosService.DELETE&lt;boolean&gt;(`${baseRoute}/${id}`);
+};</pre>
+</div></div></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/></div>
+</div>
+</div>
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="AxiosServiceandServiceCreationGuide-POST">POST</h3></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><em>In this example, we’re defining </em><code>data</code><em> as an object with only the required fields (</em><code>name</code><em> and </em><code>description</code><em>), without including </em><code>id</code><em> and </em><code>success</code><em>.</em></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">const createResource = async ({
+  data
+}: {
+  data: { name: string; description: string };
+}): Promise&lt;Resource&gt; =&gt; {
+  return await AxiosService.POST&lt;Resource&gt;(baseRoute, data);
+};</pre>
+</div></div></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><em>In this example, we omit </em><code>id</code><em> and </em><code>success</code><em> from the </em><code>Resource</code><em> type, allowing us to pass only the fields necessary for creation (</em><code>name</code><em> and </em><code>description</code><em>).</em></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">const createResource = async (
+  data: Omit&lt;Resource, &quot;id&quot; | &quot;success&quot;&gt;
+): Promise&lt;Resource&gt; =&gt; {
+  return await AxiosService.POST&lt;Resource&gt;(
+    baseRoute,
+    data
+  );
+};</pre>
+</div></div></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><em>In this version, we pass the entire </em><code>Resource</code><em> object to the </em><code>updateResource</code><em> function, including all fields. This requires providing values for </em><code>id</code><em> and </em><code>success</code><em>, even if they are not necessary for the creation operation.</em></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">const createResource = async (
+  data: Resource
+): Promise&lt;Resource&gt; =&gt; {
+  return await AxiosService.POST&lt;Resource&gt;(
+    baseRoute,
+    data
+  );
+};</pre>
+</div></div></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/></div>
+</div>
+</div>
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="AxiosServiceandServiceCreationGuide-PUT">PUT</h3></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><em>In this example, we’re defining </em><code>data</code><em> as an object with only the required fields (</em><code>name</code><em> and </em><code>description</code><em>), without including </em><code>id</code><em> and </em><code>success</code><em>.</em></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">const updateResource = async ({
+  id,
+  data
+}: {
+  id: string;
+  data: { name: string; description: string };
+}): Promise&lt;Resource&gt; =&gt; {
+  return await AxiosService.PUT&lt;Resource&gt;(
+    `${baseRoute}/${id}`,
+    data
+  );
+};</pre>
+</div></div></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><em>In this example, we omit </em><code>id</code><em> and </em><code>success</code><em> from the </em><code>Resource</code><em> type, allowing us to pass only the fields necessary for updating (</em><code>name</code><em> and </em><code>description</code><em>).</em></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">const updateResource = async (
+  id: string,
+  data: Omit&lt;Resource, &quot;id&quot; | &quot;success&quot;&gt;
+): Promise&lt;Resource&gt; =&gt; {
+  return await AxiosService.PUT&lt;Resource&gt;(
+    `${baseRoute}/${id}`,
+    data
+  );
+};</pre>
+</div></div></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><em>In this version, we pass the entire </em><code>Resource</code><em> object to the </em><code>updateResource</code><em> function, including all fields. This requires providing values for </em><code>id</code><em> and </em><code>success</code><em>, even if they are not necessary for the update operation.</em></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">const updateResource = async (
+  data: Resource
+): Promise&lt;Resource | AxiosError | Error&gt; =&gt; {
+  return await AxiosService.PUT&lt;Resource&gt;(
+    `${baseRoute}/${data.id}`,
+    data
+  );
+};</pre>
+</div></div></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/></div>
+</div>
+</div>
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="AxiosServiceandServiceCreationGuide-Exports">Exports</h3></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h4 id="AxiosServiceandServiceCreationGuide-Interfaces">Interfaces</h4><p><em>Only export this type if you plan to use it as your return type to be used in your component</em></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">export interface Resource { 
+  id: string;
+  name: string;
+  description: string;
+  success: boolean;
+}</pre>
+</div></div></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h4 id="AxiosServiceandServiceCreationGuide-Functions">Functions</h4><p><em>Export all functions in an object to create a modular service</em></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">const ResourceService = {
+  getResourceById,
+  createResource,
+  updateResource,
+  deleteResourceById
+};
+
+export default ResourceService;</pre>
+</div></div></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/></div>
+</div>
+</div>
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="AxiosServiceandServiceCreationGuide-UnderstandingAxiosResponse&lt;T&gt;">Understanding <code>AxiosResponse&lt;T&gt;</code> </h2></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>In the Axios library, <code>AxiosResponse&lt;T&gt;</code> is a generic interface that represents the structure of the response returned from an Axios HTTP request. It provides a strongly typed way to work with API responses, ensuring that your code can safely and predictably interact with the returned data.</p><p>The <code>T</code> in <code>AxiosResponse&lt;T&gt;</code> represents the expected data type of the response body. By specifying <code>T</code>, you inform TypeScript about the shape of the data you anticipate, enabling features like type checking and IntelliSense support.</p><p>Here’s a breakdown of the properties within the <code>AxiosResponse&lt;T&gt;</code> interface:</p><ul><li><p><code>data: T</code><br/>The actual data returned from the API request, which matches the type <code>T</code> specified in the generic.<br/>Example: If the API returns a JSON object <code>{ name: &quot;John&quot;, age: 30 }</code>, and <code>T</code> is <code>{ name: string; age: number }</code>, <code>data</code> will hold this object.</p></li><li><p><code>status: number</code><br/>The HTTP status code returned by the server (e.g., 200 for success, 404 for not found).</p></li><li><p><code>statusText: string</code><br/>A string representation of the HTTP status code (e.g., &quot;OK&quot; for 200, &quot;Not Found&quot; for 404).</p></li><li><p><code>headers: Record&lt;string, string&gt;</code><br/>The response headers returned by the server.</p></li><li><p><code>config: AxiosRequestConfig</code><br/>The configuration object that was used for the request.</p></li><li><p><code>request: any</code><br/>The raw request object associated with the response, useful for debugging.</p></li></ul><p /></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Example of an </strong><code>AxiosResponse</code><strong>Object</strong></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+  data: {
+    id: 1,
+    name: &quot;John Doe&quot;,
+    email: &quot;john.doe@example.com&quot;
+  },
+  status: 200,
+  statusText: &quot;OK&quot;,
+  headers: {
+    &quot;content-type&quot;: &quot;application/json&quot;,
+  },
+  config: {
+    url: &quot;/api/users/1&quot;,
+    method: &quot;get&quot;,
+    headers: {
+      Accept: &quot;application/json, text/plain, */*&quot;
+    },
+    baseURL: &quot;https://example.com&quot;,
+    timeout: 60000,
+    withCredentials: false
+  },
+  request: {
+    // The raw HTTP request object (implementation-specific, varies by environment)
+  }
+}</pre>
+</div></div><h4 id="AxiosServiceandServiceCreationGuide-UsingAxiosResponseinComponents"><strong>Using </strong><code>AxiosResponse</code><strong> in Components</strong></h4><p>To handle <code>AxiosError</code> in your component, you can inspect its properties to provide specific error messages or take actions based on the response status.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">interface ApiResponse {
+  id: number;
+  name: string;
+  email: string;
+}
+
+const fetchUserData = async (): Promise&lt;ApiResponse&gt; =&gt; {
+  // result becomes AxiosResponse&lt;ApiResponse&gt;
+  const result = await axiosInstance.get&lt;ApiResponse&gt;(&quot;/api/user/1&quot;);
+  console.log(response.data); // Access the user data
+  console.log(response.status); // Access the HTTP status code
+  return response.data;
+};</pre>
+</div></div></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/></div>
+</div>
+</div>
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="AxiosServiceandServiceCreationGuide-UnderstandingAxiosRequestConfig"><strong>Understanding </strong><code>AxiosRequestConfig</code></h2></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><code>AxiosRequestConfig</code> is an interface provided by the Axios library to define the configuration options for an HTTP request. It allows you to customize the behavior of a request, including URL parameters, headers, serialization, and other HTTP settings. This flexibility is crucial for handling various use cases, such as passing query parameters, defining timeouts, or specifying custom serializers.</p><h4 id="AxiosServiceandServiceCreationGuide-KeyPropertiesofAxiosRequestConfig">Key Properties of <code>AxiosRequestConfig</code></h4><p>Here are some commonly used properties in <code>AxiosRequestConfig</code>:</p><ul><li><p><code>headers: Record&lt;string, string&gt;</code><br/>Custom headers to send with the request.</p></li><li><p><code>params: Record&lt;string, any&gt;</code><br/>Query parameters to include in the URL.</p></li><li><p><code>paramsSerializer: (params: any) =&gt; string</code><br/>A function to customize how query parameters are serialized into the URL.</p></li></ul></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h4 id="AxiosServiceandServiceCreationGuide-ExampleUsageofAxiosRequestConfig">Example Usage of <code>AxiosRequestConfig</code></h4><p>The following example demonstrates how <code>AxiosRequestConfig</code> is used in a <code>GET</code> request to pass query parameters and customize serialization:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">const byId = async ({ id }: { id: string }): Promise&lt;Asset&gt; =&gt; {
+  const queryParams: AxiosRequestConfig = {
+    params: {
+      _id: id // Query parameter passed to the request
+    },
+
+    /**
+     * Serializes the query parameters for the request.
+     * Ensures proper handling of non-string values and null checks.
+     * @param params The query parameters to serialize.
+     */
+    paramsSerializer: params =&gt; {
+      const searchParams = new URLSearchParams();
+      Object.entries(params).forEach(([key, value]) =&gt; {
+        if (value !== null) searchParams.append(key, String(value));
+      });
+      return searchParams.toString();
+    }
+  };
+
+  return await AxiosService.GET&lt;Asset&gt;(`${baseRoute}/asset`, queryParams);
+};</pre>
+</div></div></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/></div>
+</div>
+</div>
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h1 id="AxiosServiceandServiceCreationGuide-Usingyournewlycreatedservice">Using your newly created service</h1></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="AxiosServiceandServiceCreationGuide-GET.1">GET</h3><p><em>This example shows how to fetch a resource using </em><code>getResourceById</code><em> and handle the response or error.</em></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">const [resource, setResource] = useState&lt;Resource&gt;();
+
+const handleFetchResource = async (id: string) =&gt; {
+  setResource(await ResourceService.getResourceById({ id }));
+};</pre>
+</div></div></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="AxiosServiceandServiceCreationGuide-DELETE.1">DELETE</h3><p><em>This example shows how to delete a resource using </em><code>deleteResourceById</code><em> and handle the response or error.</em></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">const [resource, setResource] = useState&lt;Resource&gt;();
+
+const handleDeleteResource = async (id: string) =&gt; {
+  setError(null);
+  setDeleteSuccess(false);
+
+  const result = await ResourceService.deleteResourceById({ id });
+
+  if(result){
+    setResource(null);
+  }
+};</pre>
+</div></div></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="AxiosServiceandServiceCreationGuide-POST.1">POST</h3><p><em>This example demonstrates how to create a new resource using </em><code>createResource</code><em> and handle the result or any potential errors.</em></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">const handleCreateResource = async () =&gt; {
+
+  const result = await ResourceService.createResource({
+    name: &quot;New Resource&quot;,
+    description: &quot;Description of the new resource&quot;
+  });
+
+  if(result){
+    console.log(&quot;Success&quot;)
+  }
+};</pre>
+</div></div><p><em>In this example, </em><code>createResource</code><em> is called with data matching the </em><code>Resource</code><em> structure, but without </em><code>id</code><em> and </em><code>success</code><em> (assuming they are managed by the server).</em></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">const handleCreateResource = async () =&gt; {
+
+  const newResourceData: Omit&lt;Resource, &quot;id&quot; | &quot;success&quot;&gt; = {
+    name: &quot;New Resource&quot;,
+    description: &quot;Description of the new resource&quot;
+  };
+
+  const result = await ResourceService.createResource(newResourceData);
+
+  if(result){
+    console.log(&quot;Success&quot;)
+  }
+};</pre>
+</div></div></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="AxiosServiceandServiceCreationGuide-PUT.1">PUT</h3><p><em>This example shows how to update an existing resource using </em><code>updateResource</code><em> with an </em><code>id</code><em> and </em><code>data</code><em>, then handle the result.</em></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">const handleUpdateResource = async (id: string) =&gt; {
+
+  const result = await ResourceService.updateResource(id, {
+    name: &quot;Updated Name&quot;,
+    description: &quot;Updated Description&quot;
+  });
+
+  if(result){
+    console.log(&quot;Success&quot;)
+  }
+};</pre>
+</div></div><p><em>In this example, </em><code>updateResource</code><em> is called with an </em><code>id</code><em> and updated data according to the </em><code>Resource</code><em> structure, using </em><code>Omit</code><em> to exclude </em><code>id</code><em> and </em><code>success</code><em>.</em></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">const handleUpdateResource = async (id: string) =&gt; {
+
+  const updatedResourceData: Omit&lt;Resource, &quot;id&quot; | &quot;success&quot;&gt; = {
+    name: &quot;Updated Resource Name&quot;,
+    description: &quot;Updated description for the resource&quot;
+  };
+
+  const result = await ResourceService.updateResource(id, updatedResourceData);
+
+  if(result){
+    console.log(&quot;Success&quot;)
+  }
+};</pre>
+</div></div></div>
+</div>
+</div>
+</div>
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1433042948/1434091527.png">image-20241031-224222.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1433042948/1549926407.jpg">varlab_virtual_and_augmented_reality_lab_cover.jpg</a> (image/jpeg)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 27, 2025 21:02</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

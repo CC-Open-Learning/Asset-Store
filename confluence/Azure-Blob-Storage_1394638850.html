@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vConestoga : Azure Blob Storage</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="vConestoga_536314119.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Projects_1091797023.html">Projects</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="VARLab-Asset-Store_1124859959.html">VARLab Asset Store</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            vConestoga : Azure Blob Storage
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Victor Barbosa Nogueira</span>, last modified by <span class='editor'> Nipun Grover</span> on Feb 10, 2025
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <hr/><p style="text-align: center;"><strong>INDEX</strong></p><style type='text/css'>/*<![CDATA[*/
+div.rbtoc1748379776204 {padding: 0px;}
+div.rbtoc1748379776204 ul {list-style: none;margin-left: 0px;}
+div.rbtoc1748379776204 li {margin-left: 0px;padding-left: 0px;}
+
+/*]]>*/</style><div class='toc-macro rbtoc1748379776204'>
+<ul class='toc-indentation'>
+<li><a href='#AzureBlobStorage-1-Howtocreateablobstorage'>1 - How to create a blob storage</a></li>
+<li><a href='#AzureBlobStorage-2-Initialsettings'>2 - Initial settings</a></li>
+<li><a href='#AzureBlobStorage-3-Create&quot;folders&quot;(containers)'>3 - Create &quot;folders&quot; (containers)</a></li>
+<li><a href='#AzureBlobStorage-4-Create.envvariables'>4 - Create .env variables</a></li>
+</ul>
+</div><hr/><p /><h1 id="AzureBlobStorage-1-Howtocreateablobstorage">1 - How to create a blob storage</h1><ol start="1"><li><p>Login to Azure</p></li><li><p>Search for “Storage accounts”</p></li><li><p>Click “Create”</p></li><li><p>Select the subscription you want to use</p></li><li><p>Select the resource group you want to add the blob storage to (Asset Store)</p></li><li><p>Choose a unique name</p></li><li><p>Select primary service to “Azure Blob Storage or Azure Data Lake Storage Gen 2”</p></li><li><p>Change “Redundancy” to “Locally-redundant storage (LRS)”</p></li><li><p>Click next</p></li><li><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241015-155131.png" width="425" loading="lazy" src="attachments/1394638850/1396080643.png?width=425" data-image-src="attachments/1394638850/1396080643.png" data-height="857" data-width="767" data-unresolved-comment-count="0" data-linked-resource-id="1396080643" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241015-155131.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1394638850" data-linked-resource-container-version="10" data-media-id="19248e25-ccd9-4bb5-838f-152150a5acff" data-media-type="file"></span></li><li><p>Change the access tier to “cool.” Leave the other values as default.</p></li><li><p>click Review + create</p></li><li><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241015-155257.png" width="419" loading="lazy" src="attachments/1394638850/1395654669.png?width=419" data-image-src="attachments/1394638850/1395654669.png" data-height="326" data-width="729" data-unresolved-comment-count="0" data-linked-resource-id="1395654669" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241015-155257.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1394638850" data-linked-resource-container-version="10" data-media-id="a9b887c5-4aeb-473f-bbfc-21716b01484d" data-media-type="file"></span></li><li><p>Click Create</p></li></ol><hr/><h1 id="AzureBlobStorage-2-Initialsettings">2 - Initial settings</h1><ol start="1"><li><p>Go to the storage account you just created</p></li><li><p>Settings &gt;&gt; Resources sharing (CORS)</p></li><li><p>Set a new CORS rule to allow the client to access it: </p><ol start="1"><li><p>Allowed origins = <a class="external-link" href="http://localhost:5173" rel="nofollow">http://localhost:5173</a> (Add any other domain names that you’re using for test and production servers here)</p></li><li><p>Allowed methods = GET, DELETE, POST, PUT</p></li><li><p>Allowed headers = *</p></li><li><p>Exposed headers = *</p></li><li><p>Max age = 3600</p></li></ol></li><li><p> click Save</p></li></ol><p /><hr/><h1 id="AzureBlobStorage-3-Create&quot;folders&quot;(containers)">3 - Create &quot;folders&quot; (containers)</h1><ol start="1"><li><p>Go to Data storage &gt;&gt; Containers</p></li><li><p>Click on ➕Container</p></li><li><p>Name it “assets”</p></li><li><p>click on Create</p></li><li><p>Create two more containers: “preview-images” and “project-images”</p></li></ol><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241015-143239.png" width="981" loading="lazy" src="attachments/1394638850/1394737159.png?width=981" data-image-src="attachments/1394638850/1394737159.png" data-height="853" data-width="1898" data-unresolved-comment-count="0" data-linked-resource-id="1394737159" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241015-143239.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1394638850" data-linked-resource-container-version="10" data-media-id="d91bc41a-e760-464e-b57d-3541fb68bf19" data-media-type="file"></span><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241015-143541.png" width="981" loading="lazy" src="attachments/1394638850/1395032077.png?width=981" data-image-src="attachments/1394638850/1395032077.png" data-height="780" data-width="1600" data-unresolved-comment-count="0" data-linked-resource-id="1395032077" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241015-143541.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1394638850" data-linked-resource-container-version="10" data-media-id="fb9a9d43-5e10-4d5f-bee4-7bd42b8fe02c" data-media-type="file"></span><hr/><h1 id="AzureBlobStorage-4-Create.envvariables">4 - Create .env variables</h1><ol start="1"><li><p>Create 4 new variables in the .env file located in the server folder:</p><ol start="1"><li><p><code>BLOBSTORAGE_URI</code></p></li><li><p><code>AZURE_STORAGE_ACCOUNT_NAME</code></p></li><li><p><code>AZURE_STORAGE_ACCOUNT_KEY</code></p></li><li><p><code>AZURE_STORAGE_CONNECTION_STRING</code></p></li></ol></li><li><p>Get the values from the Azure portal</p></li><li><p>Go to the storage account</p></li><li><p>Go to “Security + networking” &gt;&gt; Access keys</p></li><li><p>Copy Storage account name</p></li><li><p>Use the values from key 1 and ignore key 2</p></li><li><p>Click show and copy Storage account key</p></li><li><p>Click show and copy Storage account connection string</p></li><li><p>The BLOBSTORAGE_URI will use your account name in this format:</p><ol start="1"><li><p>BLOBSTORAGE_URI=https://<span style="background-color: rgb(220,223,228);">varlabstorageaccount</span>.blob.core.windows.net/</p></li></ol></li></ol><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241015-152738.png" width="827" loading="lazy" src="attachments/1394638850/1396015107.png?width=827" data-image-src="attachments/1394638850/1396015107.png" data-height="142" data-width="827" data-unresolved-comment-count="0" data-linked-resource-id="1396015107" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241015-152738.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1394638850" data-linked-resource-container-version="10" data-media-id="e971f53f-b4f6-4a8d-8d62-d20eac71a1a9" data-media-type="file"></span><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241015-152758.png" width="907" loading="lazy" src="attachments/1394638850/1395392530.png?width=907" data-image-src="attachments/1394638850/1395392530.png" data-height="681" data-width="907" data-unresolved-comment-count="0" data-linked-resource-id="1395392530" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241015-152758.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1394638850" data-linked-resource-container-version="10" data-media-id="b358cb37-6894-44e5-8b2e-781883a4733c" data-media-type="file"></span><p />
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1394638850/1395326978.png">image-20241015-134013.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1394638850/1395228679.png">image-20241015-134519.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1394638850/1395654658.png">image-20241015-134851.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1394638850/1395720193.png">image-20241015-135600.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1394638850/1395261449.png">image-20241015-135951.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1394638850/1395195910.png">image-20241015-140126.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1394638850/1395032069.png">image-20241015-140432.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1394638850/1395458060.png">image-20241015-141043.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1394638850/1395752963.png">image-20241015-141115.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1394638850/1395621896.png">image-20241015-141509.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1394638850/1395261456.png">image-20241015-141829.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1394638850/1394737159.png">image-20241015-143239.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1394638850/1395032077.png">image-20241015-143541.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1394638850/1396015107.png">image-20241015-152738.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1394638850/1395392530.png">image-20241015-152758.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1394638850/1394507797.png">image-20241015-155105.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1394638850/1396080643.png">image-20241015-155131.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1394638850/1395654669.png">image-20241015-155257.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 27, 2025 21:02</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vConestoga : Validations</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="vConestoga_536314119.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Projects_1091797023.html">Projects</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="VARLab-Asset-Store_1124859959.html">VARLab Asset Store</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            vConestoga : Validations
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> abielaski</span>, last modified on Aug 16, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>For information regarding validation regarding search see <a href="API-Endpoints_1172176932.html" data-linked-resource-id="1172176932" data-linked-resource-version="79" data-linked-resource-type="page">API Endpoints</a> in the Search section</p></div></div><div class="table-wrap"><table data-table-width="1358" data-layout="default" data-local-id="ed84a175-a83b-449c-ae8b-d2e821dd35ac" class="confluenceTable"><colgroup><col style="width: 96.0px;"/><col style="width: 619.0px;"/><col style="width: 643.0px;"/></colgroup><tbody><tr><th class="confluenceTh"><p /></th><th data-highlight-colour="#fff0b3" class="confluenceTh"><p style="text-align: center;"><strong>Frontend Checks </strong>(uploadValidations.ts)</p></th><th data-highlight-colour="#b3bac5" class="confluenceTh"><p style="text-align: center;"><strong><span class="legacy-color-text-inverse">Backend Checks </span></strong><span class="legacy-color-text-inverse">(validate.ts)</span></p></th></tr><tr><td data-highlight-colour="#ffc400" class="confluenceTd"><p><strong>Asset Form</strong></p></td><td class="confluenceTd"><p><u>Name Input</u></p><ul><li><p>Required, must be 3+ characters</p></li><li><p>Cannot contain inappropriate word(s)</p></li></ul><p><u>Description Input</u></p><ul><li><p>Cannot contain inappropriate word(s) if entered</p></li></ul><p><u>Tag Inputs</u></p><ul><li><p>Cannot contain inappropriate word(s)</p></li></ul><p><u>Main File Input</u></p><ul><li><p>Required (checks fileName is not empty)</p></li><li><p>Depending on the file type, it must be one of the accepted formats/extensions listed:</p><ul><li><p>modelFormats = [&quot;fbx&quot;, &quot;glb&quot;, &quot;dae&quot;, &quot;obj&quot;, &quot;zip&quot;];</p><p>textureFormats = [&quot;png&quot;, &quot;jpeg&quot;, &quot;jpg&quot;, &quot;tiff&quot;, &quot;tga&quot;, &quot;webp&quot;];</p><p>productionFormats = [&quot;blend&quot;, &quot;ma&quot;, &quot;mb&quot;, &quot;psd&quot;, &quot;spp&quot;];</p></li></ul></li></ul><p><u>If main file is a model type:</u></p><ul><li><p>The following metadata fields cannot be undefined or less than 0:</p><ul><li><p>triCount, edges, vertices, lodCount, polygons, animationCount, textureCount</p></li></ul></li><li><p>The following metadata fields cannot be undefined or an empty string:</p><ul><li><p>rigType</p></li></ul></li><li><p>(In other words: model specification fields cannot be blank or a negative number)</p></li></ul><p><u>If main file is a texture type:</u></p><ul><li><p>The type field cannot be undefined or an empty string</p></li></ul><p><u>If main file is a production type:</u></p><ul><li><p>The type field cannot be undefined or an empty string</p></li></ul></td><td class="confluenceTd"><p><u>Filenames</u></p><ul><li><p>All filenames are filtered using the Multer fileFilter property which calls the isFileValid (or isImageValid if image)</p></li><li><p>File names are tested against the following regex</p><ul><li><p><code>^[\w,\s-]+\.[A-Za-z]{3}$</code></p></li></ul></li><li><p>Extensions are checked, the following extensions are valid:</p><ul><li><p>Model Extensions: </p><ul><li><p>fbx</p></li><li><p>glb</p></li><li><p>dae</p></li><li><p>obj</p></li><li><p>zip</p></li></ul></li><li><p>Texture Extensions:</p><ul><li><p>jpeg/jpg</p></li><li><p>png</p></li><li><p>tiff</p></li><li><p>tga</p></li><li><p>webp</p></li></ul></li><li><p>Production Extensions:</p><ul><li><p>blend</p></li><li><p>ma</p></li><li><p>mb</p></li><li><p>psd</p></li><li><p>sp</p></li></ul></li></ul></li><li><p>The following image mime-types are valid</p><ul><li><p><code>image/jpeg</code></p></li><li><p><code>image/jpg</code></p></li><li><p><code>image/png</code></p></li><li><p><code>image/webp</code></p></li></ul></li></ul><p><u>Content-type</u></p><ul><li><p>All uploads must have a content-type of <code>multipart/form-data</code> as part of their HTTP header</p></li></ul><p /></td></tr><tr><td data-highlight-colour="#998dd9" class="confluenceTd"><p><strong>Project Form</strong></p></td><td class="confluenceTd"><p><u>Name Input</u></p><ul><li><p>Must be between 3-50 chars</p></li><li><p>It cannot exist yet in the Project collection in the database</p></li><li><p>It cannot contain inappropriate words</p></li></ul><p><u>Image File Input</u></p><ul><li><p>Must be of type jpeg, jpg, png, or webp</p></li><li><p>The size cannot be bigger than 10MB</p></li><li><p>The filename must pass this regex pattern: <code>/^[\w,\s-]+\.[A-Za-z]{3}$/</code></p><ul><li><p>The filename can contain letters, numbers, underscores, commas, spaces, and hyphens, but must end with a dot and a three-letter alphabetical extension.</p></li></ul></li></ul><p><u>Description Input</u></p><ul><li><p>If the project description input is filled out, it cannot contain inappropriate words</p></li></ul></td><td class="confluenceTd"><p><u>Post Request Content Type</u></p><ul><li><p>All uploads must have a content-type of <code>multipart/form-data</code> as part of their HTTP header</p></li></ul><p><u>Image File</u></p><ul><li><p>Multer limits: { fileSize: 10 * 1024 * 1024 }, // 10MB</p></li><li><p>Multer fileFilter: isImageValid</p><ul><li><p>isFilenameValid - must pass this regex pattern: <code>/^[\w,\s-]+\.[A-Za-z]{3}$/</code></p></li><li><p>isExtensionValid - the filename must end with a period and at least one of the following extensions from any array:</p><ul><li><p>allowedModelExtensions = fbx | glb | dae | obj | zip<br/>allowedTextureExtensions = jpe?g | png | tiff | tga | webp<br/>allowedProductionExtensions = blend | ma | mb | psd | sp</p></li></ul></li><li><p>isImageMimeValid - the mime type must be either &quot;image/jpeg&quot;, &quot;image/jpg&quot;, &quot;image/png&quot;, or &quot;image/webp&quot;</p></li></ul></li></ul><p><u>Project Name Field</u></p><ul><li><p>It cannot exist yet in the the Project collection in the database (checks for an exact match while ignoring case → <code>RegExp(`^${projectName}$`, &quot;i&quot;)</code>)</p></li></ul></td></tr></tbody></table></div><p />
+                    </div>
+
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 27, 2025 21:02</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

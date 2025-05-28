@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "three": "^0.169.0",
+    "three-stdlib": "^2.33.0"
+  }
+}

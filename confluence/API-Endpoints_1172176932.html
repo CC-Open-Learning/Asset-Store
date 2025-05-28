@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vConestoga : API Endpoints</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="vConestoga_536314119.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Projects_1091797023.html">Projects</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="VARLab-Asset-Store_1124859959.html">VARLab Asset Store</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            vConestoga : API Endpoints
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Nick Aguilar</span>, last modified by <span class='editor'> Islam Ahmed</span> on Jan 17, 2025
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <div class="contentLayout2"><style>[data-colorid=altjum8wfi]{color:#0747a6} html[data-color-mode=dark] [data-colorid=altjum8wfi]{color:#5999f8}</style>
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h1 id="APIEndpoints-Overview">Overview</h1><p>This documentation will outline specifics regarding some of the API calls the server can currently handle.</p><p>The API layer of this application was written using Node.JS and Express </p></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<style type="text/css">/*<![CDATA[*/
+div.rbtoc1748379737530 {padding: 0px;}
+div.rbtoc1748379737530 ul {list-style: none;margin-left: 0px;}
+div.rbtoc1748379737530 li {margin-left: 0px;padding-left: 0px;}
+
+/*]]>*/</style><div class="toc-macro rbtoc1748379737530">
+<ul class="toc-indentation">
+<li><a href="#APIEndpoints-Overview">Overview</a></li>
+<li><a href="#APIEndpoints-APICalls">API Calls</a>
+<ul class="toc-indentation">
+<li><a href="#APIEndpoints-ServerURL">Server URL</a></li>
+<li><a href="#APIEndpoints-AssetRouting">Asset Routing</a>
+<ul class="toc-indentation">
+<li><a href="#APIEndpoints-Ex.GETRequest“/download”">Ex. GET Request &ldquo;/download&rdquo;</a></li>
+<li><a href="#APIEndpoints-FileDownloadEndpointFlow">File Download Endpoint Flow</a></li>
+<li><a href="#APIEndpoints-DeleteRequest">Delete Request</a>
+<ul class="toc-indentation">
+<li><a href="#APIEndpoints-DeleteAssetFlow">Delete Asset Flow</a></li>
+<li><a href="#APIEndpoints-DeleteRequestUtilities">Delete Request Utilities</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#APIEndpoints-SearchRouting">Search Routing</a>
+<ul class="toc-indentation">
+<li><a href="#APIEndpoints-Routes">Routes</a></li>
+<li><a href="#APIEndpoints-SearchbyAssetID">Search by Asset ID</a></li>
+<li><a href="#APIEndpoints-SearchAssetDirected">Search Asset Directed</a>
+<ul class="toc-indentation">
+<li><a href="#APIEndpoints-AssetSearchWhitelist">Asset Search Whitelist</a></li>
+</ul>
+</li>
+<li><a href="#APIEndpoints-Searchassetsbasedonkeywords">Search assets based on keywords</a></li>
+<li><a href="#APIEndpoints-SearchUsingInequalityOperators">Search Using Inequality Operators</a></li>
+</ul>
+</li>
+<li><a href="#APIEndpoints-SelectFunctionality">Select Functionality</a>
+<ul class="toc-indentation">
+<li><a href="#APIEndpoints-AXIOSRequest">AXIOS Request</a></li>
+<li><a href="#APIEndpoints-AXIOSServiceRequest">AXIOS Service Request</a></li>
+</ul>
+</li>
+<li><a href="#APIEndpoints-ProjectRouting">Project Routing</a></li>
+<li><a href="#APIEndpoints-CategoryRouting">Category Routing</a></li>
+</ul>
+</li>
+</ul>
+</div></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h1 id="APIEndpoints-APICalls">API Calls</h1><p>This section will contain information regarding the calls the API currently accepts as well as information related to how to make calls and some of the back-end routing</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="APIEndpoints-ServerURL">Server URL</h2><p>The API for the server can be called by entering the following base URL</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">https://assetstore.vconestoga.com/api</pre>
+</div></div></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="APIEndpoints-AssetRouting">Asset Routing</h2><p>Assets can be fetched by appending &ldquo;asset&rdquo; to the end of the URL as shown below.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">https://assetstore.vconestoga.com/api/asset</pre>
+</div></div></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<div class="table-wrap"><table data-table-width="760" data-layout="default" data-local-id="cec27b4e-ebb7-45d6-aa14-e2e495af75d8" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p><strong>Route</strong></p></th><th class="confluenceTh"><p><strong>Functionality</strong></p></th></tr><tr><td class="confluenceTd"><p>/download</p></td><td class="confluenceTd"><p>Serves the download URL for the asset</p></td></tr><tr><td class="confluenceTd"><p>/asset-sas-token</p></td><td class="confluenceTd"><p>Serves the SAS token for the assets</p></td></tr><tr><td class="confluenceTd"><p>/</p></td><td class="confluenceTd"><p>.delete + root path deletes the asset by ID</p></td></tr><tr><td class="confluenceTd"><p>/ </p></td><td class="confluenceTd"><p>.post + root path uploads an asset</p></td></tr></tbody></table></div></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="APIEndpoints-Ex.GETRequest“/download”">Ex. GET Request &ldquo;/download&rdquo;</h3><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">https://assetstore.vconestoga.com/api/asset/download?id=666b882572de3e184b03eccf</pre>
+</div></div><h3 id="APIEndpoints-FileDownloadEndpointFlow">File Download Endpoint Flow</h3><ol start="1"><li><p><strong>User Request:</strong></p><ul><li><p>User sends a <code>GET</code> request to <code>/download</code> with the <code>id</code> of the asset in the query.</p></li></ul></li><li><p><strong>Authentication Check:</strong></p><ul><li><p>The <code>checkAuthentication</code> middleware verifies the user's authentication.</p></li></ul></li><li><p><strong>Extract File ID:</strong></p><ul><li><p>The endpoint retrieves the <code>id</code> from the query string.</p></li></ul></li><li><p><strong>Find Asset in MongoDB:</strong></p><ul><li><p>Searches for the asset metadata using <code>assetModel.findById(id)</code>.</p></li><li><p>If not found, returns a <code>404</code> error with a &quot;Asset not found&quot; message.</p></li></ul></li><li><p><strong>Generate SAS Token:</strong></p><ul><li><p>If the asset exists, generates a temporary SAS token for secure access to the file.</p></li></ul></li><li><p><strong>Create File URL:</strong></p><ul><li><p>Combines the Blob Storage URI, container name, file name, and SAS token to create the full file URL.</p></li></ul></li><li><p><strong>Check Blob Existence:</strong></p><ul><li><p>Verifies the file exists in Blob Storage using a <code>BlobClient</code>.</p></li><li><p>If it doesn&rsquo;t exist, returns a <code>404</code> error.</p></li></ul></li><li><p><strong>Log Download:</strong></p><ul><li><p>Logs the username and file name of the download request.</p></li></ul></li><li><p><strong>Respond with File URL:</strong></p><ul><li><p>Sends the file URL with a <code>200</code> status if the file exists.</p></li></ul></li><li><p><strong>Error Handling:</strong></p><ul><li><p>Returns a <code>500</code> error for any unexpected issues during the process.</p></li></ul></li></ol></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241209-220357.png" width="760" loading="lazy" src="attachments/1172176932/1510277134.png?width=760" data-image-src="attachments/1172176932/1510277134.png" data-height="628" data-width="1417" data-unresolved-comment-count="0" data-linked-resource-id="1510277134" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241209-220357.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1172176932" data-linked-resource-container-version="79" data-media-id="5dc97fcd-edba-4c57-abfc-a0b54fdd9405" data-media-type="file" /></span><p>The fileUrl is the URL from the download endpoint in the server (/download).</p><div id="expander-238694952" class="expand-container"><div id="expander-control-238694952" class="expand-control"><span class="expand-control-icon"><img style="vertical-align:middle;" class="expand-control-image" src="images/icons/grey_arrow_down.png"/></span><span class="expand-control-text">Download route code:</span></div><div id="expander-content-238694952" class="expand-content"><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">router.get(&quot;/download&quot;, checkAuthentication, async (req, res) =&gt; {
+&nbsp; try {
+&nbsp; &nbsp; const { id } = req.query;
+&nbsp; &nbsp; const asset = await assetModel.findById(id);
+&nbsp; &nbsp; const minuteDuration = 2; // Change duration according
+&nbsp; &nbsp; if (asset !== null) {
+&nbsp; &nbsp; &nbsp; // Generate SAS token for the asset file
+&nbsp; &nbsp; &nbsp; const sasToken = await createContainerSasToken(&quot;assets&quot;, minuteDuration);
+
+&nbsp; &nbsp; &nbsp; // Construct the full URL
+&nbsp; &nbsp; &nbsp; const fileUrl = `${process.env.BLOBSTORAGE_URI}assets/${asset.fileName}?${sasToken}`;
+
+&nbsp; &nbsp; &nbsp; // Create a BlobClient using the full blob URL with SAS token
+&nbsp; &nbsp; &nbsp; const blobClient = new BlobClient(fileUrl);
+
+&nbsp; &nbsp; &nbsp; // Check if the blob exists
+&nbsp; &nbsp; &nbsp; if (await blobClient.exists()) {
+&nbsp; &nbsp; &nbsp; &nbsp; //Log user who requested the download
+&nbsp; &nbsp; &nbsp; &nbsp; logger.info(
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; `User ${req.user.username} requested download for &quot;${asset.fileName}&quot;`
+&nbsp; &nbsp; &nbsp; &nbsp; );
+
+&nbsp; &nbsp; &nbsp; &nbsp; // Send the full URL as the response
+&nbsp; &nbsp; &nbsp; &nbsp; return res.status(200).send({ url: fileUrl });
+&nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; return res.status(404).send({ message: &quot;Asset not found&quot; });
+&nbsp; &nbsp; }
+&nbsp; } catch (e) {
+&nbsp; &nbsp; logger.error(e.message);
+&nbsp; &nbsp; return res.status(500).send({ message: e.message });
+&nbsp; }
+});</pre>
+</div></div></div></div></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>The URL returned to the client will be processed in the DownloadAssetButton.tsx where the URL is used like this to download the asset:</p><div id="expander-966386041" class="expand-container"><div id="expander-control-966386041" class="expand-control"><span class="expand-control-icon"><img style="vertical-align:middle;" class="expand-control-image" src="images/icons/grey_arrow_down.png"/></span><span class="expand-control-text">Frontend download code</span></div><div id="expander-content-966386041" class="expand-content"><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">const link = document.createElement(&quot;a&quot;);
+
+link.setAttribute(&quot;download&quot;, fileName); // Set the desired file name for the download
+link.setAttribute(&quot;href&quot;, fileUrl); // Use the provided file URL directly
+
+// Append the link to the document and trigger a click
+document.body.appendChild(link);
+link.click();
+
+// Clean up the link element
+document.body.removeChild(link);</pre>
+</div></div></div></div><p /></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="APIEndpoints-DeleteRequest">Delete Request</h3><p>Full route:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">https://assetstore.vconestoga.com/api/asset/?id=674cd4dd67044c6225186ebbz</pre>
+</div></div><h4 id="APIEndpoints-DeleteAssetFlow">Delete Asset Flow</h4><ol start="1"><li><p><strong>User Request:</strong></p><ul><li><p>User sends a <code>DELETE</code> request to <code>/</code> with the asset <code>id</code> in the query.</p></li></ul></li><li><p><strong>Authentication and Authorization:</strong></p><ul><li><p>The <code>checkAuthentication</code> middleware validates that the user is authenticated.</p></li><li><p>The <code>checkIsAdmin</code> middleware ensures the user has admin privileges.</p></li></ul></li><li><p><strong>Extract Asset ID:</strong></p><ul><li><p>The endpoint retrieves the <code>id</code> from the query string.</p></li><li><p>If <code>id</code> is not provided, responds with a <code>404</code> error: &quot;Id not found.&quot;</p></li></ul></li><li><p><strong>Delete Asset Logic:</strong></p><ul><li><p>Calls the <code>deleteAsset(id)</code> function to:</p><ul><li><p>Remove the asset metadata from MongoDB.</p></li><li><p>Delete associated files (e.g., main files, previews) from Azure Blob Storage.</p></li></ul></li></ul></li><li><p><strong>Success Response:</strong></p><ul><li><p>If deletion is successful, returns a <code>200</code> status with the message: &quot;Asset Deleted.&quot;</p></li></ul></li><li><p><strong>Error Handling:</strong></p><ul><li><p>If an error occurs during deletion or file handling, logs the error message and responds with a <code>500</code> status.</p></li></ul></li></ol></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241209-225016.png" width="800" loading="lazy" src="attachments/1172176932/1510211594.png?width=800" data-image-src="attachments/1172176932/1510211594.png" data-height="243" data-width="1411" data-unresolved-comment-count="0" data-linked-resource-id="1510211594" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241209-225016.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1172176932" data-linked-resource-container-version="79" data-media-id="b1427cf9-2970-4115-b61e-2f53fbfe11d8" data-media-type="file" /></span><div id="expander-726733582" class="expand-container"><div id="expander-control-726733582" class="expand-control"><span class="expand-control-icon"><img style="vertical-align:middle;" class="expand-control-image" src="images/icons/grey_arrow_down.png"/></span><span class="expand-control-text">Delete route code</span></div><div id="expander-content-726733582" class="expand-content"><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">router.delete(&quot;/&quot;, checkAuthentication, checkIsAdmin, async (req, res) =&gt; {
+  try {
+    const { id } = req.query;
+    if (id) {
+      await deleteAsset(id);
+    } else {
+      return res.status(404).json({ success: false, message: &quot;Id not found&quot; });
+    }
+
+    return res.status(200).json({ success: true, message: &quot;Asset Deleted.&quot; });
+
+    //delete MongoDB metadata
+  } catch (e) {
+    logger.error(e.message);
+    return res.status(500).send({ success: false, message: e.message });
+  }
+});</pre>
+</div></div></div></div></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h4 id="APIEndpoints-DeleteRequestUtilities">Delete Request Utilities</h4><p><strong><span data-colorid="altjum8wfi">delete.js</span></strong></p><p>The main function for deleting. Deletes the file, preview images, and metadata from the database.</p><div id="expander-1801929826" class="expand-container"><div id="expander-control-1801929826" class="expand-control"><span class="expand-control-icon"><img style="vertical-align:middle;" class="expand-control-image" src="images/icons/grey_arrow_down.png"/></span><span class="expand-control-text">deleteAsset()</span></div><div id="expander-content-1801929826" class="expand-content"><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">const deleteAsset = async id =&gt; {
+  const asset = await assetModel.findById(id);
+
+  if (asset) {
+    const {
+      _id: assetId,
+      production,
+      fileName: assetFileName,
+      previews: previewImages,
+      tags
+    } = asset;
+
+    try {
+      // Attempt to delete blobs first
+      if (production &amp;&amp; production.glb) {
+        await deleteAssetBlob(assetContainerName, production.glb);
+      }
+      await deleteAssetBlob(assetContainerName, assetFileName);
+      await deletePreviewImages(previewContainerName, previewImages);
+
+      // Proceed to delete database records only if all blob deletions succeed
+      await assetModel.deleteOne({ _id: assetId });
+      await deleteTags(tags);
+    } catch (error) {
+      console.error(`Error during asset deletion: ${error.message}`);
+      logger.error(`Error during asset deletion: ${error.message}`);
+    }
+  }
+};
+
+</pre>
+</div></div></div></div></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>Helper function to delete a blob from a specified container</p><div id="expander-1503624216" class="expand-container"><div id="expander-control-1503624216" class="expand-control"><span class="expand-control-icon"><img style="vertical-align:middle;" class="expand-control-image" src="images/icons/grey_arrow_down.png"/></span><span class="expand-control-text">deleteAssetBlob()</span></div><div id="expander-content-1503624216" class="expand-content"><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">async function deleteAssetBlob(containerName, blobName) {
+  const containerClient = blobServiceClient.getContainerClient(containerName);
+  const blobClient = containerClient.getBlobClient(blobName);
+  try {
+    await blobClient.deleteIfExists({ deleteSnapshots: &quot;include&quot; });
+  } catch (error) {
+    console.error(`Error deleting blob ${blobName}: ${error.message}`);
+    logger.error(`Error deleting blob ${blobName}: ${error.message}`);
+  }
+}</pre>
+</div></div></div></div><p>Main function for deleting preview images</p><div id="expander-2212560" class="expand-container"><div id="expander-control-2212560" class="expand-control"><span class="expand-control-icon"><img style="vertical-align:middle;" class="expand-control-image" src="images/icons/grey_arrow_down.png"/></span><span class="expand-control-text">deletePreviewImages()</span></div><div id="expander-content-2212560" class="expand-content"><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">//Remove preview image files from Preview-Images folder in storage
+const deletePreviewImages = async (containerName, previewImages) =&gt; {
+  try {
+    // Ensure previewImages is an array
+    const imagesToDelete = Array.isArray(previewImages)
+      ? previewImages
+      : [previewImages];
+
+    const deletePromises = imagesToDelete.map(async previewUrl =&gt; {
+      // Extract the blob name from the URL
+      const blobName = previewUrl.split(&quot;/&quot;).pop();
+      // Decode the blob name to handle any encoded spaces
+      const decodedBlobName = decodeURIComponent(blobName);
+
+      // Create a BlockBlobClient and delete the blob
+      const containerClient =
+        blobServiceClient.getContainerClient(containerName);
+      const blobClient = containerClient.getBlobClient(decodedBlobName);
+
+      await blobClient.delete(); // Delete the blob
+
+      logger.info(
+        `Deleted blob: ${decodedBlobName} from container: ${containerName}`
+      );
+      return true; // Indicate successful deletion
+    });
+
+    // Wait for all delete operations to complete
+    const results = await Promise.all(deletePromises);
+    return results; // Return results of delete operations (true/false)
+  } catch (error) {
+    logger.error(&quot;Error deleting preview images:&quot;, error);
+    return false; // Indicate failure if an error occurs
+  }
+};
+  }
+};</pre>
+</div></div></div></div></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="APIEndpoints-SearchRouting">Search Routing</h2><p>Any Asset in the database can be fetched by appending &ldquo;search&rdquo; to the end of the URL as shown below.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">https://assetstore.vconestoga.com/api/search</pre>
+</div></div><h3 id="APIEndpoints-Routes">Routes</h3><p>Search has a series of sub-routes used to search assets, projects, tags, and asset categories. They are used by appending the name of the route to the end of the URL as shown below</p><p><code>https://assetstore.vconestoga.com/api/search/&lt;route&gt;</code></p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<div class="table-wrap"><table data-table-width="760" data-layout="default" data-local-id="10a411bb-95bf-4662-8271-04958dfc3fec" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p><strong>Route</strong></p></th><th class="confluenceTh"><p><strong>Functionality</strong></p></th></tr><tr><td class="confluenceTd"><p>/</p></td><td class="confluenceTd"><p>Search assets based on specified keywords: names, tags, categories, and projects.</p></td></tr><tr><td class="confluenceTd"><p>/asset</p></td><td class="confluenceTd"><p>Search by any known property (case insensitive &amp; partial match)</p><p>Select for MongoDB filtering</p></td></tr><tr><td class="confluenceTd"><p>/project</p></td><td class="confluenceTd"><p>Search by project name (case insensitive &amp; partial match)</p></td></tr><tr><td class="confluenceTd"><p>/category</p></td><td class="confluenceTd"><p>Search by category name (case insensitive &amp; partial match)</p></td></tr><tr><td class="confluenceTd"><p>/tags</p></td><td class="confluenceTd"><p>Search by project name (case insensitive &amp; partial match)</p></td></tr></tbody></table></div><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon" /><div class="confluence-information-macro-body"><p>Most searches should be handled via the &ldquo;/&rdquo; route especially in regards to the bottom 3 routes as well as asset searches by <strong>NAME</strong>. All other more specific searches regards specific properties of a given asset (ex. model.triCount, fileSize, etc) needs to be sent via the &ldquo;<strong>/asset</strong>&ldquo; route</p></div></div></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="APIEndpoints-SearchbyAssetID">Search by Asset ID</h3><p>To search for an asset by ID specifically use the following route</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">https://assetstore.vconestoga.com/api/search/asset?_id=&lt;id&gt;</pre>
+</div></div><p>In the following example the ID is appended to the URL in order to be attached to the parameter part of the request body. This is different than all the above requests which use query</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">https://assetstore.vconestoga.com/api/search/asset?_id=66a284d5d87f9399c8855845</pre>
+</div></div></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>The following is the response JSON to be returned from the API</p><div id="expander-2070024398" class="expand-container"><div id="expander-control-2070024398" class="expand-control"><span class="expand-control-icon"><img style="vertical-align:middle;" class="expand-control-image" src="images/icons/grey_arrow_down.png"/></span><span class="expand-control-text">Asset search response</span></div><div id="expander-content-2070024398" class="expand-content"><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+    &quot;_id&quot;: &quot;66a284d5d87f9399c8855845&quot;,
+    &quot;fileName&quot;: &quot;Airtank_DClass.fbx&quot;,
+    &quot;fileSize&quot;: 129820,
+    &quot;description&quot;: &quot;An air tank model&quot;,
+    &quot;format&quot;: &quot;FBX&quot;,
+    &quot;name&quot;: &quot;Airtank&quot;,
+    &quot;price&quot;: 0,
+    &quot;license&quot;: &quot;Conestoga&quot;,
+    &quot;origin&quot;: &quot;Conestoga Asset Store&quot;,
+    &quot;model&quot;: {
+        &quot;triCount&quot;: 7000,
+        &quot;vertices&quot;: 8000,
+        &quot;edges&quot;: 530,
+        &quot;lodCount&quot;: 3,
+        &quot;polygons&quot;: 5000,
+        &quot;rigType&quot;: &quot;NONE&quot;,
+        &quot;animationCount&quot;: 2,
+        &quot;textureCount&quot;: 15
+    },
+    &quot;previews&quot;: [
+        &quot;https://assetstore.vconestoga.com/api/asset/image?imageName=airtank1.png&quot;,
+        &quot;https://assetstore.vconestoga.com/api/asset/image?imageName=airtank2.png&quot;,
+        &quot;https://assetstore.vconestoga.com/api/asset/image?imageName=airtank3.png&quot;
+    ],
+    &quot;projects&quot;: [
+        {
+            &quot;_id&quot;: &quot;66a284d5d87f9399c8855833&quot;,
+            &quot;name&quot;: &quot;ambulance&quot;
+        }
+    ],
+    &quot;tags&quot;: [
+        {
+            &quot;_id&quot;: &quot;66a284d5d87f9399c885580d&quot;,
+            &quot;name&quot;: &quot;airtank&quot;
+        },
+        {
+            &quot;_id&quot;: &quot;66a284d5d87f9399c885580f&quot;,
+            &quot;name&quot;: &quot;3d&quot;
+        }
+    ],
+    &quot;categories&quot;: [
+        {
+            &quot;_id&quot;: &quot;66a284d5d87f9399c885582f&quot;,
+            &quot;name&quot;: &quot;model&quot;
+        }
+    ],
+    &quot;createdAt&quot;: &quot;2024-07-25T17:01:09.449Z&quot;,
+    &quot;updatedAt&quot;: &quot;2024-07-25T17:01:09.449Z&quot;,
+    &quot;__v&quot;: 0
+}</pre>
+</div></div></div></div></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="APIEndpoints-SearchAssetDirected">Search Asset Directed</h3><p>To search the asset collection directly use the following URL:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">https://assetstore.vconestoga.com/api/search/asset?&lt;query&gt;</pre>
+</div></div><p /></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h4 id="APIEndpoints-AssetSearchWhitelist">Asset Search Whitelist</h4><p>The following is a list search terms that are supported/enabled by the asset search</p><div id="expander-1390303760" class="expand-container"><div id="expander-control-1390303760" class="expand-control"><span class="expand-control-icon"><img style="vertical-align:middle;" class="expand-control-image" src="images/icons/grey_arrow_down.png"/></span><span class="expand-control-text">List of supported queries</span></div><div id="expander-content-1390303760" class="expand-content"><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&quot;_id&quot;,
+&quot;fileName&quot;,
+&quot;fileSize&quot;,
+&quot;fileSize.lt&quot;,
+&quot;fileSize.lte&quot;,
+&quot;fileSize.gt&quot;,
+&quot;fileSize.gte&quot;,
+&quot;description&quot;,
+&quot;name&quot;,
+&quot;format&quot;,
+&quot;price&quot;,
+&quot;price.lte&quot;,
+&quot;price.gte&quot;,
+&quot;license&quot;,
+&quot;origin&quot;,
+&quot;model.triCount&quot;,
+&quot;model.triCount.lte&quot;,
+&quot;model.triCount.gte&quot;,
+&quot;model.vertices&quot;,
+&quot;model.vertices.lte&quot;,
+&quot;model.vertices.gte&quot;,
+&quot;model.edges&quot;,
+&quot;model.edges.lte&quot;,
+&quot;model.edges.gte&quot;,
+&quot;model.lodCount&quot;,
+&quot;model.lodCount.lte&quot;,
+&quot;model.lodCount.gte&quot;,
+&quot;model.polygons&quot;,
+&quot;model.polygons.lte&quot;,
+&quot;model.polygons.gte&quot;,
+&quot;model.rigType&quot;,
+&quot;model.animationCount&quot;,
+&quot;model.animationCount.lte&quot;,
+&quot;model.animationCount.gte&quot;,
+&quot;model.textureCount&quot;,
+&quot;model.textureCount.lte&quot;,
+&quot;model.textureCount.gte&quot;,
+&quot;texture.height&quot;,
+&quot;texture.height.lte&quot;,
+&quot;texture.height.gte&quot;,
+&quot;texture.width&quot;,
+&quot;texture.width.lte&quot;,
+&quot;texture.width.gte&quot;,
+&quot;texture.type&quot;,
+&quot;production.type&quot;
+&quot;production.glb&quot;</pre>
+</div></div></div></div><p>The above list shows flattened versions of all queries (as objects) sent to the server. Each dot indicates that the proceeding item is a child property of the preceding value. </p></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>The search request needs to appended with query parameter as shown in the example below</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">https://assetstore.vconestoga.com/api/search/asset?model[lodCount][lte]=3&amp;name=fat stash&amp;name=air</pre>
+</div></div><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon" /><div class="confluence-information-macro-body"><p><strong>The API will only accept parameters that exist in the schema</strong><br /><strong>For a complete list of all available parameters, refer to </strong><a href="Database-Schema_1218805831.html" data-linked-resource-id="1218805831" data-linked-resource-version="6" data-linked-resource-type="page">Database Schema</a> </p></div></div><div id="expander-1762618211" class="expand-container"><div id="expander-control-1762618211" class="expand-control"><span class="expand-control-icon"><img style="vertical-align:middle;" class="expand-control-image" src="images/icons/grey_arrow_down.png"/></span><span class="expand-control-text">Example Query Object</span></div><div id="expander-content-1762618211" class="expand-content"><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+  model: {
+  lodCount: {
+    $lte: 3
+    }
+  },
+  name: &quot;fat stash&quot;,
+  name: &quot;air&quot;
+}</pre>
+</div></div></div></div><p>In the example above the follow parameters are added to search specifically for existing assets:</p><ul><li><p>Name: &ldquo;Fat Stash Jar WhiteBox&rdquo;</p></li><li><p>Name: &ldquo;Airtank&rdquo;</p></li><li><p>model.lodCount: 3</p></li><li><p>model.lodCount: 0</p></li></ul><p /></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>Making a GET request with the parameters to the left will give the user the following information.</p><div id="expander-1384513120" class="expand-container"><div id="expander-control-1384513120" class="expand-control"><span class="expand-control-icon"><img style="vertical-align:middle;" class="expand-control-image" src="images/icons/grey_arrow_down.png"/></span><span class="expand-control-text">Example Response</span></div><div id="expander-content-1384513120" class="expand-content"><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">[
+    {
+        &quot;_id&quot;: &quot;66a161ecf8074bb564b108e9&quot;,
+        &quot;fileName&quot;: &quot;Airtank_DClass.fbx&quot;,
+        &quot;fileSize&quot;: 129820,
+        &quot;description&quot;: &quot;An air tank model&quot;,
+        &quot;format&quot;: &quot;FBX&quot;,
+        &quot;name&quot;: &quot;Airtank&quot;,
+        &quot;model&quot;: {
+            &quot;triCount&quot;: 7000,
+            &quot;vertices&quot;: 8000,
+            &quot;edges&quot;: 530,
+            &quot;lodCount&quot;: 3,
+            &quot;polygons&quot;: 5000,
+            &quot;rigType&quot;: &quot;NONE&quot;,
+            &quot;animationCount&quot;: 2,
+            &quot;textureCount&quot;: 15
+        },
+        &quot;previews&quot;: [
+            &quot;https://assetstore.vconestoga.com/api/asset/image?imageName=airtank1.png&quot;,
+            &quot;https://assetstore.vconestoga.com/api/asset/image?imageName=airtank2.png&quot;,
+            &quot;https://assetstore.vconestoga.com/api/asset/image?imageName=airtank3.png&quot;
+        ],
+        &quot;projects&quot;: [
+            {
+                &quot;_id&quot;: &quot;66a161ecf8074bb564b108d7&quot;,
+                &quot;name&quot;: &quot;ambulance&quot;
+            }
+        ],
+        &quot;tags&quot;: [
+            {
+                &quot;_id&quot;: &quot;66a161ecf8074bb564b108b1&quot;,
+                &quot;name&quot;: &quot;airtank&quot;
+            },
+            {
+                &quot;_id&quot;: &quot;66a161ecf8074bb564b108b3&quot;,
+                &quot;name&quot;: &quot;3d&quot;
+            }
+        ],
+        &quot;categories&quot;: [
+            {
+                &quot;_id&quot;: &quot;66a161ecf8074bb564b108d3&quot;,
+                &quot;name&quot;: &quot;model&quot;
+            }
+        ],
+        &quot;createdAt&quot;: &quot;2024-07-24T20:19:56.669Z&quot;,
+        &quot;updatedAt&quot;: &quot;2024-07-24T20:19:56.669Z&quot;,
+        &quot;__v&quot;: 0
+    },
+    {
+        &quot;_id&quot;: &quot;66a161ecf8074bb564b108ed&quot;,
+        &quot;fileName&quot;: &quot;FatStashJar_WhiteBox.fbx&quot;,
+        &quot;fileSize&quot;: 11596,
+        &quot;description&quot;: &quot;A white box...&quot;,
+        &quot;format&quot;: &quot;FBX&quot;,
+        &quot;name&quot;: &quot;Fat Stash Jar WhiteBox&quot;,
+        &quot;model&quot;: {
+            &quot;triCount&quot;: 12,
+            &quot;vertices&quot;: 36,
+            &quot;edges&quot;: 18,
+            &quot;lodCount&quot;: 0,
+            &quot;polygons&quot;: 9,
+            &quot;rigType&quot;: &quot;NONE&quot;,
+            &quot;animationCount&quot;: 0,
+            &quot;textureCount&quot;: 12
+        },
+        &quot;previews&quot;: [
+            &quot;https://assetstore.vconestoga.com/api/asset/image?imageName=fatstash_whitebox1.png&quot;,
+            &quot;https://assetstore.vconestoga.com/api/asset/image?imageName=fatstash_whitebox2.png&quot;,
+            &quot;https://assetstore.vconestoga.com/api/asset/image?imageName=fatstash_whitebox3.png&quot;
+        ],
+        &quot;projects&quot;: [
+            {
+                &quot;_id&quot;: &quot;66a161ecf8074bb564b108e1&quot;,
+                &quot;name&quot;: &quot;public health inspection&quot;
+            }
+        ],
+        &quot;tags&quot;: [
+            {
+                &quot;_id&quot;: &quot;66a161ecf8074bb564b108bb&quot;,
+                &quot;name&quot;: &quot;box&quot;
+            },
+            {
+                &quot;_id&quot;: &quot;66a161ecf8074bb564b108bd&quot;,
+                &quot;name&quot;: &quot;white&quot;
+            },
+            {
+                &quot;_id&quot;: &quot;66a161ecf8074bb564b108bf&quot;,
+                &quot;name&quot;: &quot;fat stash&quot;
+            },
+            {
+                &quot;_id&quot;: &quot;66a161ecf8074bb564b108b7&quot;,
+                &quot;name&quot;: &quot;public&quot;
+            }
+        ],
+        &quot;categories&quot;: [
+            {
+                &quot;_id&quot;: &quot;66a161ecf8074bb564b108d3&quot;,
+                &quot;name&quot;: &quot;model&quot;
+            }
+        ],
+        &quot;createdAt&quot;: &quot;2024-07-24T20:19:56.703Z&quot;,
+        &quot;updatedAt&quot;: &quot;2024-07-24T20:19:56.703Z&quot;,
+        &quot;__v&quot;: 0
+    }
+]</pre>
+</div></div></div></div><p>Currently the search terms do not need to be in any given order.</p><p>Whatever is entered into the query portion of the HTTPS request will be what is searched for in the database</p><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon" /><div class="confluence-information-macro-body"><p>Search is case insensitive AND my will partially match any string search</p></div></div></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="APIEndpoints-Searchassetsbasedonkeywords">Search assets based on keywords</h3><p>To search by key words the URL must have <strong>?keywords </strong>appended to the end of the search route</p><p>To search for assets through keywords use the following route:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">https://assetstore.vconestoga.com/api/search?keywords=[keyword1],[keyword2],[keyword3],...</pre>
+</div></div><p>The keywords are split by commas, spaces will effect search results.</p><div class="confluence-information-macro confluence-information-macro-note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon" /><div class="confluence-information-macro-body"><p>Currently the search route (using keywords) only works by name, any more specific searches regarding assets (such as numbers) need to be made via the search/asset route above</p></div></div><p>A search query is constructed for the Asset collection using the following criteria:</p><ul><li><p>name: Matches any asset name that contains any of the keywords (case-insensitive partial match).</p></li><li><p>tags: Matches any asset tag that contains any of the keywords (case-insensitive whole match).</p></li><li><p>categories: Matches any asset whose categories include any of the keywords (case-insensitive whole match).</p></li><li><p>projects: Matches any asset whose projects include any of the keywords (case-insensitive whole match).</p></li></ul></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>The search works based on the following decision tree:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Search Decision Tree-20241209-183636.png" width="760" loading="lazy" src="attachments/1172176932/1509064746.png?width=760" data-image-src="attachments/1172176932/1509064746.png" data-height="9141" data-width="7891" data-unresolved-comment-count="0" data-linked-resource-id="1509064746" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="Search Decision Tree-20241209-183636.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1172176932" data-linked-resource-container-version="79" data-media-id="3f863873-1c7e-49d3-8c70-f4aa2d96b084" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="APIEndpoints-SearchUsingInequalityOperators">Search Using Inequality Operators</h3><p>When searching using inequality operators such as (less than, greater than&hellip;etc) the API is expecting each operator as an object part of the property you wish to search.</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>The API currently supports the follow searches:</p><div class="table-wrap"><table data-table-width="760" data-layout="default" data-local-id="d13bde56-c2ff-4bd4-89db-e70e8e3c39bf" class="confluenceTable"><colgroup><col style="width: 435.0px;" /><col style="width: 446.0px;" /></colgroup><tbody><tr><th class="confluenceTh"><p><strong>Inequality</strong></p></th><th class="confluenceTh"><p><strong>Code equivalent </strong></p></th></tr><tr><td class="confluenceTd"><p>Less than or equal to</p></td><td class="confluenceTd"><p><strong>lte</strong></p></td></tr><tr><td class="confluenceTd"><p>Greater than or equal to</p></td><td class="confluenceTd"><p><strong>gte</strong></p></td></tr></tbody></table></div></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>Example of URL</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">https://assetstore.vconestoga.com/api/search/asset?model[triCount][gte]=2&amp;model[triCount][lte]=10000&amp;fileSize[gte]=8000</pre>
+</div></div><p>In the above example the API interprets the search parameter you wish to use as an embedded object inside of the property you are searching for. For the property model.triCount, the gt property is being embedded inside as follows:</p><div id="expander-1794792638" class="expand-container"><div id="expander-control-1794792638" class="expand-control"><span class="expand-control-icon"><img style="vertical-align:middle;" class="expand-control-image" src="images/icons/grey_arrow_down.png"/></span><span class="expand-control-text">Example Query Object</span></div><div id="expander-content-1794792638" class="expand-content"><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+  &quot;model&quot;: {
+    &quot;triCount&quot;: {
+      &quot;gt&quot;: 2
+      &quot;lt&quot;: 10000
+    }
+  }
+}</pre>
+</div></div></div></div><p>Sending a request such as this will cause values greater than 2 and less than 10,0000 to be returned</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>For a single search like with fileSize the query object would only contain a single object <code>fileSize[gt]=8000</code></p><p>The above query returns the following:</p><div id="expander-1990452016" class="expand-container"><div id="expander-control-1990452016" class="expand-control"><span class="expand-control-icon"><img style="vertical-align:middle;" class="expand-control-image" src="images/icons/grey_arrow_down.png"/></span><span class="expand-control-text">Example Response</span></div><div id="expander-content-1990452016" class="expand-content"><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">[
+    {
+        &quot;_id&quot;: &quot;66a2a9f13c9af1b0dc684c55&quot;,
+        &quot;fileName&quot;: &quot;Airtank_DClass.fbx&quot;,
+        &quot;fileSize&quot;: 129820,
+        &quot;description&quot;: &quot;An air tank model&quot;,
+        &quot;format&quot;: &quot;FBX&quot;,
+        &quot;name&quot;: &quot;Airtank&quot;,
+        &quot;price&quot;: 0,
+        &quot;license&quot;: &quot;Conestoga&quot;,
+        &quot;origin&quot;: &quot;Conestoga Asset Store&quot;,
+        &quot;model&quot;: {
+            &quot;triCount&quot;: 7000,
+            &quot;vertices&quot;: 8000,
+            &quot;edges&quot;: 530,
+            &quot;lodCount&quot;: 3,
+            &quot;polygons&quot;: 5000,
+            &quot;rigType&quot;: &quot;NONE&quot;,
+            &quot;animationCount&quot;: 2,
+            &quot;textureCount&quot;: 15
+        },
+        &quot;previews&quot;: [
+            &quot;https://assetstore.vconestoga.com/api/asset/image?imageName=airtank1.png&quot;,
+            &quot;https://assetstore.vconestoga.com/api/asset/image?imageName=airtank2.png&quot;,
+            &quot;https://assetstore.vconestoga.com/api/asset/image?imageName=airtank3.png&quot;
+        ],
+        &quot;projects&quot;: [
+            {
+                &quot;_id&quot;: &quot;66a2a9f13c9af1b0dc684c43&quot;,
+                &quot;name&quot;: &quot;ambulance&quot;
+            }
+        ],
+        &quot;tags&quot;: [
+            {
+                &quot;_id&quot;: &quot;66a2a9f13c9af1b0dc684c1d&quot;,
+                &quot;name&quot;: &quot;airtank&quot;
+            },
+            {
+                &quot;_id&quot;: &quot;66a2a9f13c9af1b0dc684c1f&quot;,
+                &quot;name&quot;: &quot;3d&quot;
+            }
+        ],
+        &quot;categories&quot;: [
+            {
+                &quot;_id&quot;: &quot;66a2a9f13c9af1b0dc684c3f&quot;,
+                &quot;name&quot;: &quot;model&quot;
+            }
+        ],
+        &quot;createdAt&quot;: &quot;2024-07-25T19:39:29.965Z&quot;,
+        &quot;updatedAt&quot;: &quot;2024-07-25T19:39:29.965Z&quot;,
+        &quot;__v&quot;: 0
+    },
+    {
+        &quot;_id&quot;: &quot;66a2a9f13c9af1b0dc684c57&quot;,
+        &quot;fileName&quot;: &quot;Bag_Biohazard.fbx&quot;,
+        &quot;fileSize&quot;: 24860,
+        &quot;description&quot;: &quot;A model of a biohazard bag&quot;,
+        &quot;format&quot;: &quot;FBX&quot;,
+        &quot;name&quot;: &quot;Bag Biohazard&quot;,
+        &quot;price&quot;: 0,
+        &quot;license&quot;: &quot;Conestoga&quot;,
+        &quot;origin&quot;: &quot;Conestoga Asset Store&quot;,
+        &quot;model&quot;: {
+            &quot;triCount&quot;: 220,
+            &quot;vertices&quot;: 660,
+            &quot;edges&quot;: 330,
+            &quot;lodCount&quot;: 0,
+            &quot;polygons&quot;: 165,
+            &quot;rigType&quot;: &quot;NONE&quot;,
+            &quot;animationCount&quot;: 0,
+            &quot;textureCount&quot;: 1
+        },
+        &quot;previews&quot;: [
+            &quot;https://assetstore.vconestoga.com/api/asset/image?imageName=biobag1.png&quot;,
+            &quot;https://assetstore.vconestoga.com/api/asset/image?imageName=biobag2.png&quot;,
+            &quot;https://assetstore.vconestoga.com/api/asset/image?imageName=biobag3.png&quot;
+        ],
+        &quot;projects&quot;: [
+            {
+                &quot;_id&quot;: &quot;66a2a9f13c9af1b0dc684c45&quot;,
+                &quot;name&quot;: &quot;climate change&quot;
+            }
+        ],
+        &quot;tags&quot;: [
+            {
+                &quot;_id&quot;: &quot;66a2a9f13c9af1b0dc684c2b&quot;,
+                &quot;name&quot;: &quot;fat stash&quot;
+            },
+            {
+                &quot;_id&quot;: &quot;66a2a9f13c9af1b0dc684c21&quot;,
+                &quot;name&quot;: &quot;bag&quot;
+            },
+            {
+                &quot;_id&quot;: &quot;66a2a9f13c9af1b0dc684c27&quot;,
+                &quot;name&quot;: &quot;box&quot;
+            }
+        ],
+        &quot;categories&quot;: [
+            {
+                &quot;_id&quot;: &quot;66a2a9f13c9af1b0dc684c3f&quot;,
+                &quot;name&quot;: &quot;model&quot;
+            }
+        ],
+        &quot;createdAt&quot;: &quot;2024-07-25T19:39:29.999Z&quot;,
+        &quot;updatedAt&quot;: &quot;2024-07-25T19:39:29.999Z&quot;,
+        &quot;__v&quot;: 0
+    },
+    {
+        &quot;_id&quot;: &quot;66a2a9f23c9af1b0dc684c59&quot;,
+        &quot;fileName&quot;: &quot;FatStashJar_WhiteBox.fbx&quot;,
+        &quot;fileSize&quot;: 11596,
+        &quot;description&quot;: &quot;A white box...&quot;,
+        &quot;format&quot;: &quot;FBX&quot;,
+        &quot;name&quot;: &quot;Fat Stash Jar WhiteBox&quot;,
+        &quot;price&quot;: 0,
+        &quot;license&quot;: &quot;Conestoga&quot;,
+        &quot;origin&quot;: &quot;Conestoga Asset Store&quot;,
+        &quot;model&quot;: {
+            &quot;triCount&quot;: 12,
+            &quot;vertices&quot;: 36,
+            &quot;edges&quot;: 18,
+            &quot;lodCount&quot;: 0,
+            &quot;polygons&quot;: 9,
+            &quot;rigType&quot;: &quot;NONE&quot;,
+            &quot;animationCount&quot;: 0,
+            &quot;textureCount&quot;: 12
+        },
+        &quot;previews&quot;: [
+            &quot;https://assetstore.vconestoga.com/api/asset/image?imageName=fatstash_whitebox1.png&quot;,
+            &quot;https://assetstore.vconestoga.com/api/asset/image?imageName=fatstash_whitebox2.png&quot;,
+            &quot;https://assetstore.vconestoga.com/api/asset/image?imageName=fatstash_whitebox3.png&quot;
+        ],
+        &quot;projects&quot;: [
+            {
+                &quot;_id&quot;: &quot;66a2a9f13c9af1b0dc684c4d&quot;,
+                &quot;name&quot;: &quot;public health inspection&quot;
+            }
+        ],
+        &quot;tags&quot;: [
+            {
+                &quot;_id&quot;: &quot;66a2a9f13c9af1b0dc684c27&quot;,
+                &quot;name&quot;: &quot;box&quot;
+            },
+            {
+                &quot;_id&quot;: &quot;66a2a9f13c9af1b0dc684c29&quot;,
+                &quot;name&quot;: &quot;white&quot;
+            },
+            {
+                &quot;_id&quot;: &quot;66a2a9f13c9af1b0dc684c2b&quot;,
+                &quot;name&quot;: &quot;fat stash&quot;
+            },
+            {
+                &quot;_id&quot;: &quot;66a2a9f13c9af1b0dc684c23&quot;,
+                &quot;name&quot;: &quot;public&quot;
+            }
+        ],
+        &quot;categories&quot;: [
+            {
+                &quot;_id&quot;: &quot;66a2a9f13c9af1b0dc684c3f&quot;,
+                &quot;name&quot;: &quot;model&quot;
+            }
+        ],
+        &quot;createdAt&quot;: &quot;2024-07-25T19:39:30.002Z&quot;,
+        &quot;updatedAt&quot;: &quot;2024-07-25T19:39:30.002Z&quot;,
+        &quot;__v&quot;: 0
+    }
+]</pre>
+</div></div></div></div></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="APIEndpoints-SelectFunctionality">Select Functionality</h2><p>Included in the search asset route is the ability to use the select DB feature to filter out unnecessary properties should the user require such functionality. The API is expecting an object inside of the <strong>PARAMS </strong>of the HTTP request as follows</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: js; gutter: false; theme: Confluence" data-theme="Confluence">params: {
+    &quot;select&quot;: [&quot;name&quot;, &quot;model.triCount&quot;]
+}</pre>
+</div></div><p /></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>In the following example we create a <strong>SELECT</strong> object that includes properties the user wishes to be returned, entering the following into the body of the request will yield the follow results</p><div id="expander-1233305034" class="expand-container"><div id="expander-control-1233305034" class="expand-control"><span class="expand-control-icon"><img style="vertical-align:middle;" class="expand-control-image" src="images/icons/grey_arrow_down.png"/></span><span class="expand-control-text">Example Response</span></div><div id="expander-content-1233305034" class="expand-content"><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">[
+    {
+        &quot;_id&quot;: &quot;667dd0d6cc57b403ad1923f1&quot;,
+        &quot;name&quot;: &quot;Airtank&quot;,
+        &quot;model&quot;: {
+            &quot;triCount&quot;: 7000
+        }
+    },
+    {
+        &quot;_id&quot;: &quot;667dd0d6cc57b403ad1923f3&quot;,
+        &quot;name&quot;: &quot;Bag Biohazard&quot;,
+        &quot;model&quot;: {
+            &quot;triCount&quot;: 220
+        }
+    },
+    {
+        &quot;_id&quot;: &quot;667dd0d6cc57b403ad1923f5&quot;,
+        &quot;name&quot;: &quot;Fat Stash Jar WhiteBox&quot;,
+        &quot;model&quot;: {
+            &quot;triCount&quot;: 12
+        }
+    },
+    {
+        &quot;_id&quot;: &quot;667dd0d6cc57b403ad1923f7&quot;,
+        &quot;name&quot;: &quot;Gundam Test&quot;,
+        &quot;model&quot;: {
+            &quot;triCount&quot;: 10604183
+        }
+    },
+    {
+        &quot;_id&quot;: &quot;667dd0d6cc57b403ad1923f9&quot;,
+        &quot;name&quot;: &quot;Power Stretcher&quot;,
+        &quot;model&quot;: {
+            &quot;triCount&quot;: 106183
+        }
+    },
+    {
+        &quot;_id&quot;: &quot;667dd0d6cc57b403ad1923fb&quot;,
+        &quot;name&quot;: &quot;Airtank Colour&quot;
+    },
+    {
+        &quot;_id&quot;: &quot;667dd0d6cc57b403ad1923fd&quot;,
+        &quot;name&quot;: &quot;Car Battery Colour&quot;
+    },
+    {
+        &quot;_id&quot;: &quot;667dd0d6cc57b403ad1923ff&quot;,
+        &quot;name&quot;: &quot;Rust Decal Metallic&quot;
+    },
+    {
+        &quot;_id&quot;: &quot;667f170da3d3d5b1880dd749&quot;,
+        &quot;name&quot;: &quot;Radio&quot;,
+        &quot;model&quot;: {
+            &quot;triCount&quot;: 1852576
+        }
+    }
+]</pre>
+</div></div></div></div></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="APIEndpoints-AXIOSRequest">AXIOS Request</h3><p>Below is an example of what the AXIOS get request should look like in order to get a response from the API using select:</p><div id="expander-1918404843" class="expand-container"><div id="expander-control-1918404843" class="expand-control"><span class="expand-control-icon"><img style="vertical-align:middle;" class="expand-control-image" src="images/icons/grey_arrow_down.png"/></span><span class="expand-control-text">Pure Axios GET Example</span></div><div id="expander-content-1918404843" class="expand-content"><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">const axiosCall = async () =&gt; {
+    await axios({
+      method: &quot;get&quot;,
+      url: &quot;https://assetstore.vconestoga.com/api/search/asset&quot;,
+      headers: {
+        &quot;Content-Type&quot;: &quot;application/json&quot;
+      },
+      params: { 
+        select: [&quot;name&quot;], 
+        name: [&quot;Air&quot;, &quot;bag&quot;] 
+      }
+    })
+      .then(res =&gt; res.data)
+      .catch(err =&gt; {
+        console.log(err.message);
+        return false;
+      });
+  };</pre>
+</div></div></div></div><p>Which produces the following URL:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">https://assetstore.vconestoga.com/api/search/asset?name=Airtank&amp;select=model.triCount name</pre>
+</div></div><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon" /><div class="confluence-information-macro-body"><p>The request can also be made by layering in the parameters as string literals in the URL of the fetch request. From the Asset Store client requests are made using Axios, therefore to keep things consistent it has been used in this example</p></div></div><p>The call as shown above shows how to include filter parameters (via select) and also regular search parameters for properties such as name</p><p>The response would contain the following:<br /></p><div id="expander-370721806" class="expand-container"><div id="expander-control-370721806" class="expand-control"><span class="expand-control-icon"><img style="vertical-align:middle;" class="expand-control-image" src="images/icons/grey_arrow_down.png"/></span><span class="expand-control-text">Example Response</span></div><div id="expander-content-370721806" class="expand-content"><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">[
+    {
+        &quot;_id&quot;: &quot;66a2a9f13c9af1b0dc684c55&quot;,
+        &quot;name&quot;: &quot;Airtank&quot;,
+        &quot;model&quot;: {
+            &quot;triCount&quot;: 7000
+        }
+    },
+    {
+        &quot;_id&quot;: &quot;66a2a9f23c9af1b0dc684c5f&quot;,
+        &quot;name&quot;: &quot;Airtank Colour&quot;
+    }
+]</pre>
+</div></div></div></div></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="APIEndpoints-AXIOSServiceRequest">AXIOS Service Request</h3><p>Below is an example of what the AXIOS get request should look like when using the Axios Service:</p><div id="expander-449041597" class="expand-container"><div id="expander-control-449041597" class="expand-control"><span class="expand-control-icon"><img style="vertical-align:middle;" class="expand-control-image" src="images/icons/grey_arrow_down.png"/></span><span class="expand-control-text">Service Axios Get Example</span></div><div id="expander-content-449041597" class="expand-content"><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">const byKeyword = async ({ keyword }: byKeywordParams): Promise&lt;Asset[]&gt; =&gt; {
+&nbsp; const queryParams: AxiosRequestConfig = {
+&nbsp; &nbsp; params: {
+&nbsp; &nbsp; &nbsp; keyword: keyword ? keyword.split(&quot;,&quot;).map(k =&gt; k.trim()) : [],
+&nbsp; &nbsp; &nbsp; select: &quot;_id name updatedAt&quot;
+&nbsp; &nbsp; },
+
+&nbsp; &nbsp; /**
+&nbsp; &nbsp; &nbsp;* Serializes the query parameters for the request.
+&nbsp; &nbsp; &nbsp;* @param params The query parameters to serialize.
+&nbsp; &nbsp; &nbsp;*/
+&nbsp; &nbsp; paramsSerializer: params =&gt; {
+&nbsp; &nbsp; &nbsp; // Use URLSearchParams to serialize the params object
+&nbsp; &nbsp; &nbsp; const searchParams = new URLSearchParams();
+&nbsp; &nbsp; &nbsp; if (Array.isArray(params.keyword)) {
+&nbsp; &nbsp; &nbsp; &nbsp; searchParams.append(
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;keywords&quot;,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; params.keyword.join(&quot;,&quot;).replace(/ /g, &quot;_&quot;).toLowerCase()
+&nbsp; &nbsp; &nbsp; &nbsp; );
+&nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; if (Array.isArray(params.select)) {
+&nbsp; &nbsp; &nbsp; &nbsp; searchParams.append(&quot;select&quot;, params.select.join(&quot;,&quot;));
+&nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; return searchParams.toString();
+&nbsp; &nbsp; }
+&nbsp; };
+&nbsp; // Use AxiosService to make the GET request
+
+&nbsp; return await AxiosService.GET&lt;Asset[]&gt;(baseRoute, queryParams);
+};</pre>
+</div></div></div></div><p>When using the keyword <code>amb</code>, the following URL is produced:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">http://localhost:3000/api/search?keywords=amb&amp;select=_id,name,updatedAt</pre>
+</div></div><p>The response would contain the following:</p><div id="expander-1113844503" class="expand-container"><div id="expander-control-1113844503" class="expand-control"><span class="expand-control-icon"><img style="vertical-align:middle;" class="expand-control-image" src="images/icons/grey_arrow_down.png"/></span><span class="expand-control-text">Example Response</span></div><div id="expander-content-1113844503" class="expand-content"><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">[
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &quot;_id&quot;: &quot;674ce59067044c6225187217&quot;,
+&nbsp; &nbsp; &nbsp; &nbsp; &quot;name&quot;: &quot;Calian Ambulance Demers MX 152&quot;,
+&nbsp; &nbsp; &nbsp; &nbsp; &quot;tags&quot;: [
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;_id&quot;: &quot;674ce59067044c6225187215&quot;,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;name&quot;: &quot;ambulance&quot;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; ],
+&nbsp; &nbsp; &nbsp; &nbsp; &quot;projects&quot;: [
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;_id&quot;: &quot;672a92715bdffe0edbdbf420&quot;,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;name&quot;: &quot;Ambulance&quot;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; ],
+&nbsp; &nbsp; &nbsp; &nbsp; &quot;categories&quot;: [
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;_id&quot;: &quot;672a92715bdffe0edbdbf414&quot;,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;name&quot;: &quot;3D Model&quot;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; ],
+&nbsp; &nbsp; &nbsp; &nbsp; &quot;previews&quot;: [
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;https://varlabstorage.blob.core.windows.net/preview-images/Asset%20Files%20-%20Calian%20Ambulance%20(Demers%20MX%20-%20152).zip/Ambulance_DemersMX152.webp&quot;,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;https://varlabstorage.blob.core.windows.net/preview-images/Asset%20Files%20-%20Calian%20Ambulance%20(Demers%20MX%20-%20152).zip/Cab_Dash.webp&quot;,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;https://varlabstorage.blob.core.windows.net/preview-images/Asset%20Files%20-%20Calian%20Ambulance%20(Demers%20MX%20-%20152).zip/Cab_Dash_GloveBox.webp&quot;,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;https://varlabstorage.blob.core.windows.net/preview-images/Asset%20Files%20-%20Calian%20Ambulance%20(Demers%20MX%20-%20152).zip/Cab_Details_LighterCover.webp&quot;,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;https://varlabstorage.blob.core.windows.net/preview-images/Asset%20Files%20-%20Calian%20Ambulance%20(Demers%20MX%20-%20152).zip/Cab_InnerShell_V2.webp&quot;,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;https://varlabstorage.blob.core.windows.net/preview-images/Asset%20Files%20-%20Calian%20Ambulance%20(Demers%20MX%20-%20152).zip/Group_Cab_Interior_V2.webp&quot;,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;https://varlabstorage.blob.core.windows.net/preview-images/Asset%20Files%20-%20Calian%20Ambulance%20(Demers%20MX%20-%20152).zip/Panel_Control_Alternate.webp&quot;,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;https://varlabstorage.blob.core.windows.net/preview-images/Asset%20Files%20-%20Calian%20Ambulance%20(Demers%20MX%20-%20152).zip/Radio_AMFMCD.webp&quot;,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;https://varlabstorage.blob.core.windows.net/preview-images/Asset%20Files%20-%20Calian%20Ambulance%20(Demers%20MX%20-%20152).zip/Seat_Cab_Driver.webp&quot;,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;https://varlabstorage.blob.core.windows.net/preview-images/Asset%20Files%20-%20Calian%20Ambulance%20(Demers%20MX%20-%20152).zip/Seat_Cab_Passenger.webp&quot;,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;https://varlabstorage.blob.core.windows.net/preview-images/Asset%20Files%20-%20Calian%20Ambulance%20(Demers%20MX%20-%20152).zip/Cab_Dash_LOD.webp&quot;,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;https://varlabstorage.blob.core.windows.net/preview-images/Asset%20Files%20-%20Calian%20Ambulance%20(Demers%20MX%20-%20152).zip/Cab_Dash_LOD0.webp&quot;,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;https://varlabstorage.blob.core.windows.net/preview-images/Asset%20Files%20-%20Calian%20Ambulance%20(Demers%20MX%20-%20152).zip/Cab_Dash_LOD1.webp&quot;,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;https://varlabstorage.blob.core.windows.net/preview-images/Asset%20Files%20-%20Calian%20Ambulance%20(Demers%20MX%20-%20152).zip/Panel_Control_Alternate_LOD.webp&quot;,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;https://varlabstorage.blob.core.windows.net/preview-images/Asset%20Files%20-%20Calian%20Ambulance%20(Demers%20MX%20-%20152).zip/Panel_Control_Alternate_LOD0.webp&quot;,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;https://varlabstorage.blob.core.windows.net/preview-images/Asset%20Files%20-%20Calian%20Ambulance%20(Demers%20MX%20-%20152).zip/Panel_Control_Alternate_LOD1.webp&quot;,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;https://varlabstorage.blob.core.windows.net/preview-images/Asset%20Files%20-%20Calian%20Ambulance%20(Demers%20MX%20-%20152).zip/Radio_AMFMCD_LOD0.webp&quot;,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;https://varlabstorage.blob.core.windows.net/preview-images/Asset%20Files%20-%20Calian%20Ambulance%20(Demers%20MX%20-%20152).zip/Radio_AMFMCD_LOD1.webp&quot;,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;https://varlabstorage.blob.core.windows.net/preview-images/Asset%20Files%20-%20Calian%20Ambulance%20(Demers%20MX%20-%20152).zip/Radio_AMFMCD_LOD2.webp&quot;,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;https://varlabstorage.blob.core.windows.net/preview-images/Asset%20Files%20-%20Calian%20Ambulance%20(Demers%20MX%20-%20152).zip/CalianAmbulance_DemersMX152Type3_Production_v4.webp&quot;,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;https://varlabstorage.blob.core.windows.net/preview-images/Asset%20Files%20-%20Calian%20Ambulance%20(Demers%20MX%20-%20152).zip/Ambulance_DemersMX152Type3_v4.webp&quot;,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;https://varlabstorage.blob.core.windows.net/preview-images/Asset%20Files%20-%20Calian%20Ambulance%20(Demers%20MX%20-%20152).zip/CabinetWall_v2.webp&quot;,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;https://varlabstorage.blob.core.windows.net/preview-images/Asset%20Files%20-%20Calian%20Ambulance%20(Demers%20MX%20-%20152).zip/SuctionModule_v2.webp&quot;
+&nbsp; &nbsp; &nbsp; &nbsp; ]
+&nbsp; &nbsp; }
+]</pre>
+</div></div></div></div></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="APIEndpoints-ProjectRouting">Project Routing</h2><p>Project requests can be fetched by appending &ldquo;projects&rdquo; to the end of the URL as shown below.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">https://assetstore.vconestoga.com/api/projects</pre>
+</div></div></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<div class="table-wrap"><table data-table-width="760" data-layout="default" data-local-id="b76920d8-3f6e-436b-a97b-5ef21a4b52d1" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p><strong>Route</strong></p></th><th class="confluenceTh"><p><strong>Functionality</strong></p></th></tr><tr><td class="confluenceTd"><p>/projects-sas-token</p></td><td class="confluenceTd"><p>Serves the SAS token for the projects</p></td></tr></tbody></table></div></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="APIEndpoints-CategoryRouting">Category Routing</h2><p>Category requests can be fetched by appending &ldquo;category&rdquo; to the end of the URL as shown below.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">https://assetstore.vconestoga.com/api/category</pre>
+</div></div></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<div class="table-wrap"><table data-table-width="760" data-layout="default" data-local-id="99c0747b-7676-4aa5-ac1b-0a0682eadec7" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p><strong>Route</strong></p></th><th class="confluenceTh"><p><strong>Functionality</strong></p></th></tr><tr><td class="confluenceTd"><p>/category-sas-token</p></td><td class="confluenceTd"><p>Serves the SAS token for the categories</p></td></tr></tbody></table></div></div>
+</div>
+</div>
+</div>
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1172176932/1171161151.png">image-20240613-184846.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1172176932/1175060486.png">image-20240614-135901.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1172176932/1174994951.png">image-20240614-140225.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1172176932/1196097687.png">image-20240627-203955.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1172176932/1196261477.png">image-20240627-204001.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1172176932/1231192072.png">Flowchart(2).png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1172176932/1231159304.png">Search Decision Tree - Page 1.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1172176932/1236533251.png">Search Decision Tree.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1172176932/1231192087.png">Search Decision Tree(1).png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1172176932/1231585284.png">Search Decision Tree.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1172176932/1240465450.png">Search Decision Tree(2).png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1172176932/1508933673.png">Search Decision Tree-20241209-183636.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1172176932/1509064746.png">Search Decision Tree-20241209-183636.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1172176932/1510277134.png">image-20241209-220357.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1172176932/1510211594.png">image-20241209-225016.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1172176932/1563459589.jpg">varlab_virtual_and_augmented_reality_lab_cover.jpg</a> (image/jpeg)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 27, 2025 21:02</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

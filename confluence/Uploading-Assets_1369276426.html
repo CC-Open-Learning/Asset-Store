@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vConestoga : Uploading Assets</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="vConestoga_536314119.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Projects_1091797023.html">Projects</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="VARLab-Asset-Store_1124859959.html">VARLab Asset Store</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            vConestoga : Uploading Assets
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Nick Aguilar</span>, last modified by <span class='editor'> Andrei</span> on Jan 22, 2025
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <style type='text/css'>/*<![CDATA[*/
+div.rbtoc1748379744110 {padding: 0px;}
+div.rbtoc1748379744110 ul {list-style: none;margin-left: 0px;}
+div.rbtoc1748379744110 li {margin-left: 0px;padding-left: 0px;}
+
+/*]]>*/</style><div class='toc-macro rbtoc1748379744110'>
+<ul class='toc-indentation'>
+<li><a href='#UploadingAssets-Overview'>Overview</a>
+<ul class='toc-indentation'>
+<li><a href='#UploadingAssets-UploadSteps'>Upload Steps</a></li>
+</ul>
+</li>
+<li><a href='#UploadingAssets-Client'>Client</a>
+<ul class='toc-indentation'>
+<li><a href='#UploadingAssets-UploadComponent'>Upload Component</a></li>
+<li><a href='#UploadingAssets-AssetService.ts'>AssetService.ts</a>
+<ul class='toc-indentation'>
+<li><a href='#UploadingAssets-UploadAsset'>UploadAsset</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href='#UploadingAssets-Server'>Server</a>
+<ul class='toc-indentation'>
+<li><a href='#UploadingAssets-Asset.js'>Asset.js</a></li>
+<li><a href='#UploadingAssets-Flow'>Flow</a></li>
+<li><a href='#UploadingAssets-UploadUtils/Functions'>Upload Utils/Functions</a>
+<ul class='toc-indentation'>
+<li><a href='#UploadingAssets-uploadToBlobStorage'>uploadToBlobStorage</a></li>
+<li><a href='#UploadingAssets-createMongoAsset'>createMongoAsset</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div><h1 id="UploadingAssets-Overview">Overview</h1><p>The following will act as a guide to explain the flow of uploading an asset to <a href="Azure-Blob-Storage_1394638850.html" data-linked-resource-id="1394638850" data-linked-resource-version="10" data-linked-resource-type="page">Azure Blob Storage</a> . This guide will cover process flow and routing related to the upload process</p><h2 id="UploadingAssets-UploadSteps">Upload Steps</h2><p>The following is a general overview of the upload process:</p><ol start="1"><li><p>Admin goes to the upload asset section on the admin page</p></li><li><p>Admin uploads an asset using the browse button</p><ol start="1"><li><p>If the admin uploads a model (.zip) model specifications should be entered</p></li></ol></li><li><p>The admin enters any additional information regarding metadata</p></li><li><p>The admin enters the name of the asset (Mandatory)</p></li><li><p>The admin includes the projects the asset is associated to(Optional)</p></li><li><p>The admin enters a description (Optional)</p></li><li><p>The admin uploads any images related to previewing the asset (Optional)</p></li><li><p>The admin enters tags (Optional)</p></li><li><p>The admin selects the upload button</p></li><li><p>The client makes a POST request using the AssetService to the upload route to upload the file.</p></li><li><p>The API performs various security checks before uploading</p></li><li><p>The mainFile (Asset) and previewImages are stored in the Blob Storage</p></li><li><p>The API stores metadata which also has the link for asset and preview images</p></li><li><p>The API returns success or error</p></li></ol><h1 id="UploadingAssets-Client">Client</h1><p>The following will cover in more detail the client's role in uploading files to the BLOB storage.</p><h2 id="UploadingAssets-UploadComponent">Upload Component</h2><p>The uploading front end is found on UploadAsset.tsx</p><h2 id="UploadingAssets-AssetService.ts">AssetService.ts</h2><p>All code related to communicating with the API routes is centralized and managed through the <a href="AxiosService-and-Service-Creation-Guide_1433042948.html" data-linked-resource-id="1433042948" data-linked-resource-version="14" data-linked-resource-type="page">AxiosService</a>. This ensures consistency, reusability, and maintainability across the application. All sub-routes from the “/api/asset” route should have their own service in the AssetService.ts. Refer to <a href="AxiosService-and-Service-Creation-Guide_1433042948.html" data-linked-resource-id="1433042948" data-linked-resource-version="14" data-linked-resource-type="page">AxiosService and Service Creation Guide</a> to create your own service for accessing a specific route.</p><h3 id="UploadingAssets-UploadAsset">UploadAsset</h3><p>The <code>uploadAsset</code> function is responsible for uploading an asset and its associated metadata to a server. It validates user inputs, such as the presence of a title, main file, and model specifications, ensuring that all required fields are provided before proceeding. The function then creates a <code>FormData</code> object, packaging the main file, preview images, and metadata like the title, description, tags, project details, and a structured model object. It sends this data to the server using the <code>AssetService.uploadAsset</code> method, while providing real-time feedback through alerts to inform the user of the upload status. If the upload is successful, it clears the input states and notifies the user. In the case of errors, it handles both expected and unexpected issues gracefully, providing appropriate error messages to maintain a user-friendly experience.</p><h1 id="UploadingAssets-Server">Server</h1><p>The following will detail the servers uploading files and the functions related to the steps. For more general information about server endpoint routing, please refer to <a href="API-Endpoints_1172176932.html" data-linked-resource-id="1172176932" data-linked-resource-version="79" data-linked-resource-type="page">API Endpoints</a>. </p><h2 id="UploadingAssets-Asset.js">Asset.js</h2><p>This is the file where the endpoint is located for uploading an asset.<br/>Entire route for uploading an asset: (local instance)</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">localhost:3000/api/asset</pre>
+</div></div><p>Code:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: js; gutter: false; theme: Confluence" data-theme="Confluence">// /upload-Asset
+router.post(
+  &quot;/&quot;,
+  checkAuthentication,
+  multerUploader,
+  checkIsAdmin,
+  async (req, res) =&gt; {
+    const { mainFile, previewImages } = req.files; // Destructure main and preview images
+
+    let previewImagesUrl = [];
+
+    try {
+      // Upload the main file
+      await uploadToBlobStorage(
+        mainContainerClient,
+        {
+          fileBuffer: mainFile[0].buffer,
+          originalName: mainFile[0].originalname
+        },
+        {
+          sanitize: false, // Sanitize if necessary
+          tier: &quot;Cool&quot; // Access tier
+        }
+      );
+
+      // Log successful upload of main file
+      logger.info(
+        `&#39;${req.user.username}&#39; uploaded a Main file: ${mainFile[0].originalname}`
+      );
+
+      // Upload preview images, if any
+      if (previewImages &amp;&amp; previewImages.length &gt; 0) {
+        const previewFilesToUpload = previewImages.map(preview =&gt; ({
+          fileBuffer: preview.buffer,
+          originalName: `${mainFile[0].originalname}/${preview.originalname}`
+        }));
+
+        const previewUploadResults = await uploadToBlobStorage(
+          previewContainerClient,
+          previewFilesToUpload,
+          {
+            sanitize: false,
+            tier: &quot;Hot&quot;
+          }
+        );
+
+        previewImagesUrl.push(...previewUploadResults);
+
+        previewImages.forEach(preview =&gt; {
+          logger.info(
+            `&#39;${req.user.username}&#39; uploaded a Preview Image: ${preview.originalname}`
+          );
+        });
+      }
+
+      // Create asset in MongoDB
+      const mongoUploadedSuccessfully = await createMongoAsset(
+        mainFile[0],
+        req.body,
+        previewImagesUrl
+      );
+
+      if (mongoUploadedSuccessfully) {
+        res
+          .status(200)
+          .json({ success: true, message: &quot;Files uploaded successfully&quot; });
+      } else {
+        throw new Error(&quot;Error uploading asset to MongoDB&quot;);
+      }
+    } catch (err) {
+      logger.error(&quot;Error uploading files: &quot;, err);
+      res.status(500).json({
+        success: false,
+        message: `Blob Storage upload asset error: ${err.message}`
+      });
+    }
+  }
+);</pre>
+</div></div><h2 id="UploadingAssets-Flow">Flow</h2><ol start="1"><li><p><strong>Setup Middleware:</strong></p><ul><li><p>The route is protected with middleware:</p><ul><li><p><code>checkAuthentication</code> ensures the user is logged in.</p></li><li><p><code>checkIsAdmin</code> confirms the user has admin privileges.</p></li><li><p><code>multerUploader</code> processes file uploads and extracts <code>mainFile</code> and <code>previewImages</code> from the request.</p></li></ul></li></ul></li><li><p><strong>Extract Uploaded Files:</strong></p><ul><li><p>Destructure <code>mainFile</code> and <code>previewImages</code> from <code>req.files</code>.</p></li><li><p>Initialize an empty array <code>previewImagesUrl</code> to store URLs of uploaded preview images.</p></li></ul></li><li><p><strong>Upload Main File to Blob Storage:</strong></p><ul><li><p>Call <code>uploadToBlobStorage</code> with the main file’s buffer, original name, and additional options (<code>sanitize</code> and <code>tier</code>).</p></li><li><p>Log the successful upload of the main file.</p></li></ul></li><li><p><strong>Upload Preview Images to Blob Storage (Optional):</strong></p><ul><li><p>Check if <code>previewImages</code> exist and have files.</p></li><li><p>Map the <code>previewImages</code> into an array of objects, each containing:</p><ul><li><p><code>fileBuffer</code> for the file’s binary data.</p></li><li><p><code>originalName</code> for the path in Blob Storage.</p></li></ul></li><li><p>Upload all preview images to Blob Storage using <code>uploadToBlobStorage</code>.</p></li><li><p>Push the URLs of the uploaded preview images into <code>previewImagesUrl</code>.</p></li><li><p>Log the successful upload of each preview image.</p></li></ul></li><li><p><strong>Create Asset in MongoDB/CosmosDB:</strong></p><ul><li><p>Call <code>createMongoAsset</code> with:</p><ul><li><p>The <code>mainFile</code> object.</p></li><li><p><code>req.body</code> for metadata.</p></li><li><p><code>previewImagesUrl</code> containing URLs of uploaded preview images.</p></li></ul></li><li><p>If successful, return a <code>200</code> response with a success message.</p></li></ul></li><li><p><strong>Handle Errors:</strong></p><ul><li><p>Catch any errors during the upload or MongoDB save process.</p></li><li><p>Log the error and return a <code>500</code> response with the error message.</p></li></ul></li></ol><p>This code ensures that file uploads are correctly processed, stored in Azure Blob Storage, and registered in the database with robust error handling and logging.</p><h2 id="UploadingAssets-UploadUtils/Functions">Upload Utils/Functions</h2><p>These are the functions used in the upload asset route.</p><h3 id="UploadingAssets-uploadToBlobStorage">uploadToBlobStorage</h3><p>The function uploads one or multiple files to Azure Blob Storage with options for setting the access tier and sanitizing file names.</p><ol start="1"><li><p><strong>Parameters:</strong></p><ul><li><p><code>containerClient</code>: Represents the Azure Blob Storage container where files will be uploaded.</p></li><li><p><code>files</code>: A single file object or an array of file objects to be uploaded.</p></li><li><p><code>options</code>: Optional settings, with defaults:</p><ul><li><p><code>tier</code>: Access tier for the file (e.g., <code>Hot</code>, <code>Cool</code>, or <code>Archive</code>), defaulting to <code>Hot</code>.</p></li></ul></li></ul></li><li><p><strong>Normalize Files Input:</strong></p><ul><li><p>If <code>files</code> is a single file, wrap it in an array for uniform handling (<code>filesArray</code>).</p></li></ul></li><li><p><strong>Validate Files:</strong></p><ul><li><p>Check if <code>filesArray</code> is empty or if the first file lacks a <code>fileBuffer</code>.</p></li><li><p>If invalid, throw an error: <code>&quot;File data is required for upload.&quot;</code></p></li></ul></li><li><p><strong>Prepare for Upload:</strong></p><ul><li><p>Initialize an empty array <code>uploadResults</code> to store URLs of successfully uploaded files.</p></li></ul></li><li><p><strong>Iterate Over Files and Upload:</strong></p><ul><li><p>Loop through each file in <code>filesArray</code>.</p></li><li><p>Extract <code>fileBuffer</code> (file content) and <code>originalName</code> (file name) from the file object.</p></li><li><p>Create a <code>blockBlobClient</code> for the file using <code>containerClient.getBlockBlobClient(blobName)</code>.</p></li><li><p>Upload the file to Blob Storage using <code>blockBlobClient.uploadData(fileBuffer, { tier: tier })</code>.</p></li></ul></li><li><p><strong>Store Uploaded File URLs:</strong></p><ul><li><p>Push the file's full URL (<code>blockBlobClient.url</code>) into the <code>uploadResults</code> array.</p></li></ul></li><li><p><strong>Return Upload Results:</strong></p><ul><li><p>Return an array of URLs of all successfully uploaded files to be used to store in the database.</p></li></ul></li><li><p><strong>Error Handling:</strong></p><ul><li><p>Catch any errors during the upload process.</p></li><li><p>Log the error with <code>console.error</code> and rethrow it for further handling by the caller.</p></li></ul></li></ol><p>This function provides flexibility to handle both single and multiple file uploads, ensures input validation, and allows customization of file sanitization and storage options. It also returns the URLs of the uploaded files for further processing.</p><p>Code:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">// Function to upload one or multiple files to Azure Blob Storage with customizable access tier and sanitization
+export async function uploadToBlobStorage(
+  containerClient,
+  files,
+  options = {}
+) {
+  const { tier = &quot;Hot&quot; } = options; // Default to sanitizing and &#39;Hot&#39; tier
+
+  const filesArray = Array.isArray(files) ? files : [files]; // Check if files is an array
+
+  // Check if file is empty or fileBuffer is missing
+  if (filesArray.length === 0 || !filesArray[0].fileBuffer) {
+    throw new Error(&quot;File data is required for upload.&quot;);
+  }
+
+  const uploadResults = [];
+
+  try {
+    for (const file of filesArray) {
+      const { fileBuffer, originalName } = file;
+      const blobName = sanitize(originalName);
+      const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+
+      await blockBlobClient.uploadData(fileBuffer, { tier: tier });
+
+      // Push the full URL of the uploaded file to uploadResults
+      uploadResults.push(blockBlobClient.url);
+    }
+
+    return uploadResults; // Return an array of blob URLs
+  } catch (error) {
+    console.error(&quot;Error uploading files to Blob Storage:&quot;, error);
+    throw error;
+  }
+}</pre>
+</div></div><h3 id="UploadingAssets-createMongoAsset">createMongoAsset</h3><p>This function creates the asset to the CosmosDb so we can save the Asset metadata.</p><p>Parameters:</p><ol start="1"><li><p>mainFile - The asset file</p></li><li><p>reqBody - The request body of the request</p></li><li><p>previewImagesUrl -  The array made in the upload route that contains the preview images URL (URL to access the preview images from the blob storage)</p></li></ol><p>Function Steps:</p><ul><li><p><strong>Extract Metadata from </strong><code>mainFile</code><strong>:</strong></p><ul><li><p>Retrieve <code>fileName</code>, <code>fileSize</code>, and <code>format</code> from the uploaded main file.</p></li></ul></li><li><p><strong>Extract and Parse Fields from </strong><code>reqBody</code><strong>:</strong></p><ul><li><p>Extract <code>name</code>, <code>description</code>, <code>projects</code>, <code>tags</code>, <code>categories</code>, <code>model</code>, <code>texture</code>, and <code>production</code>.</p></li><li><p>Parse JSON fields (<code>projects</code>, <code>tags</code>, <code>categories</code>, <code>model</code>, <code>texture</code>, and <code>production</code>) if provided.</p></li></ul></li><li><p><strong>Convert Names to IDs for </strong><code>projects</code><strong>, </strong><code>tags</code><strong>, and </strong><code>categories</code><strong>:</strong></p><ul><li><p>Query the database to find and map names to their respective Object IDs.</p></li><li><p>Create new entries for <code>tags</code> if they don’t exist.</p></li></ul></li><li><p><strong>Construct the Asset Object:</strong></p><ul><li><p>Build a MongoDB object with extracted metadata and parsed data, including optional fields if provided.</p></li></ul></li><li><p><strong>Save Asset to MongoDB:</strong></p><ul><li><p>Save the constructed object to the <code>assetModel</code> collection.</p></li><li><p>Log success or handle errors during the process.</p></li></ul></li><li><p><strong>Return Result:</strong></p><ul><li><p>Return <code>true</code> if the asset is successfully created, or <code>false</code> if there is an error.</p></li></ul></li></ul><p>Code:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">export async function createMongoAsset(mainFile, reqBody, previewImagesUrl) {
+  try {
+    // Metadata
+
+    // Destructure mainFile
+    const {
+      originalname: fileName = null,
+      size: fileSize = 0,
+      mimetype: format = &quot;undefined&quot;
+    } = mainFile;
+
+    // Destructure req.body
+    const {
+      name = null,
+      description = null, // sets the default value to null if the field is not present in the req.body
+      projects = null,
+      tags = null,
+      categories = null,
+      price = null, // to be removed in the future
+      origin = null, // to be removed in the future
+      license = null, // to be removed in the future
+      model = null,
+      texture = null,
+      production = null
+    } = reqBody;
+
+    // Parse JSON fields only if they exist
+    const parsedModel = model ? JSON.parse(model) : null; // if model exists, parse it, otherwise set it to null
+    const parsedTexture = texture ? JSON.parse(texture) : null;
+    const parsedProduction = production ? JSON.parse(production) : null;
+    let parsedProjects = projects ? JSON.parse(projects) : null;
+    let parsedTags = tags ? JSON.parse(tags) : null;
+    let parsedCategories = categories ? JSON.parse(categories) : null;
+
+    // projects names to IDs
+    if (parsedProjects) {
+      parsedProjects = await Promise.all(
+        parsedProjects.map(async projectName =&gt; {
+          const project = await projectModel.findOne({ name: projectName });
+          return project ? project._id : null; // Return ObjectId if found, otherwise null
+        })
+      );
+      parsedProjects = parsedProjects.filter(id =&gt; id !== null); // remove null values from the array
+    }
+
+    // categories names to IDs
+    if (parsedCategories) {
+      parsedCategories = await Promise.all(
+        parsedCategories.map(async categoryName =&gt; {
+          const category = await categoryModel.findOne({ name: categoryName });
+          return category ? category._id : null; // Return ObjectId if found, otherwise null
+        })
+      );
+      parsedCategories = parsedCategories.filter(id =&gt; id !== null); // remove null values from the array
+    }
+
+    // tags names to IDs
+    if (parsedTags) {
+      parsedTags = await Promise.all(
+        parsedTags.map(async tagName =&gt; {
+          let tag = await tagModel.findOne({ name: tagName });
+          if (!tag) {
+            // Create a new tag if not found
+            tag = await tagModel.create({ name: tagName });
+          }
+          return tag._id; // Return the ObjectId
+        })
+      );
+    }
+
+    // Store metadata in MongoDB
+    const asset = new assetModel({
+      ...(fileName !== null &amp;&amp; { fileName: fileName }), // if fileName exists, add it to the object, otherwise ignore it
+      ...(name !== null &amp;&amp; { name: name }),
+      ...(fileSize !== null &amp;&amp; { fileSize: fileSize }),
+      ...(description !== null &amp;&amp; { description: description }),
+      ...(format !== null &amp;&amp; { format: format }),
+      ...(previewImagesUrl !== null &amp;&amp; { previews: previewImagesUrl }),
+      ...(projects !== null &amp;&amp; { projects: parsedProjects }),
+      ...(tags !== null &amp;&amp; { tags: parsedTags }),
+      ...(categories !== null &amp;&amp; { categories: parsedCategories }),
+      ...(price !== null &amp;&amp; { price: price }),
+      ...(license !== null &amp;&amp; { license: license }),
+      ...(origin !== null &amp;&amp; { origin: origin }),
+      ...(model !== null &amp;&amp; { model: parsedModel }),
+      ...(texture !== null &amp;&amp; { texture: parsedTexture }),
+      ...(production !== null &amp;&amp; { production: parsedProduction })
+    });
+    await asset.save();
+
+    // Log the upload
+    logger.info(`Asset uploaded to MongoDB: &#39;${fileName}&#39;`);
+    return true;
+  } catch (error) {
+    logger.error(&quot;Uploading asset to MongoDb error: &quot;, error);
+    return false;
+  }
+}
+</pre>
+</div></div><p>Postman upload sample: </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Screenshot 2024-12-09 162143.png" width="760" loading="lazy" src="attachments/1369276426/1509392448.png?width=760" data-image-src="attachments/1369276426/1509392448.png" data-height="431" data-width="1314" data-unresolved-comment-count="0" data-linked-resource-id="1509392448" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Screenshot 2024-12-09 162143.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1369276426" data-linked-resource-container-version="12" data-media-id="11bb6d18-fd42-424f-a3b4-f856d28d01eb" data-media-type="file"></span><p>Cookies:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Screenshot 2024-12-09 162353.png" width="751" loading="lazy" src="attachments/1369276426/1509228625.png?width=751" data-image-src="attachments/1369276426/1509228625.png" data-height="266" data-width="751" data-unresolved-comment-count="0" data-linked-resource-id="1509228625" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Screenshot 2024-12-09 162353.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1369276426" data-linked-resource-container-version="12" data-media-id="ac05c1c9-4c5c-4093-b6ec-916472fd8651" data-media-type="file"></span><p> </p><p> </p><p />
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1369276426/1509392448.png">Screenshot 2024-12-09 162143.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1369276426/1509228625.png">Screenshot 2024-12-09 162353.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 27, 2025 21:02</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

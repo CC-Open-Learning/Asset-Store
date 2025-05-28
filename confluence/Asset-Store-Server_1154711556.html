@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vConestoga : Asset Store Server</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="vConestoga_536314119.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Projects_1091797023.html">Projects</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="VARLab-Asset-Store_1124859959.html">VARLab Asset Store</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            vConestoga : Asset Store Server
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Anzhelika Kostyuk</span>, last modified by <span class='editor'> Nick Aguilar</span> on Jun 14, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <h1 id="AssetStoreServer-Connectingtotheserver">Connecting to the server</h1><h2 id="AssetStoreServer-Prerequisites">Prerequisites</h2><p>Download the server key and move it to the <code>.ssh</code> folder on your machine. You can ask for the key from one of the vConestoga team members.</p><p /><ul><li><p><strong>Connect to the server</strong></p></li></ul><p>Enter the following code into the terminal:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">ssh -i .ssh/assetstore_key.pem shopkeeper@assetstore.canadacentral.cloudapp.azure.com</pre>
+</div></div><p /><p>If you have successfully connected, the output is the following:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240605-151506.png" width="760" loading="lazy" src="attachments/1154711556/1154973699.png?width=760" data-image-src="attachments/1154711556/1154973699.png" data-height="602" data-width="1021" data-unresolved-comment-count="0" data-linked-resource-id="1154973699" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240605-151506.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1154711556" data-linked-resource-container-version="3" data-media-id="8df2d55f-b168-4e2a-83f0-bf8ad62fccb6" data-media-type="file"></span><h1 id="AssetStoreServer-NGINX">NGINX</h1><p>We are using NGINX as a reverse proxy to redirect incoming traffic from <a class="external-link" href="http://assetstore.vconestoga.com" rel="nofollow">assetstore.vconestoga.com</a> to various services listening on different ports.</p><p>The following is the configuration file for NGINX </p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">user www-data;
+worker_processes auto;
+pid /run/nginx.pid;
+include /etc/nginx/modules-enabled/*.conf;
+
+events {
+        worker_connections 768;
+        # multi_accept on;
+}
+
+http {
+
+        ##
+        # Basic Settings
+        ##
+
+        sendfile on;
+        tcp_nopush on;
+        tcp_nodelay on;
+        keepalive_timeout 65;
+        types_hash_max_size 2048;
+        # server_tokens off;
+
+        # server_names_hash_bucket_size 64;
+        # server_name_in_redirect off;
+
+        include /etc/nginx/mime.types;
+        default_type application/octet-stream;
+
+        ##
+        # SSL Settings
+        ##
+
+        ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3; # Dropping SSLv3, ref: POODLE
+        ssl_prefer_server_ciphers on;
+        ssl_certificate /etc/ssl/certs/vConWild-chained-crt.txt;
+        ssl_certificate_key /etc/ssl/private/vConWild-generated-private-key.txt;
+
+        map $http_upgrade $connection_upgrade {
+                default upgrade;
+                &#39;&#39; close;
+        }
+
+#       server {
+#                listen 443 ssl;
+#                server_name assetstore.vconestoga.com;
+#                return 301 $scheme://www.assetstore.vconestoga.com$request_uri;
+#        }
+
+        server {
+                listen 443 ssl;
+                server_name assetstore.vconestoga.com;
+
+                proxy_buffering on;
+                proxy_buffer_size 128k;
+                proxy_buffers 4 256k;
+                proxy_busy_buffers_size 256k;                                                                                                                                      
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Scheme $scheme;                                                                                                                                 
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection $connection_upgrade;
+                proxy_set_header Host $host;
+
+                location / {
+                        proxy_bind $server_addr;
+                        proxy_pass http://localhost:3030;
+                        add_header &#39;Access-Control-Allow-Methods&#39; &#39;OPTIONS, POST, GET&#39;;
+                        add_header &#39;Access-Control-Allow-Origin&#39; &#39;*&#39;;
+                        add_header &#39;Access-Control-Allow-Credentials&#39; &#39;true&#39;;
+                        add_header &#39;Access-Control-Allow-Headers&#39; &#39;DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type&#39;;
+                }
+
+                location /api/ {
+                        proxy_bind $server_addr;
+                        proxy_pass http://localhost:3000;
+                        add_header &#39;Access-Control-Allow-Methods&#39; &#39;OPTIONS, POST, GET&#39;;
+                        add_header &#39;Access-Control-Allow-Origin&#39; &#39;*&#39;;
+                        add_header &#39;Access-Control-Allow-Credentials&#39; &#39;true&#39;;
+                        add_header &#39;Access-Control-Allow-Headers&#39; &#39;DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type&#39;;
+                }
+        }
+        
+        ##
+        # Logging Settings
+        ##
+
+        access_log /var/log/nginx/access.log;
+        error_log /var/log/nginx/error.log;
+
+        ##
+        # Gzip Settings
+        ##
+
+        gzip on;
+
+        # gzip_vary on;
+        # gzip_proxied any;
+        # gzip_comp_level 6;
+        # gzip_buffers 16 8k;
+        # gzip_http_version 1.1;
+        # gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+
+        ##
+        # Virtual Host Configs
+        ##
+
+        include /etc/nginx/conf.d/*.conf;
+        include /etc/nginx/sites-enabled/*;
+}
+
+
+#mail {
+#       # See sample authentication script at:
+#       # http://wiki.nginx.org/ImapAuthenticateWithApachePhpScript
+#
+#       # auth_http localhost/auth.php;
+#       # pop3_capabilities &quot;TOP&quot; &quot;USER&quot;;
+#       # imap_capabilities &quot;IMAP4rev1&quot; &quot;UIDPLUS&quot;;
+#
+#       server {
+#               listen     localhost:110;
+#               protocol   pop3;
+#               proxy      on;
+#       }
+#
+#       server {
+#               listen     localhost:143;
+#               protocol   imap;
+#               proxy      on;
+#       }
+#}
+                                                                                                                                                                1,1           Top</pre>
+</div></div><p>The file outlines the ports and redirects currently enabled on the server.</p><p><a class="external-link" href="https://assetstore.vconestoga.com/" rel="nofollow">https://assetstore.vconestoga.com/</a> redirects to localhost:3030, the port associated with the react client using Serve</p><p><a class="external-link" href="https://assetstore.vconestoga.com/api" rel="nofollow">https://assetstore.vconestoga.com/api</a> redirects the localhost:3000, the port associated with the server code which is the port the API is listening on.</p><p />
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1154711556/1154973699.png">image-20240605-151506.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 27, 2025 21:02</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

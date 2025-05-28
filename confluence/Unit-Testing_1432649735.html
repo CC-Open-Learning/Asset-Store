@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vConestoga : Unit Testing</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="vConestoga_536314119.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Projects_1091797023.html">Projects</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="VARLab-Asset-Store_1124859959.html">VARLab Asset Store</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            vConestoga : Unit Testing
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Nick Aguilar</span>, last modified by <span class='editor'> Islam Ahmed</span> on Dec 12, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <style type='text/css'>/*<![CDATA[*/
+div.rbtoc1748379787892 {padding: 0px;}
+div.rbtoc1748379787892 ul {list-style: none;margin-left: 0px;}
+div.rbtoc1748379787892 li {margin-left: 0px;padding-left: 0px;}
+
+/*]]>*/</style><div class='toc-macro rbtoc1748379787892'>
+<ul class='toc-indentation'>
+<li><a href='#UnitTesting-Overview'>Overview</a>
+<ul class='toc-indentation'>
+<li><a href='#UnitTesting-Definitions'>Definitions</a></li>
+<li><a href='#UnitTesting-Jest'>Jest</a></li>
+<li><a href='#UnitTesting-Vitest'>Vitest</a></li>
+<li><a href='#UnitTesting-VitestVSJest'>Vitest VS Jest</a>
+<ul class='toc-indentation'>
+<li><a href='#UnitTesting-KeyDifferences'>Key Differences</a></li>
+</ul>
+</li>
+<li><a href='#UnitTesting-React-Testing-Library'>React-Testing-Library</a></li>
+<li><a href='#UnitTesting-Resources'>Resources</a></li>
+</ul>
+</li>
+<li><a href='#UnitTesting-WritingTests-TheThree“A”s'>Writing Tests - The Three “A”s</a></li>
+<li><a href='#UnitTesting-Organization'>Organization</a>
+<ul class='toc-indentation'>
+<li><a href='#UnitTesting-NamingConventions'>Naming Conventions</a></li>
+<li><a href='#UnitTesting-WheredoIputmytests?'>Where do I put my tests?</a></li>
+</ul>
+</li>
+<li><a href='#UnitTesting-RunningTests'>Running Tests</a>
+<ul class='toc-indentation'>
+<li><a href='#UnitTesting-RunningIndividualTests'>Running Individual Tests</a></li>
+</ul>
+</li>
+<li><a href='#UnitTesting-MockingGuide'>Mocking Guide</a>
+<ul class='toc-indentation'>
+<li><a href='#UnitTesting-GeneralRulesforMocking'>General Rules for Mocking</a></li>
+<li><a href='#UnitTesting-UsingTestingHooks'>Using Testing Hooks</a></li>
+<li><a href='#UnitTesting-SettingUpaBaseMock'>Setting Up a Base Mock</a></li>
+</ul>
+</li>
+<li><a href='#UnitTesting-SettingUpaMockforIndividualTests'>Setting Up a Mock for Individual Tests</a></li>
+<li><a href='#UnitTesting-SpecialNotes'>Special Notes</a></li>
+<li><a href='#UnitTesting-FullSuiteExample'>Full Suite Example</a></li>
+</ul>
+</div><h1 id="UnitTesting-Overview">Overview</h1><p>The following guide will describe basic functionality of Jest, Vitest, React Testing Library and how it will be used in the Asset Store Project. </p><h2 id="UnitTesting-Definitions">Definitions</h2><ul><li><p><strong>Unit Test</strong>: a block of code that verifies if a smaller, isolated piece of code in an application is working as intended</p><ul><li><p>in React a unit can be a component, helper function or JavaScript Module</p></li></ul></li><li><p><strong>Assertion</strong>: statements or conditions that verify specific expectations about the behaviour of the code being tested</p></li><li><p><strong>Mocking</strong>: a unit testing technique that involves replacing real objects with mock objects to simulate their behaviour (i.e. simulating servers or endpoints)</p></li><li><p><strong>Testing Suite: </strong>A unit test suite is a collection of unit tests that are grouped together in a code artifact, such as a class or module</p></li></ul><h2 id="UnitTesting-Jest"> Jest</h2><p>A JavaScript testing framework that contains functionality for unit testing, assertions, mocking and coverage reporting. Jest is the testing framework this project will use to test the API server for the Asset Store.</p><h2 id="UnitTesting-Vitest">Vitest</h2><p>Vitest is a fast, unit testing framework specifically designed for Vite projects. Its API is similar to JEST while also providing native Typescript support. Vitest uses <a class="external-link" href="https://v8.dev/blog/javascript-code-coverage" rel="nofollow">V8</a> to provide information about the code coverage. Vitest is being used in the react client application as the client app uses Vite in its build process, which facilitated the use of Vitest.</p><h2 id="UnitTesting-VitestVSJest">Vitest VS Jest</h2><p>The differences for purposes of migration are documented in <a class="external-link" href="https://vitest.dev/guide/migration#migrating-from-jest" rel="nofollow">Vitest migrating from Jest</a> which will cover the differences between Vitest and Jest and a more comprehensive manner. For context this portion of the guide was originally written for those of us who started to learn unit testing the client app with Jest and later switched to Vitest. </p><h3 id="UnitTesting-KeyDifferences">Key Differences</h3><ul><li><p>Spies and Mocks </p><ul><li><p>Jest: <code>jest.fn()</code> or <code>jest.spyOn</code></p></li><li><p>Vitest: <code>vi.fn()</code> or <code>vi.spyOn</code></p></li></ul></li><li><p>Module Mocks: When mocking a module in Jest, the factory argument's return value is the default export. In Vitest, the factory argument has to return an object with each export explicitly defined. For example, the following <code>jest.mock</code> would have to be updated as follows:</p></li></ul><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">vi.mock(&#39;./some-path&#39;, () =&gt; ({ 
+  default: &#39;hello&#39;, 
+})) </pre>
+</div></div><ul><li><p>Importing the Original of a Mocked Package: Vitest replaces <code>requireActual</code> with <code>vi.importActual</code></p></li></ul><h2 id="UnitTesting-React-Testing-Library">React-Testing-Library</h2><p>React Testing Library is a set of helpers that let you test React components without relying on their implementation details. This approach makes refactoring a breeze and also nudges you towards best practices for accessibility. RTL provides methods for querying the DOM, such as <code>screen.getByText()</code> to find a button by its text. It also has a <code>render()</code> method to virtually render React components in the testing environment</p><h2 id="UnitTesting-Resources">Resources</h2><ul><li><p><a class="external-link" href="https://testing-library.com/docs/react-testing-library/api" rel="nofollow">React Testing Library API</a> </p></li><li><p><a class="external-link" href="https://testing-library.com/docs/react-testing-library/cheatsheet" rel="nofollow">React Testing Library Cheatsheet</a> </p></li><li><p><a class="external-link" href="https://jestjs.io/docs/api" rel="nofollow">Jest API</a> </p></li><li><p><a class="external-link" href="https://jestjs.io/docs/getting-started" rel="nofollow">Jest Docs</a> </p></li><li><p><a class="external-link" data-card-appearance="inline" href="https://www.youtube.com/watch?v=8Xwq35cPwYg" rel="nofollow">https://www.youtube.com/watch?v=8Xwq35cPwYg</a> </p></li><li><p><a class="external-link" data-card-appearance="inline" href="https://vitest.dev/guide/" rel="nofollow">https://vitest.dev/guide/</a> </p></li><li><p><a class="external-link" href="https://vitest.dev/guide/migration#migrating-from-jest" rel="nofollow">Vitest Migration Guide</a> </p></li></ul><h1 id="UnitTesting-WritingTests-TheThree“A”s">Writing Tests - The Three “A”s</h1><p>Tests should be written in three parts:</p><ul><li><p><strong>Arrange</strong>: Set up the test data, test condition and test environment</p></li><li><p><strong>Act</strong>: Run logic that should be tested (e.g. execute function)</p><ul><li><p>Ex. Simulate a button click</p></li></ul></li><li><p><strong>Assert</strong>: Compare execution results with expected results</p></li></ul><p>Ex.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: js; gutter: false; theme: Confluence" data-theme="Confluence">describe(&quot;MyComponent Testing Suite&quot;, () =&gt; {
+  test(&#39;renders &quot;Changed!&quot; if the button was clicked&#39;, () =&gt; {
+      // Arrange
+      render(&lt;Greeting /&gt;);
+  
+      // Act
+      const buttonElement = screen.getByRole(&#39;button&#39;);
+      userEvent.click(buttonElement)
+  
+      // Assert
+      const outputElement = screen.getByText(&#39;Changed!&#39;);
+      expect(outputElement).toBeInTheDocument();
+    });
+})</pre>
+</div></div><p>In the above example render is our Arrange portion which renders into a container which is appended to document.body. By default, React Testing Library will create a div and append that div to the document.body and this is where your React component will be rendered.</p><p>Act uses the screen function of RCT to query the DOM based on some function. In the example we are getting screen elements by role. Please note that setting a role and/or aria-* attribute that matches the implicit ARIA semantics is unnecessary and is not recommended as these properties are already set by the browser, and we must not use the role and aria-* attributes in a manner that conflicts with the semantics described. See <a class="external-link" data-card-appearance="inline" href="https://www.w3.org/TR/html-aria/#docconformance" rel="nofollow">https://www.w3.org/TR/html-aria/#docconformance</a> for associated roles</p><p>Assert makes a statement about what should happen and is checked using the expect function which accepts some value as a parameter and can be evaulated by proceeding functions.</p><p>Within the React application will be an original test file to base all other tests on (see below)<br/></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">import { render, screen } from &quot;@testing-library/react&quot;;
+import userEvent from &quot;@testing-library/user-event&quot;;
+
+import TestComponent from &quot;./TestComponent&quot;;
+
+describe(&quot;The demo test suite&quot;, () =&gt; {
+  test(&quot;Should render hello world by default&quot;, () =&gt; {
+    render(&lt;TestComponent /&gt;);
+    const paragraphElement = screen.getByText(&quot;Hello World&quot;, {
+      exact: false
+    });
+    expect(paragraphElement).toBeInTheDocument();
+  });
+
+  test(&quot;Should render Bye whent he button is pressed &quot;, async () =&gt; {
+    render(&lt;TestComponent /&gt;);
+    const buttonElement = screen.getByRole(&quot;button&quot;);
+    await userEvent.click(buttonElement);
+    const paragraphElement = screen.getByText(&quot;Bye&quot;, { exact: false });
+    expect(paragraphElement).toBeInTheDocument();
+  });
+});</pre>
+</div></div><h1 id="UnitTesting-Organization">Organization</h1><h2 id="UnitTesting-NamingConventions">Naming Conventions</h2><p>For each component or service file we should have an associated file with the following naming convention:</p><ul><li><p>**.test.ts[x]</p><ul><li><p>ex. ”MyComponent.test.tsx” or “MyService.test.ts</p></li></ul></li></ul><h2 id="UnitTesting-WheredoIputmytests?">Where do I put my tests?</h2><p>When writing test for an associated component or service should have the test file in the same folder as the associated file being tested.</p><p>Ex.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241108-201939.png" width="259" loading="lazy" src="attachments/1432649735/1453719580.png?width=259" data-image-src="attachments/1432649735/1453719580.png" data-height="67" data-width="259" data-unresolved-comment-count="0" data-linked-resource-id="1453719580" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241108-201939.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1432649735" data-linked-resource-container-version="18" data-media-id="9eb3e3ee-a80c-4642-a714-7e7bb9d22f60" data-media-type="file"></span><p /><p>In the following example we have an example component in src/component. Within the folder for the component we have the test “myComponent.test.tsx” which will contain a suite of tests for the associated component</p><h1 id="UnitTesting-RunningTests">Running Tests</h1><p>Once your test suite has been created and you wish to check if your test have passed, you can run the following command in your command line:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">npm run test</pre>
+</div></div><p>This will run the testing script in the package.json file and the following table</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241108-202308.png" width="631" loading="lazy" src="attachments/1432649735/1453981703.png?width=631" data-image-src="attachments/1432649735/1453981703.png" data-height="258" data-width="631" data-unresolved-comment-count="0" data-linked-resource-id="1453981703" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241108-202308.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1432649735" data-linked-resource-container-version="18" data-media-id="c7306053-f093-41b7-bd68-e690c4b2891e" data-media-type="file"></span><h2 id="UnitTesting-RunningIndividualTests">Running Individual Tests</h2><p>Install the following extension:<br/><a class="external-link" href="https://marketplace.visualstudio.com/items?itemName=Orta.vscode-jest" rel="nofollow">https://marketplace.visualstudio.com/items?itemName=Orta.vscode-jest</a></p><p>This is a Jest extension which adds features to VS Code to run tests and see if you have any fails.</p><p>This Extension gives the option to re-run or quickly check tests using its interface. See the extension for more information.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="v6-quick-start-20241108-202934.png" width="760" loading="lazy" src="attachments/1432649735/1453654026.png?width=760" data-image-src="attachments/1432649735/1453654026.png" data-height="682" data-width="1043" data-unresolved-comment-count="0" data-linked-resource-id="1453654026" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="v6-quick-start-20241108-202934.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1432649735" data-linked-resource-container-version="18" data-media-id="81da3aa0-add3-41af-9c34-9a3615407c9c" data-media-type="file"></span><h1 id="UnitTesting-MockingGuide">Mocking Guide</h1><p>Mocking is an essential technique in unit testing, allowing us to isolate the code under test by replacing its dependencies with controlled substitutes. This ensures that tests are reliable and focused on the specific functionality being validated. This section introduces mocking in Vitest and Jest, explores general rules, testing hooks, and details the setup of both base mocks and individually tailored mocks for specific tests or suites.</p><p><em>Note: The commands for jest and vitest are the same use </em><code>vi.***()</code><em> for vitest and </em><code>jest.***()</code><em> for jest.</em></p><h2 id="UnitTesting-GeneralRulesforMocking">General Rules for Mocking</h2><ol start="1"><li><p><strong>Keep Mocks Predictable:</strong> Mocks should return consistent and predictable outputs to ensure test stability.</p></li><li><p><strong>Isolate Dependencies:</strong> Replace only the dependencies required for the test. Avoid unnecessary mocks that complicate test logic.</p></li><li><p><strong>Clear Mocks Before Each Test:</strong> Ensure all mocks are cleared using <code>vi.clearAllMocks()</code> to maintain test independence.</p></li><li><p><strong>Reset Mocks After Tests:</strong> Always clean up mocks between tests to avoid state leaks using <code>vi.resetAllMocks()</code> or <code>vi.restoreAllMocks()</code>.</p></li><li><p><strong>Favor Simplicity:</strong> Mock only what is necessary for the test to pass. Over-mocking can obscure the purpose of a test.</p></li><li><p><strong>Use Built-in Utilities:</strong> Vitest provides utilities like <code>vi.fn()</code> and <code>vi.spyOn()</code> for creating and controlling mocks efficiently.</p></li></ol><h2 id="UnitTesting-UsingTestingHooks">Using Testing Hooks</h2><p>Vitest supports various hooks for setting up and tearing down mocks during test execution:</p><ol start="1"><li><p><code>beforeAll</code>: Use this hook to create base mock setups shared across all tests in a suite.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: js; gutter: false; theme: Confluence" data-theme="Confluence">beforeAll(() =&gt; {
+    vi.mock(&#39;module-name&#39;, () =&gt; ({
+        mockedFunction: vi.fn(() =&gt; &#39;default value&#39;),
+    }));
+});</pre>
+</div></div></li><li><p><code>beforeEach</code>: Reset or reinitialize mocks before each test to ensure a clean slate.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: js; gutter: false; theme: Confluence" data-theme="Confluence">beforeEach(() =&gt; {
+    vi.clearAllMocks();
+});</pre>
+</div></div></li><li><p><code>afterEach</code>: Clean up mock states or resources used during a test.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: js; gutter: false; theme: Confluence" data-theme="Confluence">afterEach(() =&gt; {
+    vi.restoreAllMocks();
+});</pre>
+</div></div></li><li><p><code>afterAll</code>: Restore any global configurations or mocks modified during the tests.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: js; gutter: false; theme: Confluence" data-theme="Confluence">afterAll(() =&gt; {
+    vi.resetModules();
+});</pre>
+</div></div></li></ol><h2 id="UnitTesting-SettingUpaBaseMock">Setting Up a Base Mock</h2><p>A base mock is a generic mock setup that can be reused across multiple test suites or scenarios. Base mocks simplify testing by providing consistent behavior for common dependencies.</p><p><code>export function</code></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: js; gutter: false; theme: Confluence" data-theme="Confluence">// For mocking functions that do not have a &#39;default&#39; export
+vi.mock(&#39;./api&#39;, () =&gt; ({
+    fetchData: vi.fn()
+}));</pre>
+</div></div><p><code>export default function</code></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: js; gutter: false; theme: Confluence" data-theme="Confluence">// For mocking functions that have a &#39;default export&#39;
+vi.mock(&quot;../../hooks/alert/useAlert&quot;, () =&gt; ({
+  default: vi.fn().mockReturnValue({
+    addAlert: vi.fn(),
+    alerts: [],
+    removeAlert: vi.fn()
+  })
+}));</pre>
+</div></div><h1 id="UnitTesting-SettingUpaMockforIndividualTests">Setting Up a Mock for Individual Tests</h1><p>In some cases, tests require a tailored mock to simulate specific scenarios. These mocks are created and customized within individual tests or suites.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: js; gutter: false; theme: Confluence" data-theme="Confluence">test(&#39;should call fetchData and return mocked data&#39;, async () =&gt; {
+  ...
+    vi.mocked(fetchData).mockReturnValueOnce({
+      data: { message: &quot;Test Message&quot; }
+    });
+  ...
+});</pre>
+</div></div><p><em>NOTE. You must declare the </em><code>vi.mock</code> function at the top of the file outside of any hooks before you use a <code>vi.mocked</code></p><h1 id="UnitTesting-SpecialNotes">Special Notes</h1><ol start="1"><li><p>Mocking files with with nested functions like database mocking can be tricky (mongoose). You need to ensure that each function is mocked to ensure the test does not break.<br/></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: js; gutter: false; theme: Confluence" data-theme="Confluence">jest.mock(&quot;../../models/assetModel.js&quot;, () =&gt; {
+  // We need to use part of the actual external library.
+  // We dont need to test mongoose but we need to prevent the database calls for our unit tests.
+  const { Schema } = jest.requireActual(&quot;mongoose&quot;);
+  
+  // Dynamically define the schema inside the mock function using the actual mongoose
+  const mockAssetSchema = new Schema({
+    name: { type: String, required: true },
+    model: {
+      type: new Schema(
+        {
+          triCount: Number,
+          vertices: Number,
+          edges: Number,
+          lodCount: Number,
+          polygons: Number,
+          rigType: String,
+          animationCount: Number,
+          textureCount: Number
+        },
+        { _id: false }
+      ),
+      required: false
+    }
+  });
+
+  // Mock starting asset list
+  const assetList = [
+    {
+      _id: &quot;1&quot;,
+      name: &quot;asset1&quot;,
+      tags: [{ name: &quot;Tag 1&quot; }],
+      projects: [{ name: &quot;Project 1&quot; }],
+      categories: [{ name: &quot;Category 1&quot; }],
+      previews: [{ url: &quot;Preview 1&quot; }]
+    },
+    {
+      _id: &quot;2&quot;,
+      name: &quot;asset2&quot;,
+      tags: [{ name: &quot;Tag 2&quot; }],
+      projects: [{ name: &quot;Project 2&quot; }],
+      categories: [{ name: &quot;Category 2&quot; }],
+      previews: [{ url: &quot;Preview 2&quot; }]
+    }
+  ];
+  // Mock the query chain (These are the mongoose database functions which are nested underneath .find() )
+  const mockQuery = {
+    select: jest.fn().mockImplementation(() =&gt; mockQuery),
+    populate: jest.fn().mockImplementation(() =&gt; mockQuery),
+    concat: jest.fn().mockImplementation(() =&gt; mockQuery),
+    map: jest
+      .fn()
+      .mockImplementation(callback =&gt;
+        callback ? assetList.map(callback) : mockQuery
+      ),
+    exec: jest.fn().mockResolvedValue(assetList)
+  };
+
+  const mockFind = jest.fn().mockReturnValue(mockQuery); // Return the mock query object
+
+  return {
+    // Export the function with mocked function chain
+    assetModel: {
+      find: mockFind
+    },
+    assetSchema: mockAssetSchema // Export the mock schema
+  };
+});</pre>
+</div></div></li></ol><h1 id="UnitTesting-FullSuiteExample">Full Suite Example</h1><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: js; gutter: false; theme: Confluence" data-theme="Confluence">import { fireEvent, render } from &quot;@testing-library/react&quot;;
+import { useLocation } from &quot;react-router-dom&quot;;
+
+import Footer, { type FooterProps } from &quot;./Footer&quot;;
+
+const defaultFooterProps: FooterProps = {
+  alt: &quot;Footer Image&quot;,
+  errorSrc: &quot;/assets/NotFoundPreview.webp&quot;,
+  footerClassName:
+    &quot;bg-general-40 mt-auto flex h-10 w-full items-center justify-end&quot;,
+  imgClassName: &quot;mx-auto h-full&quot;,
+  src: &quot;/assets/varlab_logo_transparent.png&quot;
+};
+
+// Mock react-router-dom
+vi.mock(&quot;react-router-dom&quot;, async () =&gt; ({
+  ...(await vi.importActual(&quot;react-router-dom&quot;)),
+  useLocation: vi.fn(),
+  useNavigate: vi.fn()
+}));
+
+describe(&quot;footer Component&quot;, () =&gt; {
+  beforeEach(() =&gt; {
+    vi.clearAllMocks();
+
+    vi.mocked(useLocation).mockReturnValue({
+      hash: &quot;&quot;,
+      key: &quot;default&quot;,
+      pathname: &quot;/asset&quot;,
+      search: &quot;&quot;,
+      state: null
+    });
+  });
+
+  test(&quot;renders with default props&quot;, () =&gt; {
+    expect.assertions(6);
+
+    const { container } = render(&lt;Footer /&gt;);
+
+    // Get the footer element directly by HTML tag
+    const footerElement = container.querySelector(&quot;footer&quot;);
+
+    expect(footerElement).toBeInTheDocument();
+    expect(footerElement).toHaveClass(defaultFooterProps.footerClassName!);
+
+    // Get the img element directly from the footer element
+    const imgElement = footerElement?.querySelector(&quot;img&quot;);
+
+    expect(imgElement).toBeInTheDocument();
+    expect(imgElement).toHaveClass(defaultFooterProps.imgClassName!);
+    expect(imgElement).toHaveAttribute(&quot;src&quot;, defaultFooterProps.src!);
+    expect(imgElement).toHaveAttribute(&quot;alt&quot;, defaultFooterProps.alt!);
+  });
+});</pre>
+</div></div><p />
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1432649735/1454505985.png">image-20241108-201558.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1432649735/1453719580.png">image-20241108-201939.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1432649735/1453981703.png">image-20241108-202308.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1432649735/1453654026.png">v6-quick-start-20241108-202934.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 27, 2025 21:03</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

@@ -1,0 +1,20 @@
+import express from "express";
+
+import asset from "./asset.js";
+import category from "./category.js";
+import error from "./error.js";
+import oauth from "./oauth.js";
+import projects from "./projects.js";
+import search from "./search.js";
+import tags from "./tags.js";
+import users from "./users.js";
+const router = express.Router();
+router.use("/users", users);
+router.use("/asset", asset);
+router.use("/search", search);
+router.use("/error", error);
+router.use("/projects", projects);
+router.use("/category", category);
+router.use("/oauth", oauth);
+router.use("/tags", tags);
+export default router;

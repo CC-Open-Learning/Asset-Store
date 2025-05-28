@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vConestoga : Private Routes</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="vConestoga_536314119.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Projects_1091797023.html">Projects</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="VARLab-Asset-Store_1124859959.html">VARLab Asset Store</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            vConestoga : Private Routes
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Nipun Grover</span> on Dec 10, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <h1 id="PrivateRoutes-Overview"><strong>Overview</strong></h1><p>The document explains the Private Routes in the Asset store application. Private routes are essentially a security gate like a middleware which is what tells the app what to render depending upon if the user is authenticated or not. If the refresh token and the access token of the user are invalid, Private Routes is what handles and kicks the user back to the login page on the client.</p><h1 id="PrivateRoutes-Description"><strong>Description</strong></h1><p>The <code>PrivateRoutes</code> component is a <strong>higher-order route wrapper</strong> that protects specific routes by ensuring only authenticated users can access them.</p><ul><li><p><strong>Unauthenticated users</strong> are redirected to the login page (<code>/login</code>), with their current location saved to facilitate redirection after a successful login.</p></li><li><p>A <strong>loading state</strong> is displayed while the authentication status is being determined.</p></li><li><p><strong>Authenticated users</strong> are granted access to the child routes rendered via React Router's <code>&lt;Outlet /&gt;</code>.</p></li></ul><p>Here is the structure of the components in the main</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">children: [
+      {
+        element: &lt;LoginPage /&gt;,
+        path: &quot;/login&quot;
+      },
+      {
+        children: [
+          {
+            element: &lt;HomePage /&gt;,
+            path: &quot;/&quot;
+          },
+          {
+            element: &lt;AssetDisplayPage /&gt;,
+            path: &quot;/asset&quot;
+          },
+          {
+            element: &lt;AssetDetails /&gt;,
+            path: &quot;/asset/:id&quot;
+          },
+          {
+            element: &lt;AdminPage /&gt;,
+            path: &quot;admin&quot;
+          }
+        ],
+        element: &lt;PrivateRoutes /&gt;
+      }
+    ],
+    element: &lt;App /&gt;,
+    errorElement: &lt;NotFoundPage /&gt;,
+    path: &quot;/&quot;
+  }
+]);</pre>
+</div></div><p style="margin-left: 30.0px;">This structure may or  may not change in the future but the only route accessible without authentication currently is login page. The other routes are a children of Private Routes component, which renders its children as <code>&lt;Outlet/&gt;</code> </p><h3 id="PrivateRoutes-Dependencies"><strong>Dependencies</strong></h3><p>This component relies on:</p><ul><li><p><code>react-router-dom</code>: For navigation and routing logic.</p></li><li><p><strong>Custom Hook </strong><code>useUser</code>: Provides the current user's authentication state (<code>isLoading</code> and <code>isLoggedIn</code>).</p></li></ul><p /><h1 id="PrivateRoutes-useUser&amp;UserContext"><strong>useUser &amp; UserContext</strong></h1><p>To understand how Private Routes works it is essential to understand what the UserContext and useUser is doing. UserContext is basically a context api. Context Apis general idea is to allow shared access of states between multiple components without passing props (somewhat like global variables but not exactly). If you want to know more about context apis, what their purpose and functionality is you can check out: </p><p /><a class="external-link" data-card-appearance="embed" data-layout="wide" data-original-height="480.00" data-original-width="853.34" data-width="100.00" href="https://www.youtube.com/watch?v=5LrDIWkK_Bc" rel="nofollow">https://www.youtube.com/watch?v=5LrDIWkK_Bc</a><p /><p>useUser as explained in the video is just a custom hook that allows you to easily consume/ access the context data and prevent you from using the context outside of the provider.</p><p /><h2 id="PrivateRoutes-WhyUserContextisimportantforPrivateRoutes">Why UserContext is important for PrivateRoutes</h2><p>UserContext does a couple of things but lets first start with the state management. It is storing two states that PrivateRoutes is using:</p><ol start="1"><li><p><strong>isLoading</strong> : this tells the PrivateRoutes that response from the server has not yet been received and PrivateRoutes only renders a loading spinner until then</p></li><li><p><strong>isLoggedIn : </strong>Once the response is received, depending upon the authentication of the user, the isLogged in state is set to true or false. </p></li></ol><h3 id="PrivateRoutes-HowarethesestatesmanagedinsideUserContext?">How are these states managed inside UserContext?</h3><p>There are two useEffects inside UserContext, one of these UseEffects is triggered whenever the user navigates anywhere on the application. It has <code>location.pathname</code> as a dependency bc whenever the URL changes a request is made to the server. And we want to authenticate the user whenever they are trying to request anything from the server at all times. </p><p>What does this useEffect do?</p><ul><li><p>It firsts sets the loading state to true to tell the Private routes to not render anything yet</p></li><li><p>authenticateUser function is called which uses authenticate function (authenticate is a function in the userService which is making a request to the authenticate routes via the our custom  <a href="AxiosService-and-Service-Creation-Guide_1433042948.html" data-linked-resource-id="1433042948" data-linked-resource-version="14" data-linked-resource-type="page">AxiosService and Service Creation Guide</a> ⚛️)</p></li><li><p>the authenticate route then returns a success response which can be true or false based on the validity of the users access and refresh token (more about tokens here <a href="Store-Authentication_1181581317.html" data-linked-resource-id="1181581317" data-linked-resource-version="16" data-linked-resource-type="page">Store Authentication</a>)</p></li><li><p>if the success message is true, the isLoggedIn state is set to true and the outlet is rendered</p></li><li><p>if the success message is false, the isLoggedIn state is set to false and the user is navigated to the LoginPage</p></li></ul><h1 id="PrivateRoutes-Summary">Summary</h1><p>The <code>PrivateRoutes</code> component:</p><ul><li><p>Protects child routes.</p></li><li><p>Redirects unauthenticated users to <code>/login</code> with a saved location.</p></li><li><p>Displays a loading state during authentication checks.</p></li></ul>
+                    </div>
+
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 27, 2025 21:03</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

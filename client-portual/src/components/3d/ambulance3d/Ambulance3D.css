@@ -1,0 +1,28 @@
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  #ambulance3d-canvas {
+    @apply aspect-video;
+  }
+
+  /* Loading bar container */
+  .loading-bar-container {
+    @apply absolute left-1/2 top-1/2 z-10 flex h-4 w-4/5 -translate-x-1/2 -translate-y-1/2 transform items-center overflow-hidden rounded bg-general-10;
+  }
+
+  /* Loading bar */
+  .loading-bar {
+    @apply flex h-full items-center justify-center rounded bg-yellow-70 transition-all;
+  }
+
+  /* Text inside loading bar */
+  .loading-bar-text {
+    @apply absolute inset-0 flex w-full items-center justify-center text-xs font-bold text-general-40;
+  }
+
+  /* 3D ambulance container */
+  .ambulance3d-container {
+    @apply relative flex h-full w-full items-center justify-center overflow-hidden;
+  }
+}

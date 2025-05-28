@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vConestoga : Multer</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="vConestoga_536314119.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Projects_1091797023.html">Projects</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="VARLab-Asset-Store_1124859959.html">VARLab Asset Store</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            vConestoga : Multer
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Nick Aguilar</span>, last modified on Aug 14, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <style type='text/css'>/*<![CDATA[*/
+div.rbtoc1748379744648 {padding: 0px;}
+div.rbtoc1748379744648 ul {list-style: none;margin-left: 0px;}
+div.rbtoc1748379744648 li {margin-left: 0px;padding-left: 0px;}
+
+/*]]>*/</style><div class='toc-macro rbtoc1748379744648'>
+<ul class='toc-indentation'>
+<li><a href='#Multer-Overview'>Overview</a></li>
+<li><a href='#Multer-LearningResources'>Learning Resources</a></li>
+<li><a href='#Multer-FileStructure'>File Structure</a>
+<ul class='toc-indentation'>
+
+<ul class='toc-indentation'>
+<li><a href='#Multer-multer(opts)'>multer(opts)</a>
+<ul class='toc-indentation'>
+<li><a href='#Multer-.single(fieldname)'>.single(fieldname)</a></li>
+<li><a href='#Multer-.array(fieldname[,maxCount])'>.array(fieldname[, maxCount])</a></li>
+<li><a href='#Multer-.fields(fields)'>.fields(fields)</a></li>
+<li><a href='#Multer-.none()'>.none()</a></li>
+<li><a href='#Multer-.any()'>.any()</a></li>
+</ul>
+</li>
+<li><a href='#Multer-storage'>storage</a>
+<ul class='toc-indentation'>
+<li><a href='#Multer-DiskStorage'>DiskStorage</a></li>
+<li><a href='#Multer-MemoryStorage'>MemoryStorage</a></li>
+</ul>
+</li>
+<li><a href='#Multer-limits'>limits</a></li>
+<li><a href='#Multer-fileFilter'>fileFilter</a></li>
+</ul>
+<li><a href='#Multer-Errorhandling'>Error handling</a></li>
+</ul>
+</li>
+</ul>
+</div><h1 id="Multer-Overview">Overview</h1><p>Multer is the JS library used by the asset store to upload files to the local filesystem of a given instance of the store.</p><blockquote><p>Multer is a node.js middleware for handling <code>multipart/form-data</code>, which is primarily used for uploading files. It is written on top of <a class="external-link" href="https://github.com/mscdex/busboy" rel="nofollow">busboy</a> for maximum efficiency.</p></blockquote><h1 id="Multer-LearningResources">Learning Resources</h1><p>Below are links to documentation related to the Multer library that may be helpful if you wish to do further reading beyond what is described in this guide</p><ul><li><p><a class="external-link" data-card-appearance="inline" href="https://www.npmjs.com/package/multer" rel="nofollow">https://www.npmjs.com/package/multer</a> </p></li><li><p><a class="external-link" data-card-appearance="inline" href="https://blog.logrocket.com/multer-nodejs-express-upload-file/" rel="nofollow">https://blog.logrocket.com/multer-nodejs-express-upload-file/</a> </p></li><li><p><a class="external-link" data-card-appearance="inline" href="https://www.geeksforgeeks.org/multer-npm/" rel="nofollow">https://www.geeksforgeeks.org/multer-npm/</a> </p></li></ul><h1 id="Multer-FileStructure">File Structure</h1><p>Multer adds a <code>body</code> object and a <code>file</code> or <code>files</code> object to the <code>request</code> object. The <code>body</code> object contains the values of the text fields of the form, the <code>file</code> or <code>files</code> object contains the files uploaded via the form.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: js; gutter: false; theme: Confluence" data-theme="Confluence">const express = require(&#39;express&#39;)
+const multer  = require(&#39;multer&#39;)
+const upload = multer({ dest: &#39;uploads/&#39; })
+
+const app = express()
+
+app.post(&#39;/profile&#39;, upload.single(&#39;avatar&#39;), function (req, res, next) {
+  // req.file is the `avatar` file
+  // req.body will hold the text fields, if there were any
+})
+
+app.post(&#39;/photos/upload&#39;, upload.array(&#39;photos&#39;, 12), function (req, res, next) {
+  // req.files is array of `photos` files
+  // req.body will contain the text fields, if there were any
+})
+
+const cpUpload = upload.fields([{ name: &#39;avatar&#39;, maxCount: 1 }, { name: &#39;gallery&#39;, maxCount: 8 }])
+app.post(&#39;/cool-profile&#39;, cpUpload, function (req, res, next) {
+  // req.files is an object (String -&gt; Array) where fieldname is the key, and the value is array of files
+  //
+  // e.g.
+  //  req.files[&#39;avatar&#39;][0] -&gt; File
+  //  req.files[&#39;gallery&#39;] -&gt; Array
+  //
+  // req.body will contain the text fields, if there were any
+})</pre>
+</div></div><p>Each file contains the following information:</p><div class="table-wrap"><table data-table-width="760" data-layout="default" data-local-id="2e949569-42f4-4b39-b214-4d29d8725fcf" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p>Key</p></th><th class="confluenceTh"><p>Description</p></th></tr><tr><td class="confluenceTd"><p><code>fieldname</code></p></td><td class="confluenceTd"><p>Field name specified in the form</p></td></tr><tr><td class="confluenceTd"><p><code>originalname</code></p></td><td class="confluenceTd"><p>Name of the file on the user's computer</p></td></tr><tr><td class="confluenceTd"><p><code>encoding</code></p></td><td class="confluenceTd"><p>Encoding type of the file</p></td></tr><tr><td class="confluenceTd"><p><code>mimetype</code></p></td><td class="confluenceTd"><p>Mime type of the file</p></td></tr><tr><td class="confluenceTd"><p><code>size</code></p></td><td class="confluenceTd"><p>Size of the file in bytes</p></td></tr><tr><td class="confluenceTd"><p><code>destination</code></p></td><td class="confluenceTd"><p>The folder to which the file has been saved</p></td></tr><tr><td class="confluenceTd"><p><code>filename</code></p></td><td class="confluenceTd"><p>The name of the file within the <code>destination</code></p></td></tr><tr><td class="confluenceTd"><p><code>path</code></p></td><td class="confluenceTd"><p>The full path to the uploaded file</p></td></tr><tr><td class="confluenceTd"><p><code>buffer</code></p></td><td class="confluenceTd"><p>A <code>Buffer</code> of the entire file</p></td></tr></tbody></table></div><h3 id="Multer-multer(opts)"><code>multer(opts)</code></h3><p>Multer accepts an options object, the most basic of which is the <code>dest</code> property, which tells Multer where to upload the files. In case you omit the options object, the files will be kept in memory and never written to disk.</p><p>By default, Multer will rename the files so as to avoid naming conflicts. The renaming function can be customized according to your needs.</p><p>The following are the options that can be passed to Multer.</p><div class="table-wrap"><table data-table-width="760" data-layout="default" data-local-id="79dec15f-7ccf-4ad0-a872-da382cd57117" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p>Key</p></th><th class="confluenceTh"><p>Description</p></th></tr><tr><td class="confluenceTd"><p><code>dest</code> or <code>storage</code></p></td><td class="confluenceTd"><p>Where to store the files</p></td></tr><tr><td class="confluenceTd"><p><code>fileFilter</code></p></td><td class="confluenceTd"><p>Function to control which files are accepted</p></td></tr><tr><td class="confluenceTd"><p><code>limits</code></p></td><td class="confluenceTd"><p>Limits of the uploaded data</p></td></tr><tr><td class="confluenceTd"><p><code>preservePath</code></p></td><td class="confluenceTd"><p>Keep the full path of files instead of just the base name</p></td></tr></tbody></table></div><p>In an average web app, only <code>dest</code> might be required, and configured as shown in the following example.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: js; gutter: false; theme: Confluence" data-theme="Confluence">const upload = multer({ dest: &#39;uploads/&#39; })</pre>
+</div></div><p>If you want more control over your uploads, you'll want to use the <code>storage</code> option instead of <code>dest</code>. Multer ships with storage engines <code>DiskStorage</code> and <code>MemoryStorage</code>; More engines are available from third parties.</p><h4 id="Multer-.single(fieldname)"><code>.single(fieldname)</code></h4><p>Accept a single file with the name <code>fieldname</code>. The single file will be stored in <code>req.file</code>.</p><h4 id="Multer-.array(fieldname[,maxCount])"><code>.array(fieldname[, maxCount])</code></h4><p>Accept an array of files, all with the name <code>fieldname</code>. Optionally error out if more than <code>maxCount</code> files are uploaded. The array of files will be stored in <code>req.files</code>.</p><h4 id="Multer-.fields(fields)"><code>.fields(fields)</code></h4><p>Accept a mix of files, specified by <code>fields</code>. An object with arrays of files will be stored in <code>req.files</code>.</p><p><code>fields</code> should be an array of objects with <code>name</code> and optionally a <code>maxCount</code>. Example:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: js; gutter: false; theme: Confluence" data-theme="Confluence">[
+  { name: &#39;avatar&#39;, maxCount: 1 },
+  { name: &#39;gallery&#39;, maxCount: 8 }
+]</pre>
+</div></div><h4 id="Multer-.none()"><code>.none()</code></h4><p>Accept only text fields. If any file upload is made, error with code &quot;LIMIT_UNEXPECTED_FILE&quot; will be issued.</p><h4 id="Multer-.any()"><code>.any()</code></h4><p>Accepts all files that comes over the wire. An array of files will be stored in <code>req.files</code>.</p><p><strong>WARNING:</strong> Make sure that you always handle the files that a user uploads. Never add multer as a global middleware since a malicious user could upload files to a route that you didn't anticipate. Only use this function on routes where you are handling the uploaded files.</p><h3 id="Multer-storage"><code>storage</code></h3><h4 id="Multer-DiskStorage"><code>DiskStorage</code></h4><p>The disk storage engine gives you full control on storing files to disk.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: js; gutter: false; theme: Confluence" data-theme="Confluence">const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, &#39;/tmp/my-uploads&#39;)
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + &#39;-&#39; + Math.round(Math.random() * 1E9)
+    cb(null, file.fieldname + &#39;-&#39; + uniqueSuffix)
+  }
+})
+
+const upload = multer({ storage: storage })</pre>
+</div></div><p>There are two options available, <code>destination</code> and <code>filename</code>. They are both functions that determine where the file should be stored.</p><p><code>destination</code> is used to determine within which folder the uploaded files should be stored. This can also be given as a <code>string</code> (e.g. <code>'/tmp/uploads'</code>). If no <code>destination</code> is given, the operating system's default directory for temporary files is used.</p><p><strong>Note:</strong> You are responsible for creating the directory when providing <code>destination</code> as a function. When passing a string, multer will make sure that the directory is created for you.</p><p><code>filename</code> is used to determine what the file should be named inside the folder. If no <code>filename</code> is given, each file will be given a random name that doesn't include any file extension.</p><p><strong>Note:</strong> Multer will not append any file extension for you, your function should return a filename complete with an file extension.</p><p>Each function gets passed both the request (<code>req</code>) and some information about the file (<code>file</code>) to aid with the decision.</p><p>Note that <code>req.body</code> might not have been fully populated yet. It depends on the order that the client transmits fields and files to the server.</p><p>For understanding the calling convention used in the callback (needing to pass null as the first param), refer to <a class="external-link" href="https://web.archive.org/web/20220417042018/https://www.joyent.com/node-js/production/design/errors" rel="nofollow">Node.js error handling</a></p><h4 id="Multer-MemoryStorage"><code>MemoryStorage</code></h4><p>The memory storage engine stores the files in memory as <code>Buffer</code> objects. It doesn't have any options.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">const storage = multer.memoryStorage()
+const upload = multer({ storage: storage })</pre>
+</div></div><p>When using memory storage, the file info will contain a field called <code>buffer</code> that contains the entire file.</p><p><strong>WARNING</strong>: Uploading very large files, or relatively small files in large numbers very quickly, can cause your application to run out of memory when memory storage is used.</p><h3 id="Multer-limits"><code>limits</code></h3><p>An object specifying the size limits of the following optional properties. Multer passes this object into busboy directly, and the details of the properties can be found on <a class="external-link" href="https://github.com/mscdex/busboy#busboy-methods" rel="nofollow">busboy's page</a>.</p><p>The following integer values are available:</p><div class="table-wrap"><table data-table-width="760" data-layout="default" data-local-id="f135ea6b-dd9d-4b43-862f-f58c4001f66c" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p>Key</p></th><th class="confluenceTh"><p>Description</p></th><th class="confluenceTh"><p>Default</p></th></tr><tr><td class="confluenceTd"><p><code>fieldNameSize</code></p></td><td class="confluenceTd"><p>Max field name size</p></td><td class="confluenceTd"><p>100 bytes</p></td></tr><tr><td class="confluenceTd"><p><code>fieldSize</code></p></td><td class="confluenceTd"><p>Max field value size (in bytes)</p></td><td class="confluenceTd"><p>1MB</p></td></tr><tr><td class="confluenceTd"><p><code>fields</code></p></td><td class="confluenceTd"><p>Max number of non-file fields</p></td><td class="confluenceTd"><p>Infinity</p></td></tr><tr><td class="confluenceTd"><p><code>fileSize</code></p></td><td class="confluenceTd"><p>For multipart forms, the max file size (in bytes)</p></td><td class="confluenceTd"><p>Infinity</p></td></tr><tr><td class="confluenceTd"><p><code>files</code></p></td><td class="confluenceTd"><p>For multipart forms, the max number of file fields</p></td><td class="confluenceTd"><p>Infinity</p></td></tr><tr><td class="confluenceTd"><p><code>parts</code></p></td><td class="confluenceTd"><p>For multipart forms, the max number of parts (fields + files)</p></td><td class="confluenceTd"><p>Infinity</p></td></tr><tr><td class="confluenceTd"><p><code>headerPairs</code></p></td><td class="confluenceTd"><p>For multipart forms, the max number of header key=&gt;value pairs to parse</p></td><td class="confluenceTd"><p>2000</p></td></tr></tbody></table></div><p>Specifying the limits can help protect your site against denial of service (DoS) attacks.</p><h3 id="Multer-fileFilter"><code>fileFilter</code></h3><p>Set this to a function to control which files should be uploaded and which should be skipped. The function should look like this:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: js; gutter: false; theme: Confluence" data-theme="Confluence">function fileFilter (req, file, cb) {
+
+  // The function should call `cb` with a boolean
+  // to indicate if the file should be accepted
+
+  // To reject this file pass `false`, like so:
+  cb(null, false)
+
+  // To accept the file pass `true`, like so:
+  cb(null, true)
+
+  // You can always pass an error if something goes wrong:
+  cb(new Error(&#39;I don\&#39;t have a clue!&#39;))
+
+}</pre>
+</div></div><h2 id="Multer-Errorhandling">Error handling</h2><p>When encountering an error, Multer will delegate the error to Express. You can display a nice error page using <a class="external-link" href="http://expressjs.com/guide/error-handling.html" rel="nofollow">the standard express way</a>.</p><p>If you want to catch errors specifically from Multer, you can call the middleware function by yourself. Also, if you want to catch only <a class="external-link" href="https://github.com/expressjs/multer/blob/master/lib/multer-error.js" rel="nofollow">the Multer errors</a>, you can use the <code>MulterError</code> class that is attached to the <code>multer</code> object itself (e.g. <code>err instanceof multer.MulterError</code>).</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: js; gutter: false; theme: Confluence" data-theme="Confluence">const multer = require(&#39;multer&#39;)
+const upload = multer().single(&#39;avatar&#39;)
+
+app.post(&#39;/profile&#39;, function (req, res) {
+  upload(req, res, function (err) {
+    if (err instanceof multer.MulterError) {
+      // A Multer error occurred when uploading.
+    } else if (err) {
+      // An unknown error occurred when uploading.
+    }
+
+    // Everything went fine.
+  })
+})</pre>
+</div></div>
+                    </div>
+
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 27, 2025 21:02</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

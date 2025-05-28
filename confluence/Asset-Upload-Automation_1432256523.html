@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vConestoga : Asset Upload Automation</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="vConestoga_536314119.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Projects_1091797023.html">Projects</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="VARLab-Asset-Store_1124859959.html">VARLab Asset Store</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            vConestoga : Asset Upload Automation
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Islam Ahmed</span>, last modified on Dec 30, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <div class="contentLayout2">
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h1 id="AssetUploadAutomation-Overview"><strong>Overview</strong></h1><p>This document provides a comprehensive guide to the automation script for managing assets, including downloading assets from SharePoint using OneDrive, configuring scripts, setting up the environment, running the script, and potential troubleshooting steps.</p><h1 id="AssetUploadAutomation-TableofContents"><strong>Table of Contents</strong></h1><style type='text/css'>/*<![CDATA[*/
+div.rbtoc1748379767456 {padding: 0px;}
+div.rbtoc1748379767456 ul {list-style: none;margin-left: 0px;padding-left: ;}
+div.rbtoc1748379767456 li {margin-left: 0px;padding-left: 0px;}
+
+/*]]>*/</style><div class='toc-macro rbtoc1748379767456'>
+<ul class='toc-indentation'>
+<li><a href='#AssetUploadAutomation-Overview'>Overview</a></li>
+<li><a href='#AssetUploadAutomation-Components'>Components</a></li>
+<li><a href='#AssetUploadAutomation-Prerequisites'>Prerequisites</a></li>
+<li><a href='#AssetUploadAutomation-DetailedSetupandConfiguration'>Detailed Setup and Configuration</a>
+<ul class='toc-indentation'>
+<li><a href='#AssetUploadAutomation-SyncingwithOneDrive'>Syncing with OneDrive</a></li>
+<li><a href='#AssetUploadAutomation-Retrievingtheassets'>Retrieving the assets</a>
+<ul class='toc-indentation'>
+<li><a href='#AssetUploadAutomation-ConfigurationoftheOneDriveAssetCopierScript'>Configuration of the OneDrive Asset Copier Script</a></li>
+<li><a href='#AssetUploadAutomation-Runningthescript'>Running the script</a></li>
+</ul>
+</li>
+<li><a href='#AssetUploadAutomation-ProcessingandUploadingtheAssets'>Processing and Uploading the Assets</a>
+<ul class='toc-indentation'>
+<li><a href='#AssetUploadAutomation-Configurationfortheuploadingtask'>Configuration for the uploading task</a></li>
+<li><a href='#AssetUploadAutomation-RunningtheScript'>Running the Script</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href='#AssetUploadAutomation-ImportantNotes'>Important Notes</a>
+<ul class='toc-indentation'>
+<li><a href='#AssetUploadAutomation-SSLErrorsonInitialRun'>SSL Errors on Initial Run</a></li>
+<li><a href='#AssetUploadAutomation-LimitedKeyUsageforCohere'>Limited Key Usage for Cohere</a></li>
+<li><a href='#AssetUploadAutomation-LogFileOrganization'>Log File Organization</a></li>
+<li><a href='#AssetUploadAutomation-NoServerMatchValidation'>No Server Match Validation</a></li>
+</ul>
+</li>
+</ul>
+</div></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h1 id="AssetUploadAutomation-Components"><strong>Components</strong></h1><p>The automation system comprises separate components that work together:</p><ol start="1"><li><p><strong>OneDrive Sync</strong>: Downloads assets from SharePoint to a local directory.</p></li><li><p><strong>Asset Finder Script</strong> (<code>onedrive-asset-copier.py</code>): Copies specific asset files from the local directory to a destination folder.</p></li><li><p><strong>Metadata Extractor Script</strong> (<code>metadata-extractor.js</code>): Uses the Three.js library to read properties of a given .fbx file.</p></li><li><p><strong>3D Preview Generator</strong>: Generates previews for 3D assets and aligns with upload automation. built at a full stack application.</p><ul><li><p><strong>Client </strong><code>App</code> inside <code>3d-preview-generator</code>: Dynamically loads and displays 3d assets from a file location. The location is controlled via Server Side Events (SSE).</p></li><li><p><strong>Server</strong> <code>utils/server.js</code>:  Acts as a relay between the automation script and the previewer. The automation script points the server to the correct location so that the previewer is setup. </p></li><li><p><strong>Preview Capture</strong> <code>make-preview.js</code>: The automation script uses this script to generate and retrieve the image. The capture is encoded using base64, then decoded on the python side before construction the upload post request.</p></li></ul></li><li><p><strong>Automation Upload Script</strong>: Uploads files to the asset store, using extracted metadata from the metadata script while generating previews for each model file found. (ie. if an asset folder has 2 fbx files, a preview will be generated for each one)</p></li></ol></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h1 id="AssetUploadAutomation-Prerequisites"><strong>Prerequisites</strong></h1><p>Before starting, ensure you have the following:</p><ol start="1"><li><p><strong>Access to Required Platforms</strong>:</p><ul><li><p>OneDrive and SharePoint with synchronization permissions.</p></li><li><p>Asset Store API access credentials.</p></li></ul></li><li><p><strong>System Requirements</strong>:</p><ul><li><p><a class="external-link" href="https://www.python.org/downloads/" rel="nofollow">Python 3.12</a> or later installed.</p></li><li><p>Adequate storage for synchronized and processed assets. (~1 TB of space)</p></li><li><p>Administrative rights to configure system paths and install dependencies.</p></li><li><p><a class="external-link" href="https://nodejs.org/en/download/package-manager" rel="nofollow">Node.js 18</a> or Later. (Better to install using <a class="external-link" href="https://github.com/coreybutler/nvm-windows?tab=readme-ov-file#readme" rel="nofollow">nvm</a>)</p></li></ul></li><li><p><strong>Installed Software</strong>:</p><ul><li><p>OneDrive client for syncing SharePoint.</p></li><li><p>Python package manager (<code>pip</code> (automatically installed with python or <a class="external-link" href="https://builtin.com/software-engineering-perspectives/pip-command-not-found" rel="nofollow">this</a>) or <a class="external-link" href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html" rel="nofollow">Conda</a>).</p><ul><li><p><em>You can follow the instructions here to setup your environment. you will need the follow packages</em></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Confluence" data-theme="Confluence">pip install requests colorama cohere enchant nltk</pre>
+</div></div></li></ul></li></ul></li></ol></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/></div>
+</div>
+</div>
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h1 id="AssetUploadAutomation-DetailedSetupandConfiguration"><strong>Detailed Setup and Configuration</strong></h1><h2 id="AssetUploadAutomation-SyncingwithOneDrive"><strong>Syncing with OneDrive</strong></h2><p>Before we do anything, we need to get the assets. The only way we found to do this without access to the SharePoint API was through OneDrive Sync.</p></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<ol start="1"><li><p>Navigate to the root of the VARLab SharePoint <a class="external-link" href="https://stuconestogacon.sharepoint.com.mcas.ms/sites/VARLab/Shared%20Documents/Forms/AllItems.aspx" rel="nofollow">https://stuconestogacon.sharepoint.com.mcas.ms/sites/VARLab/Shared%20Documents/Forms/AllItems.aspx</a> </p></li></ol></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<ol start="2"><li><p>Find and click the sync button on the website.</p></li></ol><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241210-201735.png" width="107" loading="lazy" src="attachments/1432256523/1512046688.png?width=107" data-image-src="attachments/1432256523/1512046688.png" data-height="71" data-width="107" data-unresolved-comment-count="0" data-linked-resource-id="1512046688" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241210-201735.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1432256523" data-linked-resource-container-version="11" data-media-id="187a5c3a-3ab0-4e10-a31d-96837b3c636c" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<ol start="3"><li><p>Open in OneDrive</p></li></ol><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241230-014645.png" width="423" loading="lazy" src="attachments/1432256523/1536163871.png?width=423" data-image-src="attachments/1432256523/1536163871.png" data-height="262" data-width="529" data-unresolved-comment-count="0" data-linked-resource-id="1536163871" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241230-014645.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1432256523" data-linked-resource-container-version="11" data-media-id="5117e494-d52d-4c7e-b0f9-95425b54f5c4" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<ol start="4"><li><p>Make sure to select all files and make all files available</p></li></ol><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241210-205325.png" width="736" loading="lazy" src="attachments/1432256523/1512013950.png?width=736" data-image-src="attachments/1432256523/1512013950.png" data-height="798" data-width="1094" data-unresolved-comment-count="0" data-linked-resource-id="1512013950" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241210-205325.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1432256523" data-linked-resource-container-version="11" data-media-id="e2694dcc-4fa2-441f-866b-d1a057143d3e" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<ol start="5"><li><p>Wait for the slow download. This process may take up to 3 days depending on your internet speed (At the current time, this is about 600gb). Once it is done your status should show like this in the windows tray.</p></li></ol><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20241210-205455.png" width="211" loading="lazy" src="attachments/1432256523/1512276046.png?width=211" data-image-src="attachments/1432256523/1512276046.png" data-height="856" data-width="452" data-unresolved-comment-count="0" data-linked-resource-id="1512276046" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20241210-205455.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1432256523" data-linked-resource-container-version="11" data-media-id="085764f5-3833-4bdb-9fec-ccbaa07a5fe6" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/></div>
+</div>
+</div>
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="AssetUploadAutomation-Retrievingtheassets"><strong>Retrieving the assets</strong></h2><p>Once the assets are synced to your local machine through OneDrive, the next step involves processing these files to prepare them for the upload automation script. This is achieved using the <code>onedrive-asset-copier.py</code> script, which searches through the local SharePoint directories for asset files and organizes them into a specific structure required for the upload automation process.</p><p>The <code>onedrive-asset-copier.py</code> script searches for all assets matching the <strong>&quot;Asset Files -&quot;</strong> prefix and copies them to a target directory. This process is critical for ensuring that the files are organized correctly and ready for further processing.</p></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="AssetUploadAutomation-ConfigurationoftheOneDriveAssetCopierScript"><strong>Configuration of the OneDrive Asset Copier Script</strong></h3><ul><li><p><strong>Destination Path</strong>:</p><ul><li><p>Specifies where the extracted assets will be copied.</p><ul><li><p>Example: <code>DESTINATION_PATH = &quot;A:\\VARLab Assets&quot;</code></p></li></ul></li></ul></li><li><p><strong>Root Source Path</strong>:</p><ul><li><p>Points to the root directory where the SharePoint assets are synced.</p><ul><li><p>Example: <code>ROOT_SOURCE_PATH = &quot;Q:\\VARLabs Sharepoint\\Conestoga College\\CC_VARLab - Documents&quot;</code></p></li></ul></li></ul></li><li><p><strong>Project Folders</strong>:</p><ul><li><p>Define specific folders to process. Leave this empty to process all available folders.<em> (It is risky to do all projects since our cohere api key can only handle 1000 calls per month)</em></p><ul><li><p>Example: <code>PROJECT_FOLDERS = {&quot;LSM8.03 - Ambulance and Paramedicine&quot;}</code></p></li></ul></li></ul></li><li><p><strong>Validation Criteria</strong>:</p><ul><li><p>The script checks for certain folder names to determine if a directory contains valid assets.</p></li><li><p><strong>Required Folders</strong>: These must exist in a directory for it to be considered valid a asset folder.</p><ul><li><p>Example: <code>REQUIRED_FOLDERS = {&quot;Engine Import Files&quot;, &quot;Engine Imports&quot;, &quot;Source Files&quot;, &quot;Mesh Exports&quot;, &quot;Texture Files&quot;, &quot;Animation Updates&quot;}</code></p></li></ul></li><li><p><strong>Ignored Folders</strong>: These folders will be skipped during processing.</p><ul><li><p>Example: <code>IGNORE_FOLDERS = {&quot;Asset Files - [Template - Insert Label]&quot;, &quot;Old Files&quot;}</code></p></li></ul></li></ul></li><li><p><strong>Logging</strong>:</p><ul><li><p>The script logs its operations for troubleshooting and auditing purposes.</p><ul><li><p>Example:</p><p><code>LOG_FILE_BASE_NAME = &quot;onedrive-extractor&quot;</code><br/><code>LOG_MODE = logging.INFO</code></p></li></ul></li></ul></li></ul></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="AssetUploadAutomation-Runningthescript"><strong>Running the script</strong></h3><p>Once the configuration is complete, you can execute the script as follows in the directory <code>/varlab-asset-store/sharepoint-extractor/</code>:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Confluence" data-theme="Confluence">python onedrive-extractor.py</pre>
+</div></div><div class="confluence-information-macro confluence-information-macro-note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p><em>Ensure your dependencies are installed first!</em></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Confluence" data-theme="Confluence">pip install requests colorama cohere enchant nltk</pre>
+</div></div></div></div><hr/><p>Once the script has completed after around 1-3 hours, you should have a a destination folder organized by project with their respective assets inside.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">A:\Desination Folder
+|- &lt;- Logs will be here
+|- LSM8.03 - Ambulance and Paramedicine
+| |- 3D Assets
+|   |- Asset Files - Adapter_MDI
+|   |- Asset Files - AED_PortableBags
+|   |- ...
+|- LSM9.01 - Public Health Inspection
+| |- 3D Assets
+|   |- Asset Files -  Buffet Table
+|   |- Asset Files -  Vardagen Angled Turner
+|   |- ...
+...</pre>
+</div></div></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/></div>
+</div>
+</div>
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="AssetUploadAutomation-ProcessingandUploadingtheAssets"><strong>Processing and Uploading the Assets</strong></h2><p>Once the assets are organized in their preconfigured directory, the next step is to process and upload them using the <code>upload-automation.py</code> script. This script requires configurations in three separate files to ensure proper operation:</p><ul><li><p><code>upload-automation.py</code> for uploading assets.</p></li><li><p><code>make-preview.js</code> for generating previews.</p></li><li><p><code>.env</code><strong> file</strong> in the 3D preview generator folder for connection configurations</p></li></ul></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="AssetUploadAutomation-Configurationfortheuploadingtask"><strong>Configuration for the uploading task</strong></h3><h4 id="AssetUploadAutomation-upload-automation.pyconfig"><code>upload-automation.py</code> config</h4><p>This script is the core of the automation process. Below are the critical configuration settings:</p><ul><li><p><strong>Root Asset Path</strong>:</p><ul><li><p>The directory where preprocessed assets are stored.</p><ul><li><p>Example: <code>ROOT_ASSET_PATH = &quot;A:\\VARLab FinalFinal AMB&quot;</code></p></li></ul></li></ul></li><li><p><strong>API Configuration</strong>:</p><ul><li><p><strong>API URL</strong>: Endpoint for uploading assets. Use the local endpoint for testing or production endpoint when ready.</p><ul><li><p>Example: <br/><code>API_URL = &quot;http://localhost:3000/api/asset&quot; # Local for testing</code><br/><code>API_URL = &quot;https://assetstore.vconestoga.com/api/asset&quot; # Production</code></p></li></ul></li><li><p><strong>Authentication</strong>: Refresh token for authentication.</p><ul><li><p>Example: <code>REFRESH_TOKEN = &quot;aaa.bbb.ccc&quot;</code></p></li></ul></li></ul></li><li><p><strong>Project-Specific Settings</strong>:</p><ul><li><p><strong>Project Folders</strong>: Specific folders to process. Leave empty to process all.</p><ul><li><p>Example: <code>PROJECT_FOLDERS = {&quot;LSM8.03 - Ambulance and Paramedicine&quot;}</code></p></li></ul></li><li><p><strong>Destination Names</strong>: Tags to map assets to their respective projects.</p><ul><li><p>Example: <code>PROJECT_DESTINATION_NAMES = [&quot;Ambulance&quot;]</code></p></li></ul></li></ul></li><li><p><strong>Asset-Specific Configurations</strong>:</p><ul><li><p><strong>Texture Folders</strong>: Folders to search for texture files.</p><ul><li><p>Example: <code>ASSET_TEXTURE_FOLDERS = {'Textures (Compressed)', 'Texture Files'}</code></p></li></ul></li><li><p><strong>Global Asset Tags</strong>: Tags applied to all uploaded assets.</p><ul><li><p>Example: <code>GLOBAL_ASSET_TAGS = [&quot;3d&quot;]</code></p></li></ul></li></ul></li><li><p><strong>Logging</strong>:</p><ul><li><p>Configure logging level and base name for logs.</p><ul><li><p>Example:<br/><code>LOG_FILE_BASE_NAME = &quot;upload-automation&quot;</code><br/><code>LOG_MODE = logging.INFO</code></p></li></ul></li></ul></li><li><p><strong>Preview Settings</strong>:</p><ul><li><p>The desired format for previews (e.g., <code>webp</code>, <code>png</code>). <em>Must be aligned with the </em><code>make-preview.js</code> config</p><ul><li><p>Example: <code>PREVIEW_FORMAT = &quot;webp&quot;</code></p></li></ul></li></ul></li></ul></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="AssetUploadAutomation-Configurationfortheuploadingtask(Cont.)"><strong>Configuration for the uploading task (Cont.)</strong></h3><h4 id="AssetUploadAutomation-make-preview.jsconfig"><code>make-preview.js</code> config</h4><p>This script generates 3D previews for assets.</p><ul><li><p><strong>Screenshot Format</strong>:</p><ul><li><p>Set the format for generated previews. The default is <code>webp</code>, but you can change it if needed.</p></li><li><p>Example: <code>const format = &quot;webp&quot;; // Options: png, jpeg, webp</code></p></li></ul><p><strong>Note</strong>: <em>Must be aligned with the with </em><code>PREVIEW_FORMAT</code><em> in </em><code>upload-automation.py</code><em>.</em></p></li></ul><hr/><h4 id="AssetUploadAutomation-.envconfig"><code>.env</code> config</h4><p>The <code>.env</code> file in the <code>3d-preview-generator</code> folder contains settings for the preview generator server. These settings are optional as the script defaults to pre-configured ports.</p><ul><li><p><strong>Default Configurations</strong>:</p><ul><li><p>Port for 3D Preview Server: <code>4000</code></p></li><li><p>Port for Static Assets: <code>4040</code></p></li></ul></li><li><p><strong>Example Configuration</strong>:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: c; gutter: false; theme: Confluence" data-theme="Confluence">VITE_PGEN_PORT=4000
+VITE_STATIC_PORT=4040</pre>
+</div></div><p><em>You can skip editing this file unless you need custom ports.</em></p></li></ul><hr/><h3 id="AssetUploadAutomation-RunningtheScript"><strong>Running the Script</strong></h3><p>Once the configuration is complete, you can execute the script as follows in the directory <code>/varlab-asset-store/sharepoint-extractor/</code>:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Confluence" data-theme="Confluence">python upload-automation.py</pre>
+</div></div><div class="confluence-information-macro confluence-information-macro-note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p><em>Ensure your dependencies are installed first!</em></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Confluence" data-theme="Confluence">pip install requests colorama cohere enchant nltk</pre>
+</div></div></div></div></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/></div>
+</div>
+</div>
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h1 id="AssetUploadAutomation-ImportantNotes"><strong>Important Notes</strong></h1><p>When using the automation scripts, keep the following critical points in mind to ensure smooth operation and troubleshoot common issues effectively:</p></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="AssetUploadAutomation-SSLErrorsonInitialRun"><strong>SSL Errors on Initial Run</strong></h3><ul><li><p><strong>Issue</strong>: If you encounter SSL errors when first triggering the upload automation script:</p><ul><li><p>Quickly press <strong>Ctrl+C</strong> to exit the process.</p></li><li><p>Re-run the script immediately.</p></li></ul></li><li><p><strong>Cause</strong>: This error commonly occurs after a previous upload run has completed, and another is initiated. It is likely due to Python not correctly closing the server connection upon exit.</p></li></ul></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="AssetUploadAutomation-LimitedKeyUsageforCohere"><strong>Limited Key Usage for Cohere</strong></h3><ul><li><p><strong>Key Constraint</strong>: The Cohere API key has limited usage and may incur additional costs if overused.</p></li><li><p><strong>Best Practice</strong>:</p><ul><li><p>Ensure all configurations are correct before running the full process.</p></li><li><p>Conduct a test run with <strong>one asset</strong> to verify the workflow before proceeding with a large batch.</p></li></ul></li></ul></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="AssetUploadAutomation-LogFileOrganization"><strong>Log File Organization</strong></h3><ul><li><p><strong>Behavior</strong>:</p><ul><li><p>Logs are divided into separate files:</p><ul><li><p><strong>Successful Uploads</strong>: Stored in a dedicated log file for quick reference.</p></li><li><p><strong>Errored Assets</strong>: Stored in another log file with error details.</p></li></ul></li></ul></li><li><p><strong>Error Details</strong>:</p><ul><li><p>Most errors include a message explaining the issue (e.g., file corruption, invalid file format).</p></li><li><p>If an error lacks a message, it is most likely due to an <strong>attempted duplicate upload</strong>. </p></li></ul></li></ul></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="AssetUploadAutomation-NoServerMatchValidation"><strong>No Server Match Validation</strong></h3><ul><li><p><strong>Current Limitation</strong>:</p><ul><li><p>The script does <strong>not check the server</strong> for an existing match before processing an asset.</p></li><li><p>It performs all operations, including making an expensive Cohere API request, even for assets that may already exist on the server.</p></li></ul></li></ul></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h4 id="AssetUploadAutomation-"><strong> </strong></h4></div>
+</div>
+</div>
+</div>
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1432256523/1512046688.png">image-20241210-201735.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1432256523/1512341635.png">image-20241210-201921.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1432256523/1512013950.png">image-20241210-205325.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1432256523/1512276046.png">image-20241210-205455.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1432256523/1536229385.jpg">varlab_virtual_and_augmented_reality_lab_cover.jpg</a> (image/jpeg)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1432256523/1536163871.png">image-20241230-014645.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 27, 2025 21:02</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

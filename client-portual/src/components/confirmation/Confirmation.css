@@ -1,0 +1,51 @@
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .confirmation-modal {
+    @apply fixed left-0 top-0 z-40 h-full w-full;
+    @apply bg-general-100 bg-opacity-50 backdrop-blur-sm;
+  }
+  .confirmation-dialog {
+    @apply z-50;
+    @apply fixed left-1/2 top-1/4 -translate-x-1/2 -translate-y-1/4;
+    @apply flex flex-col items-center justify-center;
+    @apply border-2 border-yellow-80 bg-general-90;
+    @apply rounded-xl p-5;
+    @apply drop-shadow-[0_0_2rem_rgba(0,0,0,0.8)];
+    @apply text-center text-general-10;
+  }
+
+  .confirmation-dialog h2 {
+    @apply text-2xl font-bold text-general-10;
+    @apply my-3;
+  }
+
+  .confirmation-dialog p {
+    @apply text-lg text-general-10;
+  }
+
+  .confirmation-dialog svg {
+    @apply size-[5rem];
+  }
+
+  .confirmation-buttons {
+    @apply flex gap-5;
+  }
+
+  .confirmation-buttons button {
+    @apply mt-5 rounded-lg px-5 py-2;
+    @apply font-bold;
+    @apply bg-yellow-80;
+  }
+
+  .confirmation-buttons button.confirmation-cancel {
+    @apply bg-general-20 text-general-100;
+    @apply hover:bg-general-50 hover:outline hover:outline-2 hover:outline-general-10;
+  }
+
+  .confirmation-buttons button.confirmation-confirm {
+    @apply bg-red-90 text-general-100;
+    @apply hover:bg-red-90/80 hover:outline hover:outline-2 hover:outline-general-10;
+  }
+}

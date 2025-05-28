@@ -1,0 +1,8 @@
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  #notfound3d-canvas {
+    @apply aspect-video max-h-52 max-w-[50%];
+  }
+}

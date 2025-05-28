@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vConestoga : Asset Storage</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="vConestoga_536314119.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Projects_1091797023.html">Projects</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="VARLab-Asset-Store_1124859959.html">VARLab Asset Store</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            vConestoga : Asset Storage
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Nick Aguilar</span>, last modified on Aug 13, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <h1 id="AssetStorage-Overview">Overview</h1><p>Assets are currently stored on the Linux server file system. Based on the estimated workload for the website, it was determined that the file system would be able to scale to meet demand.</p><p>The Assets in the server reside in the following directory.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">/home/shopkeeper/asset-storage</pre>
+</div></div><p>This directory is currently made up of two sub-directories: <strong>Assets </strong>and <strong>Preview-Images</strong></p><ul><li><p>The Assets directory contains all asset files (currently without any sub-directories or sorting)</p></li><li><p>Preview-Images exists to store locally (to the server) various preview images we may need</p></li><li><p>Project-Images exists to store locally (to the serve) various preview images for each project</p></li><li><p>Only the test image and files are not sanitized, all other files stored on the server should be sanitized. This will effect downloads which will appear with the original file name</p></li></ul><h1 id="AssetStorage-LocalFileusage">Local File usage</h1><p>Should you wish to use the files locally, you can copy the original zip file from the Linux server (located in the home (~) directory. More specific instructions on how to run a local environment are located in <a href="Setup-Local-Environment_1177190411.html" data-linked-resource-id="1177190411" data-linked-resource-version="29" data-linked-resource-type="page">Local Environment</a>  </p><ul><li><p>To download SSH into the server </p><ul><li><p>Follow this guide if you do not have it setup via VS Code <a href="https://varlab-dev.atlassian.net/wiki/spaces/VCON/pages/875659274/Remote+Development+With+VS+Code" data-linked-resource-id="875659274" data-linked-resource-version="9" data-linked-resource-type="page">Remote Development With VS Code</a> </p></li></ul></li><li><p>Make sure you SSH into the server at the shopkeeper level not directly into the code base</p><ul><li><p>Your should see the following:<br/></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240813-202003.png" width="712" loading="lazy" src="attachments/1175191556/1281130568.png?width=712" data-image-src="attachments/1175191556/1281130568.png" data-height="1001" data-width="1646" data-unresolved-comment-count="0" data-linked-resource-id="1281130568" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240813-202003.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1175191556" data-linked-resource-container-version="6" data-media-id="b953bb0f-b4ee-4975-8247-2efbd723c710" data-media-type="file"></span><p> </p></li></ul></li><li><p>Find the asset-storage-original.zip file on the left panel and right-click on the file</p></li></ul><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20240813-202038.png" width="465" loading="lazy" src="attachments/1175191556/1280671808.png?width=465" data-image-src="attachments/1175191556/1280671808.png" data-height="598" data-width="465" data-unresolved-comment-count="0" data-linked-resource-id="1280671808" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20240813-202038.png" data-base-url="https://varlab-dev.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="1175191556" data-linked-resource-container-version="6" data-media-id="eacf33f9-eb14-456b-8777-ba65eca504d4" data-media-type="file"></span><p /><ul><li><p>Select download and wait for the download to complete</p></li><li><p>Unzip the file and ensure the file is named <strong>“asset-storage”</strong></p></li><li><p>This should give you access to all the files you need to setup the demo version of the store</p></li><li><p>Ensure that you edit you local servers .env file to point at where you stored the asset-storage folder on your local machine by changing the following property</p></li></ul><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: js; gutter: false; theme: Confluence" data-theme="Confluence">ASSET_STORAGE_ROOT=&lt;local file path&gt;</pre>
+</div></div><p />
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1175191556/1280442427.png">image-20240813-200254.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1175191556/1280737345.png">image-20240813-200504.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1175191556/1281032247.png">image-20240813-201909.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1175191556/1281130568.png">image-20240813-202003.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1175191556/1280901189.png">image-20240813-202035.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1175191556/1280671808.png">image-20240813-202038.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 27, 2025 21:02</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

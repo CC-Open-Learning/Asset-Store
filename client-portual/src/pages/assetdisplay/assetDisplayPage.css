@@ -1,0 +1,27 @@
+div.shimmer-card {
+  border-radius: 8px;
+  background-color: #2d2d2d !important;
+  box-shadow: none;
+  width: 100%;
+}
+
+div.shimmer {
+  background: linear-gradient(
+    to right,
+    #6b6b6b 0%,
+    #434242 50%,
+    #6b6b6b 100% /* Ending with medium gray */
+  );
+
+  background-size: 1000px 100%; /* Controls the size of the shimmer effect */
+  animation: shimmer 4s linear infinite forwards; /* Applies the shimmer animation */
+}
+
+div.shimmer-thumbnail {
+  background-color: #6b6b6b !important; /* Static gray for thumbnail shimmer */
+}
+
+div.shimmer-caption {
+  color: #6b6b6b !important; /* Static gray for caption text shimmer */
+  font-weight: bold;
+}

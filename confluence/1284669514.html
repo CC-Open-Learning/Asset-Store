@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vConestoga : ❌ HTTP Error Cases</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="vConestoga_536314119.html">vConestoga</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Projects_1091797023.html">Projects</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="VARLab-Asset-Store_1124859959.html">VARLab Asset Store</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            vConestoga : ❌ HTTP Error Cases
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Yujin Jeong</span>, last modified on Aug 14, 2024
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p>This documentation outlines the error codes used in the project</p><div class="table-wrap"><table data-table-width="760" data-layout="default" data-local-id="05be6c10-e802-47e5-90ae-71d5457b56b8" class="confluenceTable"><tbody><tr><th data-highlight-colour="#ffebe6" class="confluenceTh"><p><strong>Error Status Code</strong></p></th><th data-highlight-colour="#fffae6" class="confluenceTh"><p><strong>Description</strong></p></th><th data-highlight-colour="#e6fcff" class="confluenceTh"><p><strong>Source</strong></p></th></tr><tr><td class="confluenceTd"><p>400</p></td><td class="confluenceTd"><p>the server could not understand the request because of invalid syntax.</p></td><td class="confluenceTd"><ul><li><p><em>file upload handler middleware( </em><code>app.use</code><em> ) in upload.js</em></p><ul><li><p>Multer error</p></li></ul></li><li><p><em>POST call to create new project in </em><code>projects.js</code></p><ul><li><p>Multer error</p></li><li><p>project name exists</p></li></ul></li><li><p><em>/image</em></p><ul><li><p>Multer error</p></li></ul></li><li><p><em>/toggleUserRole</em></p><ul><li><p>username does not exist in the request body </p></li></ul></li></ul></td></tr><tr><td class="confluenceTd"><p>401</p></td><td class="confluenceTd"><p>lack of valid authentication credentials for the requested resource</p></td><td class="confluenceTd"><ul><li><p><em>/refreshtoken</em></p><ul><li><p>cookie is missing or improperly formatted</p></li><li><p>token cannot be verified</p></li><li><p>passport authentication failed</p></li></ul></li><li><p><em>/login</em></p><ul><li><p>cannot find user in the database</p></li><li><p>user enters wrong password</p></li></ul></li><li><p><em>authenticateWithPassport()</em></p><ul><li><p>authentication with the provided access token has failed</p></li></ul></li><li><p><em><span class="inline-comment-marker" data-ref="ead72446-83b6-4c15-b0f9-a100cfa590c3">isContentTypeValid()</span></em></p><ul><li><p>content-type is not “multipart/form-data”</p></li></ul></li></ul></td></tr><tr><td class="confluenceTd"><p>403</p></td><td class="confluenceTd"><p>the server understood the request but refused to process it</p></td><td class="confluenceTd"><ul><li><p><em>checkIsAdmin() </em></p><ul><li><p>when user’s role is not admin</p></li></ul></li><li><p><em>/allUserRoles</em></p><ul><li><p>user is not using <code>admin</code> account</p></li></ul></li><li><p><em>/toggleUserRole </em></p><ul><li><p>user is not using <code>admin</code> account</p></li><li><p><code>admins</code> wants to change their role to user</p></li></ul></li></ul></td></tr><tr><td class="confluenceTd"><p>404</p></td><td class="confluenceTd"><p>the server could not find the requested resource</p></td><td class="confluenceTd"><ul><li><p><em>delete asset router “/”</em></p><ul><li><p>the asset id is not found from the request body</p></li></ul></li><li><p><em>/toggleUserRole</em></p><ul><li><p>username does not exist in the database</p></li></ul></li></ul></td></tr><tr><td class="confluenceTd"><p>500</p></td><td class="confluenceTd"><p>the server encountered an unexpected condition that prevented it from fulfilling the request</p></td><td class="confluenceTd"><ul><li><p><em>all </em><code>/asset</code><em> routes</em></p></li><li><p><em>all </em><code>/project</code><em> routes</em></p></li><li><p><em>all </em><code>/search</code><em> routes</em></p></li><li><p><em>file upload handler middleware(</em><code>app.use</code><em>) in upload.js</em></p><ul><li><p>unexpected errors other than Multer errors during the upload process</p></li></ul></li></ul></td></tr></tbody></table></div><p />
+                    </div>
+
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on May 27, 2025 21:02</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

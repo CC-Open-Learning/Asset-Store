@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Lato, Sans-Serif;
+  font-size: 10px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  @screen md {
+    font-size: 13px;
+  }
+  @screen lg {
+    font-size: 16px;
+  }
+  @screen xl {
+    font-size: 17px;
+  }
+  @screen 2xl {
+    font-size: 21px;
+  }
+  @apply relative flex !bg-general-90 !text-general-10;
+}
+
+#root {
+  @apply flex size-full min-h-screen flex-col;
+}
+
+body {
+  @apply size-full;
+}
