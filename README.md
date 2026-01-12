@@ -13,4 +13,5 @@ Hyunchul Cho,
 Allison Bielaski,
 Yujin Jeong,
 Cam Turner,
-Jonathan Bezeau
+Jonathan Bezeau,
+Netra Hindocha
