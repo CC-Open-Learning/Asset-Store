@@ -9,5 +9,8 @@ Nick Aguilar,
 Jonathan Saravia, 
 Brittany Rogers, 
 Andrei Haboc,
+Hyunchul Cho,
+Allison Bielaski,
+Yujin Jeong,
 Cam Turner,
 Jonathan Bezeau
